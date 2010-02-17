@@ -1,0 +1,113 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                template="layout/template.xhtml">
+                       
+<ui:define name="body">
+    
+    <h:messages globalOnly="true" styleClass="message" id="globalMessages"/>
+
+    <h:form id="aluno" styleClass="edit">
+    
+        <rich:panel>
+            <f:facet name="header">#{alunoHome.managed ? messages['application.label.edit'] : messages['application.label.add']} #{messages['application.aluno.label']}</f:facet>
+
+            <s:decorate id="numRaDecoration" template="layout/edit.xhtml">
+                <ui:define name="label">#{messages['application.aluno.label.ra']}</ui:define>
+                <h:inputText id="numRa" 
+                       required="true"
+                           size="10"
+                      maxlength="10"
+                          value="#{alunoHome.instance.numRa}">
+                    <a:support event="onblur" reRender="numRaDecoration" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <s:decorate id="nomAlunoDecoration" template="layout/edit.xhtml">
+                <ui:define name="label">#{messages['application.aluno.label.nome']}</ui:define>
+                <h:inputText id="nomAluno" 
+                       required="true"
+                           size="50"
+                      maxlength="50"
+                          value="#{alunoHome.instance.nomAluno}">
+                    <a:support event="onblur" reRender="nomAlunoDecoration" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <s:decorate id="numRgDecoration" template="layout/edit.xhtml">
+                <ui:define name="label">#{messages['application.aluno.label.rg']}</ui:define>
+                <h:inputText id="numRg" 
+                       required="true"
+                           size="9"
+                      maxlength="9"
+                          value="#{alunoHome.instance.numRg}">
+                    <a:support event="onblur" reRender="numRgDecoration" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <s:decorate id="numCpfDecoration" template="layout/edit.xhtml">
+                <ui:define name="label">#{messages['application.aluno.label.cpf']}</ui:define>
+                <h:inputText id="numCpf" 
+                       required="true"
+                           size="11"
+                      maxlength="11"
+                          value="#{alunoHome.instance.numCpf}">
+                    <a:support event="onblur" reRender="numCpfDecoration" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <s:decorate id="datNascimentoDecoration" template="layout/edit.xhtml">
+                <ui:define name="label">#{messages['application.aluno.label.nascimento']}</ui:define>
+				<rich:calendar id="datNascimento" 
+                       required="true"
+                          value="#{alunoHome.instance.datNascimento}" datePattern="MM/dd/yyyy" />
+            </s:decorate>
+        
+            <div style="clear:both">
+                <span class="required">*</span> 
+                #{messages['application.label.requiredfiels']}
+            </div>
+            
+        </rich:panel>
+                
+        <div class="actionButtons">
+
+            <h:commandButton id="save" 
+                          value="#{messages['application.label.saveCreate']}" 
+                         action="#{alunoHome.persist}"
+                       disabled="#{!alunoHome.wired}"
+                       rendered="#{!alunoHome.managed}"/>  
+                          			  
+            <h:commandButton id="update" 
+                          value="#{messages['application.label.saveUpdate']}" 
+                         action="#{alunoHome.update}"
+                       rendered="#{alunoHome.managed}"/>
+                        			  
+            <h:commandButton id="delete" 
+                          value="#{messages['application.label.delete']}" 
+                         action="#{alunoHome.remove}"
+                       rendered="#{alunoHome.managed}"/>
+                    
+            <s:button id="done" 
+                   value="#{messages['application.label.done']}"
+             propagation="end"
+                    view="/Aluno.xhtml"
+                rendered="#{alunoHome.managed}"/>
+                
+            <s:button id="cancel" 
+                   value="#{messages['application.label.cancel']}"
+             propagation="end"
+                    view="/#{empty alunoFrom ? 'AlunoList' : alunoFrom}.xhtml"
+                rendered="#{!alunoHome.managed}"/>
+
+        </div>
+    </h:form>
+</ui:define>
+</ui:composition>

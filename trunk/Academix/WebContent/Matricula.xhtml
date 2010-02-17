@@ -1,0 +1,137 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:s="http://jboss.com/products/seam/taglib"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:a="http://richfaces.org/a4j"
+				xmlns:rich="http://richfaces.org/rich"
+				template="layout/template.xhtml">
+	<ui:define name="body">
+
+		<h:messages globalOnly="true" styleClass="message" id="globalMessages" />
+
+		<h:form id="form">
+
+			<rich:panel>
+				<f:facet name="header">#{messages['application.matricula.label']}</f:facet>
+
+				<s:decorate id="numRa" template="layout/edit.xhtml">
+					<ui:define name="label">#{messages['application.aluno.label.ra']}</ui:define>
+	            	#{matriculaHome.instance.numRa}
+	        	</s:decorate>
+
+				<s:decorate id="nomAluno" template="layout/edit.xhtml">
+					<ui:define name="label">#{messages['application.aluno.label.nome']}</ui:define>
+		            #{matriculaHome.instance.nomAluno}
+		        </s:decorate>
+
+				<s:decorate id="numRg" template="layout/edit.xhtml">
+					<ui:define name="label">#{messages['application.aluno.label.rg']}</ui:define>
+		            #{matriculaHome.instance.numRg}
+		        </s:decorate>
+
+				<s:decorate id="numCpf" template="layout/edit.xhtml">
+					<ui:define name="label">#{messages['application.aluno.label.cpf']}</ui:define>
+		            #{matriculaHome.instance.numCpf}
+		        </s:decorate>
+
+				<s:decorate id="datNascimento" template="layout/edit.xhtml">
+					<ui:define name="label">#{messages['application.aluno.label.nascimento']}</ui:define>
+					<h:outputText value="#{matriculaHome.instance.datNascimento}">
+						<s:convertDateTime type="date" dateStyle="short" pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</s:decorate>
+
+				<s:decorate id="campusDecoration" template="layout/edit.xhtml">
+					<ui:define name="label">#{messages['application.campus.label']}</ui:define>
+					<h:selectOneMenu id="campusSelect" value="#{matriculaHome.campus}">
+						<f:selectItem itemValue="" itemLabel="" />
+						<s:selectItems value="#{matriculaHome.listCampus}" var="campus" label="#{campus.desCampus}" />
+						<s:convertEntity />
+						<a:support event="onchange" action="#{matriculaHome.loadCursoSelect}" reRender="cursoSelect" />
+					</h:selectOneMenu>
+				</s:decorate>
+
+				<s:decorate id="cursoDecoration" template="layout/edit.xhtml">
+					<ui:define name="label">#{messages['application.curso.label']}</ui:define>
+					<h:selectOneMenu id="cursoSelect" value="#{matriculaHome.curso}">
+						<f:selectItem itemValue="" itemLabel="" />
+						<s:selectItems value="#{matriculaHome.listCurso}" var="curso" label="#{curso.nomCurso}" />
+						<s:convertEntity />
+						<a:support event="onchange" action="#{matriculaHome.loadTurmaSelect}" reRender="turmaSelect" />
+					</h:selectOneMenu>
+				</s:decorate>
+
+				<s:decorate id="turmaDecoration" template="layout/edit.xhtml">
+					<ui:define name="label">#{messages['application.turma.label']}</ui:define>
+					<h:selectOneMenu id="turmaSelect" value="#{matriculaHome.turma}">
+						<f:selectItem itemValue="" itemLabel="" />
+						<s:selectItems value="#{matriculaHome.listTurma}" var="turma" label="#{turma.codTurma}" />
+						<s:convertEntity />
+					</h:selectOneMenu>
+				</s:decorate>
+
+				<div style="clear: both" />
+			</rich:panel>
+			<div class="actionButtons">
+				<h:commandButton id="save"
+								 value="#{messages['application.label.saveCreate']}"
+								 action="#{matriculaHome.persist}"
+								 rendered="#{empty matriculaHome.instance.turmas}" />
+								 
+			 	<s:button id="done"
+			 			  value="#{messages['application.label.done']}"
+			 			  propagation="end"
+			 			  view="/MatriculaList.xhtml" />
+			 			  
+			 	<s:button id="cancel"
+			 			  value="#{messages['application.label.cancel']}"
+			 			  propagation="end"
+			 			  view="/#{empty alunoFrom ? 'MatriculaList' : alunoFrom}.xhtml" />
+			 			  
+			</div>
+			
+			<rich:tabPanel switchType="ajax" rendered="#{not empty matriculaHome.instance.turmas}">
+
+				<rich:tab label="#{messages['application.turma.label']}">
+					<rich:dataTable value="#{matriculaHome.listTurmas}"
+									var="turma"
+									rowClasses="rvgRowOne,rvgRowTwo"
+									id="turmasTable">
+									
+						<h:column>
+							<f:facet name="header">#{messages['application.gradecurricular.label.ano']} / #{messages['application.gradecurricular.label.semestre']}</f:facet>
+	                    	#{turma.gradeCurricular.numAno} / #{turma.gradeCurricular.numSemestre}
+	                    </h:column>
+	                    
+						<h:column>
+							<f:facet name="header">#{messages['application.gradecurricular.label.periodovigente']}</f:facet>
+							#{turma.gradeCurricular.numPeriodoVigente}
+						</h:column>
+						
+						<h:column>
+							<f:facet name="header">#{messages['application.turma.label.codigo']}</f:facet>
+							#{turma.codTurma}
+						</h:column>
+						
+						<h:column>
+							<f:facet name="header">#{messages['application.label.action']}</f:facet>
+							<s:link action="#{matriculaHome.estornoMatricula}"
+									value="#{messages['application.matricula.label.estorno']}"
+									id="estorno">
+								<f:param name="turmaEstorno" value="#{turma.idtTurma}" />
+							</s:link>
+						</h:column>
+						
+					</rich:dataTable>
+				</rich:tab>
+
+			</rich:tabPanel>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

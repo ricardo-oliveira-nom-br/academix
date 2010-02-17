@@ -1,0 +1,17 @@
+#Tue Feb 16 23:52:54 GMT-03:00 2010
+action.package=org.domain.acdmx.session
+action.sources=/Academix-ejb/ejbModule
+eclipse.preferences.version=1
+model.package=org.domain.acdmx.entity
+model.sources=/Academix-ejb/ejbModule
+seam.ear.project=Academix-ear
+seam.ejb.project=Academix-ejb
+seam.project.connection.profile=DB2
+seam.project.deployment.type=ear
+seam.project.settings.version=1.1
+seam.project.web.root.folder=/Academix/WebContent
+seam.runtime.name=jboss-seam-2.2.0.GA
+seam.test.creating=true
+seam.test.project=Academix-test
+test.package=org.domain.acdmx.test
+test.sources=/Academix-test/test-src

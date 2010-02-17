@@ -1,0 +1,132 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                template="layout/template.xhtml">
+                       
+<ui:define name="body">
+    
+    <h:messages globalOnly="true" styleClass="message" id="globalMessages"/>
+    
+    <h:form id="professorSearch" styleClass="edit">
+        <rich:simpleTogglePanel label="#{messages['application.label.searchParameters']}" switchType="ajax">
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">#{messages['application.professor.label.rm']}</ui:define>
+                <h:inputText id="numRm" value="#{professorList.professor.numRm}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">#{messages['application.professor.label.nome']}</ui:define>
+                <h:inputText id="nomProfessor" value="#{professorList.professor.nomProfessor}"/>
+            </s:decorate>
+        </rich:simpleTogglePanel>
+        
+        <div class="actionButtons">
+            <h:commandButton id="search" value="#{messages['application.label.search']}" action="/ProfessorList.xhtml"/>
+        </div>
+    </h:form>
+    
+    <rich:panel>
+        <f:facet name="header">#{messages['application.label.searchResults']}</f:facet>
+    <div class="results" id="professorList">
+
+    <h:outputText value="#{messages['application.professor.empty']}" 
+               rendered="#{empty professorList.resultList}"/>
+               
+    <rich:dataTable id="professorList" 
+                var="professor"
+              value="#{professorList.resultList}" 
+           rendered="#{not empty professorList.resultList}">
+        <h:column>
+            <f:facet name="header">
+                <s:link styleClass="columnHeader"
+                             value="#{messages['application.professor.label.rm']} #{professorList.order=='numRm asc' ? messages.down : ( professorList.order=='numRm desc' ? messages.up : '' )}">
+                    <f:param name="order" value="#{professorList.order=='numRm asc' ? 'numRm desc' : 'numRm asc'}"/>
+                </s:link>
+            </f:facet>
+            #{professor.numRm}
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <s:link styleClass="columnHeader"
+                             value="#{messages['application.professor.label.nome']} #{professorList.order=='nomProfessor asc' ? messages.down : ( professorList.order=='nomProfessor desc' ? messages.up : '' )}">
+                    <f:param name="order" value="#{professorList.order=='nomProfessor asc' ? 'nomProfessor desc' : 'nomProfessor asc'}"/>
+                </s:link>
+            </f:facet>
+            #{professor.nomProfessor}
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <s:link styleClass="columnHeader"
+                             value="#{messages['application.endereco.label']} #{professorList.order=='numEndereco asc' ? messages.down : ( professorList.order=='numEndereco desc' ? messages.up : '' )}">
+                    <f:param name="order" value="#{professorList.order=='numEndereco asc' ? 'numEndereco desc' : 'numEndereco asc'}"/>
+                </s:link>
+            </f:facet>
+            #{professor.endereco.desLogradouro}, #{professor.numEndereco} #{professor.endereco.desBairro} - #{professor.endereco.desCidade}, #{professor.endereco.desUf}
+        </h:column>
+        <h:column>
+            <f:facet name="header">#{messages['application.label.action']}</f:facet>
+            <s:link view="/#{empty from ? 'Professor' : from}.xhtml" 
+                   value="#{messages['application.label.select']}" 
+                      id="professor">
+                <f:param name="professorIdtProfessor" 
+                        value="#{professor.idtProfessor}"/>
+            </s:link>
+        </h:column>
+    </rich:dataTable>
+
+    </div>
+    </rich:panel>
+    
+    <div class="tableControl">
+      
+        <s:link view="/ProfessorList.xhtml" 
+            rendered="#{professorList.previousExists}" 
+               value="#{messages.left}#{messages.left} #{messages['application.label.first']}"
+                  id="firstPage">
+          <f:param name="firstResult" value="0"/>
+        </s:link>
+        
+        <s:link view="/ProfessorList.xhtml" 
+            rendered="#{professorList.previousExists}" 
+               value="#{messages.left} #{messages['application.label.previous']}"
+                  id="previousPage">
+            <f:param name="firstResult" 
+                    value="#{professorList.previousFirstResult}"/>
+        </s:link>
+        
+        <s:link view="/ProfessorList.xhtml" 
+            rendered="#{professorList.nextExists}" 
+               value="#{messages['application.label.next']} #{messages.right}"
+                  id="nextPage">
+            <f:param name="firstResult" 
+                    value="#{professorList.nextFirstResult}"/>
+        </s:link>
+        
+        <s:link view="/ProfessorList.xhtml" 
+            rendered="#{professorList.nextExists}" 
+               value="#{messages['application.label.last']} #{messages.right}#{messages.right}"
+                  id="lastPage">
+            <f:param name="firstResult" 
+                    value="#{professorList.lastFirstResult}"/>
+        </s:link>
+        
+    </div>
+    
+    <s:div styleClass="actionButtons" rendered="#{empty from}">
+        <s:button view="/ProfessorEdit.xhtml"
+                    id="create" 
+                 value="#{messages['application.label.create']}">
+            <f:param name="professorIdtProfessor"/>
+        </s:button>
+    </s:div>
+    
+</ui:define>
+
+</ui:composition>
+

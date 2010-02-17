@@ -1,0 +1,105 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                template="layout/template.xhtml">
+                       
+<ui:define name="body">
+    
+    <h:messages globalOnly="true" styleClass="message" id="globalMessages"/>
+    
+    <rich:panel>
+        <f:facet name="header">#{messages['application.campus.label']}</f:facet>
+
+        <s:decorate id="desCampus" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['application.campus.label.descricao']}</ui:define>
+            #{campusHome.instance.desCampus}
+        </s:decorate>
+		
+		 <s:decorate id="endereco" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['application.endereco.label']}</ui:define>
+            #{campusHome.instance.endereco.desLogradouro}, #{campusHome.instance.numEndereco} #{campusHome.instance.endereco.desBairro} - #{campusHome.instance.endereco.desCidade}, #{campusHome.instance.endereco.desUf}
+        </s:decorate>
+
+        <div style="clear:both"/>
+        
+    </rich:panel>
+    
+    <div class="actionButtons">      
+
+        <s:button view="/CampusEdit.xhtml" 
+                    id="edit" 
+                 value="#{messages['application.label.edit']}"/>
+
+        <s:button view="/#{empty campusFrom ? 'CampusList' : campusFrom}.xhtml"
+                    id="done"
+                 value="#{messages['application.label.done']}"/>
+
+    </div>
+
+    <rich:tabPanel switchType="ajax">
+
+    <rich:tab label="cursos">
+    <div class="association" id="cursosChildren">
+        
+        <h:outputText value="No cursos" 
+                   rendered="#{empty campusHome.cursos}"/>
+        
+        <rich:dataTable value="#{campusHome.cursos}" 
+                       var="curso" 
+                  rendered="#{not empty campusHome.cursos}" 
+                rowClasses="rvgRowOne,rvgRowTwo"
+                        id="cursosTable">
+            <h:column>
+                <f:facet name="header">#{messages['application.curso.label.codigo']}</f:facet>
+                <h:outputText value="#{curso.idtCurso}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">#{messages['application.curso.label.nome']}</f:facet>
+                <h:outputText value="#{curso.nomCurso}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">#{messages['application.curso.label.descricao']}</f:facet>
+                <h:outputText value="#{curso.desCurso}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">#{messages['application.curso.label.duracao']}</f:facet>
+                <h:outputText value="#{curso.numDuracao}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">#{messages['application.curso.label.tipoduracao']}</f:facet>
+                <h:outputText value="#{curso.indTipoDuracao.label}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">#{messages['application.label.action']}</f:facet>
+                <s:link id="selectcurso" 
+                     value="#{messages['application.label.select']}" 
+                      view="/Curso.xhtml">
+                    <f:param name="cursoIdtCurso" 
+                            value="#{curso.idtCurso}"/>
+                    <f:param name="cursoFrom" value="Campus"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+        
+    </div>
+    
+    <div class="actionButtons">
+        <s:button 
+               value="#{messages['application.campus.addcurso']}"
+                view="/CursoEdit.xhtml">
+            <f:param name="campusIdtCampus" 
+                    value="#{campusHome.instance.idtCampus}"/>
+            <f:param name="cursoFrom" value="Campus"/>
+        </s:button>
+    </div>        
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

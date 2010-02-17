@@ -1,0 +1,228 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">Grade horaria item Details</f:facet>
+
+        <s:decorate id="idtGradeHorariaItem" template="layout/display.xhtml">
+            <ui:define name="label">Idt grade horaria item</ui:define>
+            <h:outputText value="#{gradeHorariaItemHome.instance.idtGradeHorariaItem}"/>
+        </s:decorate>
+
+        <s:decorate id="indDiaSemana" template="layout/display.xhtml">
+            <ui:define name="label">Ind dia semana</ui:define>
+            <h:outputText value="#{gradeHorariaItemHome.instance.indDiaSemana}"/>
+        </s:decorate>
+
+        <s:decorate id="numHoraFim" template="layout/display.xhtml">
+            <ui:define name="label">Num hora fim</ui:define>
+            <h:outputText value="#{gradeHorariaItemHome.instance.numHoraFim}">
+                <s:convertDateTime type="time"/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="numHoraInicio" template="layout/display.xhtml">
+            <ui:define name="label">Num hora inicio</ui:define>
+            <h:outputText value="#{gradeHorariaItemHome.instance.numHoraInicio}">
+                <s:convertDateTime type="time"/>
+            </h:outputText>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/GradeHorariaItemEdit.xhtml"
+                    id="edit"
+                 value="Edit"/>
+
+        <s:button view="/#{empty gradeHorariaItemFrom ? 'GradeHorariaItemList' : gradeHorariaItemFrom}.xhtml"
+                    id="done"
+                 value="Done"/>
+
+    </div>
+
+    <rich:tabPanel switchType="ajax">
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Localizacao</h:panelGroup>
+        </f:facet>
+    <div class="association" id="localizacaoParent">
+
+        <h:outputText value="There is no localizacao associated with this gradeHorariaItem."
+                   rendered="#{gradeHorariaItemHome.instance.localizacao == null}"/>
+
+        <rich:dataTable var="_localizacao"
+                   value="#{gradeHorariaItemHome.instance.localizacao}"
+                rendered="#{gradeHorariaItemHome.instance.localizacao != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="localizacaoTable">
+            <h:column>
+                <f:facet name="header">Idt localizacao</f:facet>
+                <h:outputText value="#{_localizacao.idtLocalizacao}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Des localizacao</f:facet>
+                <h:outputText value="#{_localizacao.desLocalizacao}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewlocalizacao"
+                     value="View"
+                      view="/Localizacao.xhtml">
+                    <f:param name="localizacaoIdtLocalizacao"
+                           value="#{_localizacao.idtLocalizacao}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Grade horaria</h:panelGroup>
+        </f:facet>
+    <div class="association" id="gradeHorariaParent">
+
+        <h:outputText value="There is no gradeHoraria associated with this gradeHorariaItem."
+                   rendered="#{gradeHorariaItemHome.instance.gradeHoraria == null}"/>
+
+        <rich:dataTable var="_gradeHoraria"
+                   value="#{gradeHorariaItemHome.instance.gradeHoraria}"
+                rendered="#{gradeHorariaItemHome.instance.gradeHoraria != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="gradeHorariaTable">
+            <h:column>
+                <f:facet name="header">Idt grade horaria</f:facet>
+                <h:outputText value="#{_gradeHoraria.idtGradeHoraria}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Turma idt turma</f:facet>
+                <h:outputText value="#{_gradeHoraria.turma.idtTurma}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewgradeHoraria"
+                     value="View"
+                      view="/GradeHoraria.xhtml">
+                    <f:param name="gradeHorariaIdtGradeHoraria"
+                           value="#{_gradeHoraria.idtGradeHoraria}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Disciplina</h:panelGroup>
+        </f:facet>
+    <div class="association" id="disciplinaParent">
+
+        <h:outputText value="There is no disciplina associated with this gradeHorariaItem."
+                   rendered="#{gradeHorariaItemHome.instance.disciplina == null}"/>
+
+        <rich:dataTable var="_disciplina"
+                   value="#{gradeHorariaItemHome.instance.disciplina}"
+                rendered="#{gradeHorariaItemHome.instance.disciplina != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="disciplinaTable">
+            <h:column>
+                <f:facet name="header">Idt disciplina</f:facet>
+                <h:outputText value="#{_disciplina.idtDisciplina}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Cod disciplina</f:facet>
+                <h:outputText value="#{_disciplina.codDisciplina}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Des disciplina</f:facet>
+                <h:outputText value="#{_disciplina.desDisciplina}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Nom disciplina</f:facet>
+                <h:outputText value="#{_disciplina.nomDisciplina}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewdisciplina"
+                     value="View"
+                      view="/Disciplina.xhtml">
+                    <f:param name="disciplinaIdtDisciplina"
+                           value="#{_disciplina.idtDisciplina}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Professor</h:panelGroup>
+        </f:facet>
+    <div class="association" id="professorParent">
+
+        <h:outputText value="There is no professor associated with this gradeHorariaItem."
+                   rendered="#{gradeHorariaItemHome.instance.professor == null}"/>
+
+        <rich:dataTable var="_professor"
+                   value="#{gradeHorariaItemHome.instance.professor}"
+                rendered="#{gradeHorariaItemHome.instance.professor != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="professorTable">
+            <h:column>
+                <f:facet name="header">Idt professor</f:facet>
+                <h:outputText value="#{_professor.idtProfessor}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Endereco idt cep</f:facet>
+                <h:outputText value="#{_professor.endereco.idtCep}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Des complemento</f:facet>
+                <h:outputText value="#{_professor.desComplemento}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Nom professor</f:facet>
+                <h:outputText value="#{_professor.nomProfessor}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Num endereco</f:facet>
+                <h:outputText value="#{_professor.numEndereco}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Num rm</f:facet>
+                <h:outputText value="#{_professor.numRm}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewprofessor"
+                     value="View"
+                      view="/Professor.xhtml">
+                    <f:param name="professorIdtProfessor"
+                           value="#{_professor.idtProfessor}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

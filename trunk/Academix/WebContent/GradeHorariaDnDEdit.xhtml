@@ -1,0 +1,248 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                template="layout/template.xhtml">
+<ui:define name="body">
+    <style>
+        .panelc {
+            width:25%;
+            vertical-align:top;         
+        }
+        
+        .dropTargetPanel {
+            width: 90%;
+        }
+
+        .footerClass {
+            text-align: center;
+            padding-top: 5px;
+        }
+    </style>
+	
+	<h:messages globalOnly="true" styleClass="message" id="globalMessages"/>
+    
+    <rich:dragIndicator id="indicator" />
+    <h:form id="form">
+    	
+    	<rich:panel>
+            <f:facet name="header">#{gradeHorariaHome.managed ? messages['application.label.edit'] : messages['application.label.add']} #{messages['application.gradehoraria.label']}</f:facet>
+            
+            <s:decorate id="campusDecoration" template="layout/edit.xhtml">
+            	<ui:define name="label">#{messages['application.campus.label']}</ui:define>
+            	<h:selectOneMenu id="campusSelect" value="#{gradeHorariaHome.campus}">
+            		<f:selectItem itemValue="" itemLabel="" />
+            		<s:selectItems value="#{campusList.resultList}" var="campus" label="#{campus.desCampus}" />
+            		<s:convertEntity />
+            		<a:support event="onchange" action="#{gradeHorariaHome.loadCursoSelect}" reRender="cursoSelect" />
+            	</h:selectOneMenu>
+            </s:decorate>
+            
+            <s:decorate id="cursoDecoration" template="layout/edit.xhtml">
+            	<ui:define name="label">#{messages['application.curso.label']}</ui:define>
+            	<h:selectOneMenu id="cursoSelect" value="#{gradeHorariaHome.curso}">
+            		<f:selectItem itemValue="" itemLabel="" />
+            		<s:selectItems value="#{gradeHorariaHome.listCurso}" var="curso" label="#{curso.nomCurso}" />
+            		<s:convertEntity />
+            		<a:support event="onchange" action="#{gradeHorariaHome.loadTurmaSelect}" reRender="turmaSelect" />
+            	</h:selectOneMenu>
+            </s:decorate>
+            
+            <s:decorate id="turmaDecoration" template="layout/edit.xhtml">
+            	<ui:define name="label">#{messages['application.turma.label']}</ui:define>
+            	<h:selectOneMenu id="turmaSelect" value="#{gradeHorariaHome.turma}">
+            		<f:selectItem itemValue="" itemLabel="" />
+            		<s:selectItems value="#{gradeHorariaHome.listTurma}" var="turma" label="#{turma.codTurma}" />
+            		<s:convertEntity />
+            		<a:support event="onchange" action="#{gradeHorariaHome.loadGradeHoraria}" reRender="groupPanel" />
+            	</h:selectOneMenu>
+            </s:decorate>
+            
+            <div style="clear:both">
+                <span class="required"></span> 
+            </div>
+        </rich:panel>
+        <div class="actionButtons">
+
+            <h:commandButton id="save" 
+                          value="#{messages['application.label.saveCreate']}" 
+                         action="#{gradeHorariaHome.preparePersist}"
+                       rendered="#{!gradeHorariaHome.managed}"/>  
+                          			  
+            <h:commandButton id="update" 
+                          value="#{messages['application.label.saveUpdate']}" 
+                         action="#{gradeHorariaHome.preparePersist}"
+                       rendered="#{gradeHorariaHome.managed}"/>
+                        			  
+            <h:commandButton id="delete" 
+                          value="#{messages['application.label.delete']}" 
+                         action="#{gradeHorariaHome.remove}"
+                       rendered="#{gradeHorariaHome.managed}"/>
+                    
+            <s:button id="done" 
+                   value="#{messages['application.label.done']}"
+             propagation="end"
+                    view="/GradeHoraria.xhtml"
+                rendered="#{gradeHorariaHome.managed}"/>
+                
+            <s:button id="cancel" 
+                   value="#{messages['application.label.cancel']}"
+             propagation="end"
+                    view="/#{empty gradeHorariaFrom ? 'GradeHorariaList' : gradeHorariaFrom}.xhtml"
+                rendered="#{!gradeHorariaHome.managed}"/>
+
+        </div>
+    
+    <h:panelGrid id="groupPanel" columnClasses="panelc" columns="4" width="70%">
+        	<h:panelGroup>
+            <rich:panel style="width:133px"> 
+                <f:facet name="header">
+                    <h:outputText value="#{messages['application.disciplina.label']}" />
+                </f:facet>
+                <rich:scrollableDataTable id="disciplinas" columns="1" value="#{gradeHorariaHome.listDisciplina}" var="disc" width="118px" height="100px">
+                    <rich:column>
+                        <a:outputPanel style="width:100px;padding:2px" layout="block">
+                            <rich:dragSupport dragIndicator=":indicator" dragType="disciplina" dragValue="#{disc[0]}">
+                                <rich:dndParam name="label" value="#{disc[0].nomDisciplina}" />
+                            </rich:dragSupport>
+                            <h:outputText value="#{disc[0].nomDisciplina}" />
+                        </a:outputPanel>
+                    </rich:column>
+                </rich:scrollableDataTable>
+            </rich:panel>
+            <rich:panel style="width:133px"> 
+                <f:facet name="header">
+                    <h:outputText value="#{messages['application.professor.label']}" />
+                </f:facet>
+                <rich:scrollableDataTable id="professores" columns="1" value="#{professorList.resultList}" var="prof" footerClass="footerClass" width="118px" height="100px">
+                    <rich:column>
+                        <a:outputPanel style="width:100px;padding:2px" layout="block">
+                            <rich:dragSupport dragIndicator=":indicator" dragType="professor" dragValue="#{prof}">
+                                <rich:dndParam name="label" value="#{prof.nomProfessor}" />
+                            </rich:dragSupport>
+                            <h:outputText value="#{prof.nomProfessor}" />
+                        </a:outputPanel>
+                    </rich:column>
+                </rich:scrollableDataTable>
+            </rich:panel>
+            <rich:panel style="width:133px"> 
+                <f:facet name="header">
+                    <h:outputText value="#{messages['application.localizacao.label']}" />
+                </f:facet>
+                <rich:scrollableDataTable width="118px" id="localizacoes" columns="1" value="#{localizacaoList.resultList}" var="loc" height="100px">
+                    <rich:column>
+                        <a:outputPanel style="width:100px;padding:2px" layout="block">
+                            <rich:dragSupport dragIndicator=":indicator" dragType="localizacao" dragValue="#{loc}">
+                                <rich:dndParam name="label" value="#{loc.desLocalizacao}" />
+                            </rich:dragSupport>
+                            <h:outputText value="#{loc.desLocalizacao}" />
+                        </a:outputPanel>
+                    </rich:column>
+                </rich:scrollableDataTable>
+            </rich:panel>
+            </h:panelGroup>
+            <a:outputPanel id="table">
+            	<rich:dataTable id="gradeHoraria" value="#{gradeList}" var="helper" rowKeyVar="row">
+		        	<h:column>
+		        		<f:facet name="header">
+		        			#{messages['application.gradehoraria.horario.label']}
+		        		</f:facet>
+		        		<h:outputText value="${helper.horaInicio}-${helper.horaFim}" />
+		        	</h:column>
+		        	<h:column>
+		        		<f:facet name="header">
+		        			#{messages['application.gradehoraria.segunda.label']}
+		        		</f:facet>
+		        		<rich:panel style="width:170px" >
+		        			<rich:dropSupport acceptedTypes="disciplina" dropValue="segunda" dropListener="#{gradeHorariaHome.adicionaDisciplina}" reRender="gradeHoraria" />
+		        			<h:outputText value="${helper.gradeSegunda.disciplina.nomDisciplina}" />
+		        		</rich:panel>
+		        		<rich:panel style="width:170px">
+		        			<rich:dropSupport acceptedTypes="professor" dropValue="segunda" dropListener="#{gradeHorariaHome.adicionaProfessor}" reRender="gradeHoraria" />
+		        			<h:outputText value="${helper.gradeSegunda.professor.nomProfessor}" />
+		        		</rich:panel>
+		        		<rich:panel style="width:170px">
+		        			<rich:dropSupport acceptedTypes="localizacao" dropValue="segunda" dropListener="#{gradeHorariaHome.adicionaLocalizacao}" reRender="gradeHoraria" />
+		        			<h:outputText value="${helper.gradeSegunda.localizacao.desLocalizacao}" />
+		        		</rich:panel>
+		        	</h:column>
+		        	<h:column>
+		        		<f:facet name="header">
+		        			#{messages['application.gradehoraria.terca.label']}
+		        		</f:facet>
+		        		<rich:panel style="width:170px">
+		        			<rich:dropSupport acceptedTypes="disciplina" dropValue="terca" dropListener="#{gradeHorariaHome.adicionaDisciplina}" reRender="gradeHoraria,disciplinas" />
+		        			<h:outputText value="${helper.gradeTerca.disciplina.nomDisciplina}" />
+		        		</rich:panel>
+		        		<rich:panel style="width:170px">
+		        			<rich:dropSupport acceptedTypes="professor" dropValue="terca" dropListener="#{gradeHorariaHome.adicionaProfessor}" reRender="gradeHoraria,professor" />
+		        			<h:outputText value="${helper.gradeTerca.professor.nomProfessor}" />
+		        		</rich:panel>
+		        		<rich:panel style="width:170px">
+		        			<rich:dropSupport acceptedTypes="localizacao" dropValue="terca" dropListener="#{gradeHorariaHome.adicionaLocalizacao}" reRender="gradeHoraria,localizacao" />
+		        			<h:outputText value="${helper.gradeTerca.localizacao.desLocalizacao}" />
+		        		</rich:panel>
+		        	</h:column>
+		        	<h:column>
+		        		<f:facet name="header">
+		        			#{messages['application.gradehoraria.quarta.label']}
+		        		</f:facet>
+		        		<rich:panel style="width:170px">
+		        			<rich:dropSupport acceptedTypes="disciplina" dropValue="quarta" dropListener="#{gradeHorariaHome.adicionaDisciplina}" reRender="gradeHoraria,disciplinas" />
+		        			<h:outputText value="${helper.gradeQuarta.disciplina.nomDisciplina}" />
+		        		</rich:panel>
+		        		<rich:panel style="width:170px">
+		        			<rich:dropSupport acceptedTypes="professor" dropValue="quarta" dropListener="#{gradeHorariaHome.adicionaProfessor}" reRender="gradeHoraria,professor" />
+		        			<h:outputText value="${helper.gradeQuarta.professor.nomProfessor}" />
+		        		</rich:panel>
+		        		<rich:panel style="width:170px">
+		        			<rich:dropSupport acceptedTypes="localizacao" dropValue="quarta" dropListener="#{gradeHorariaHome.adicionaLocalizacao}" reRender="gradeHoraria,localizacao" />
+		        			<h:outputText value="${helper.gradeQuarta.localizacao.desLocalizacao}" />
+		        		</rich:panel>
+		        	</h:column>
+		        	<h:column>
+		        		<f:facet name="header">
+		        			#{messages['application.gradehoraria.quinta.label']}
+		        		</f:facet>
+		        		<rich:panel style="width:170px">
+		        			<rich:dropSupport acceptedTypes="disciplina" dropValue="quinta" dropListener="#{gradeHorariaHome.adicionaDisciplina}" reRender="gradeHoraria,disciplinas" />
+		        			<h:outputText value="${helper.gradeQuinta.disciplina.nomDisciplina}" />
+		        		</rich:panel>
+		        		<rich:panel style="width:170px">
+		        			<rich:dropSupport acceptedTypes="professor" dropValue="quinta" dropListener="#{gradeHorariaHome.adicionaProfessor}" reRender="gradeHoraria,professor" />
+		        			<h:outputText value="${helper.gradeQuinta.professor.nomProfessor}" />
+		        		</rich:panel>
+		        		<rich:panel style="width:170px">
+		        			<rich:dropSupport acceptedTypes="localizacao" dropValue="quinta" dropListener="#{gradeHorariaHome.adicionaLocalizacao}" reRender="gradeHoraria,localizacao" />
+		        			<h:outputText value="${helper.gradeQuinta.localizacao.desLocalizacao}" />
+		        		</rich:panel>
+		        	</h:column>
+		        	<h:column>
+		        		<f:facet name="header">
+		        			#{messages['application.gradehoraria.sexta.label']}
+		        		</f:facet>
+		        		<rich:panel style="width:170px">
+		        			<rich:dropSupport acceptedTypes="disciplina" dropValue="sexta" dropListener="#{gradeHorariaHome.adicionaDisciplina}" reRender="gradeHoraria,disciplinas" />
+		        			<h:outputText value="${helper.gradeSexta.disciplina.nomDisciplina}" />
+		        		</rich:panel>
+		        		<rich:panel style="width:170px">
+		        			<rich:dropSupport acceptedTypes="professor" dropValue="sexta" dropListener="#{gradeHorariaHome.adicionaProfessor}" reRender="gradeHoraria,professor" />
+		        			<h:outputText value="${helper.gradeSexta.professor.nomProfessor}" />
+		        		</rich:panel>
+		        		<rich:panel style="width:170px">
+		        			<rich:dropSupport acceptedTypes="localizacao" dropValue="sexta" dropListener="#{gradeHorariaHome.adicionaLocalizacao}" reRender="gradeHoraria,localizacao" />
+		        			<h:outputText value="${helper.gradeSexta.localizacao.desLocalizacao}" />
+		        		</rich:panel>
+		        	</h:column>
+           		</rich:dataTable>
+			</a:outputPanel>
+        </h:panelGrid>
+	</h:form>
+</ui:define>    
+</ui:composition>

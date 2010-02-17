@@ -1,0 +1,102 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                template="layout/template.xhtml">
+                       
+<ui:define name="body">
+    <h:messages globalOnly="true" styleClass="message" id="globalMessages"/>
+    <h:form id="localizacaoSearch" styleClass="edit">
+        <rich:simpleTogglePanel label="#{messages['application.label.searchParameters']}" switchType="ajax">
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">#{messages['application.localizacao.label.descricao']}</ui:define>
+                <h:inputText id="desLocalizacao" value="#{localizacaoList.localizacao.desLocalizacao}"/>
+            </s:decorate>
+        </rich:simpleTogglePanel>
+        <div class="actionButtons">
+            <h:commandButton id="search" value="#{messages['application.label.search']}" action="/LocalizacaoList.xhtml"/>
+        </div>
+    </h:form>
+    <rich:panel>
+        <f:facet name="header">#{messages['application.label.searchResults']}</f:facet>
+    <div class="results" id="localizacaoList">
+
+    <h:outputText value="#{messages['application.localizacao.empty']}" 
+               rendered="#{empty localizacaoList.resultList}"/>
+               
+    <rich:dataTable id="localizacaoList" 
+                var="localizacao"
+              value="#{localizacaoList.resultList}" 
+           rendered="#{not empty localizacaoList.resultList}">
+        <h:column>
+            <f:facet name="header">
+                <s:link styleClass="columnHeader"
+                             value="#{messages['application.localizacao.label.descricao']} #{localizacaoList.order=='desLocalizacao asc' ? messages.down : ( localizacaoList.order=='desLocalizacao desc' ? messages.up : '' )}">
+                    <f:param name="order" value="#{localizacaoList.order=='desLocalizacao asc' ? 'desLocalizacao desc' : 'desLocalizacao asc'}"/>
+                </s:link>
+            </f:facet>
+            #{localizacao.desLocalizacao}
+        </h:column>
+        <h:column>
+            <f:facet name="header">#{messages['application.label.action']}</f:facet>
+            <s:link view="/#{empty from ? 'Localizacao' : from}.xhtml" 
+                   value="#{messages['application.label.select']}" 
+                      id="localizacao">
+                <f:param name="localizacaoIdtLocalizacao" 
+                        value="#{localizacao.idtLocalizacao}"/>
+            </s:link>
+        </h:column>
+    </rich:dataTable>
+    </div>
+    </rich:panel>
+    <div class="tableControl">
+        <s:link view="/LocalizacaoList.xhtml" 
+            rendered="#{localizacaoList.previousExists}" 
+               value="#{messages.left}#{messages.left} #{messages['application.label.first']}"
+                  id="firstPage">
+          <f:param name="firstResult" value="0"/>
+        </s:link>
+        
+        <s:link view="/LocalizacaoList.xhtml" 
+            rendered="#{localizacaoList.previousExists}" 
+               value="#{messages.left} #{messages['application.label.previous']}"
+                  id="previousPage">
+            <f:param name="firstResult" 
+                    value="#{localizacaoList.previousFirstResult}"/>
+        </s:link>
+        
+        <s:link view="/LocalizacaoList.xhtml" 
+            rendered="#{localizacaoList.nextExists}" 
+               value="#{messages['application.label.next']} #{messages.right}"
+                  id="nextPage">
+            <f:param name="firstResult" 
+                    value="#{localizacaoList.nextFirstResult}"/>
+        </s:link>
+        
+        <s:link view="/LocalizacaoList.xhtml" 
+            rendered="#{localizacaoList.nextExists}" 
+               value="#{messages['application.label.last']} #{messages.right}#{messages.right}"
+                  id="lastPage">
+            <f:param name="firstResult" 
+                    value="#{localizacaoList.lastFirstResult}"/>
+        </s:link>
+        
+    </div>
+    
+    <s:div styleClass="actionButtons" rendered="#{empty from}">
+        <s:button view="/LocalizacaoEdit.xhtml"
+                    id="create" 
+                 value="#{messages['application.label.create']}">
+            <f:param name="localizacaoIdtLocalizacao"/>
+        </s:button>
+    </s:div>
+    
+</ui:define>
+
+</ui:composition>
+

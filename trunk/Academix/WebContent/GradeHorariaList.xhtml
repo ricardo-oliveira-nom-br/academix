@@ -1,0 +1,127 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                template="layout/template.xhtml">
+                       
+<ui:define name="body">
+    
+    <h:messages globalOnly="true" styleClass="message" id="globalMessages"/>
+    
+    <h:form id="gradeHorariaSearch" styleClass="edit">
+    
+        <rich:simpleTogglePanel label="#{messages['application.label.searchParameters']}" switchType="ajax">
+        
+        
+        </rich:simpleTogglePanel>
+        
+        <div class="actionButtons">
+            <h:commandButton id="search" value="#{messages['application.label.search']}" action="/GradeHorariaList.xhtml"/>
+        </div>
+        
+    </h:form>
+    
+    <rich:panel>
+        <f:facet name="header">#{messages['application.label.searchResults']}</f:facet>
+    <div class="results" id="gradeHorariaList">
+
+    <h:outputText value="#{messages['application.gradehoraria.empty']}" 
+               rendered="#{empty gradeHorariaList.resultList}"/>
+               
+    <rich:dataTable id="gradeHorariaList" 
+                var="gradeHoraria"
+              value="#{gradeHorariaList.resultList}" 
+           rendered="#{not empty gradeHorariaList.resultList}">
+        <h:column>
+            <f:facet name="header">
+                <s:link styleClass="columnHeader"
+                             value="#{messages['application.campus.label']} #{gradeHorariaList.order=='idtGradeHoraria asc' ? messages.down : ( gradeHorariaList.order=='idtGradeHoraria desc' ? messages.up : '' )}">
+                    <f:param name="order" value="#{gradeHorariaList.order=='idtGradeHoraria asc' ? 'idtGradeHoraria desc' : 'idtGradeHoraria asc'}"/>
+                </s:link>
+            </f:facet>
+            #{gradeHoraria.turma.gradeCurricular.curso.campus.desCampus}
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <s:link styleClass="columnHeader"
+                             value="#{messages['application.curso.label']} #{gradeHorariaList.order=='idtGradeHoraria asc' ? messages.down : ( gradeHorariaList.order=='idtGradeHoraria desc' ? messages.up : '' )}">
+                    <f:param name="order" value="#{gradeHorariaList.order=='idtGradeHoraria asc' ? 'idtGradeHoraria desc' : 'idtGradeHoraria asc'}"/>
+                </s:link>
+            </f:facet>
+            #{gradeHoraria.turma.gradeCurricular.curso.nomCurso}
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <s:link styleClass="columnHeader"
+                             value="#{messages['application.turma.label']} #{gradeHorariaList.order=='turma.idtTurma asc' ? messages.down : ( gradeHorariaList.order=='turma.idtTurma desc' ? messages.up : '' )}">
+                    <f:param name="order" value="#{gradeHorariaList.order=='turma.idtTurma asc' ? 'turma.idtTurma desc' : 'turma.idtTurma asc'}"/>
+                </s:link>
+            </f:facet>
+            #{gradeHoraria.turma.codTurma}
+        </h:column>
+        <h:column>
+            <f:facet name="header">#{messages['application.label.action']}</f:facet>
+            <s:link view="/#{empty from ? 'GradeHoraria' : from}.xhtml" 
+                   value="#{messages['application.label.select']}" 
+                      id="gradeHoraria">
+                <f:param name="gradeHorariaIdtGradeHoraria" 
+                        value="#{gradeHoraria.idtGradeHoraria}"/>
+            </s:link>
+        </h:column>
+    </rich:dataTable>
+
+    </div>
+    </rich:panel>
+    
+    <div class="tableControl">
+      
+        <s:link view="/GradeHorariaList.xhtml" 
+            rendered="#{gradeHorariaList.previousExists}" 
+               value="#{messages.left}#{messages.left} #{messages['application.label.first']}"
+                  id="firstPage">
+          <f:param name="firstResult" value="0"/>
+        </s:link>
+        
+        <s:link view="/GradeHorariaList.xhtml" 
+            rendered="#{gradeHorariaList.previousExists}" 
+               value="#{messages.left} #{messages['application.label.previous']}"
+                  id="previousPage">
+            <f:param name="firstResult" 
+                    value="#{gradeHorariaList.previousFirstResult}"/>
+        </s:link>
+        
+        <s:link view="/GradeHorariaList.xhtml" 
+            rendered="#{gradeHorariaList.nextExists}" 
+               value="#{messages['application.label.next']} #{messages.right}"
+                  id="nextPage">
+            <f:param name="firstResult" 
+                    value="#{gradeHorariaList.nextFirstResult}"/>
+        </s:link>
+        
+        <s:link view="/GradeHorariaList.xhtml" 
+            rendered="#{gradeHorariaList.nextExists}" 
+               value="#{messages['application.label.last']} #{messages.right}#{messages.right}"
+                  id="lastPage">
+            <f:param name="firstResult" 
+                    value="#{gradeHorariaList.lastFirstResult}"/>
+        </s:link>
+        
+    </div>
+    
+    <s:div styleClass="actionButtons" rendered="#{empty from}">
+        <s:button view="/GradeHorariaDnDEdit.xhtml"
+                    id="create" 
+                 value="#{messages['application.label.create']}">
+            <f:param name="gradeHorariaIdtGradeHoraria"/>
+        </s:button>
+    </s:div>
+    
+</ui:define>
+
+</ui:composition>
+

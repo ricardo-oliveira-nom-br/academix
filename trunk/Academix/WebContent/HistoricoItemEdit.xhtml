@@ -1,0 +1,208 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                template="layout/template.xhtml">
+                       
+<ui:define name="body">
+    
+    <h:messages globalOnly="true" styleClass="message" id="globalMessages"/>
+
+    <h:form id="historicoItem" styleClass="edit">
+    
+        <rich:panel>
+            <f:facet name="header">#{historicoItemHome.managed ? 'Edit' : 'Add'} HistoricoItem</f:facet>
+
+            <s:decorate id="indHistoricoDecoration" template="layout/edit.xhtml">
+                <ui:define name="label">indHistorico</ui:define>
+                <h:inputText id="indHistorico"
+                       required="true"
+                       disabled="#{historicoItemHome.managed}"
+                          value="#{historicoItemHome.instance.id.indHistorico}">
+                    <a:support event="onblur" reRender="indHistoricoDecoration" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <s:decorate id="indGradeCurricularDecoration" template="layout/edit.xhtml">
+                <ui:define name="label">indGradeCurricular</ui:define>
+                <h:inputText id="indGradeCurricular"
+                       required="true"
+                       disabled="#{historicoItemHome.managed}"
+                          value="#{historicoItemHome.instance.id.indGradeCurricular}">
+                    <a:support event="onblur" reRender="indGradeCurricularDecoration" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <s:decorate id="indDisciplinaDecoration" template="layout/edit.xhtml">
+                <ui:define name="label">indDisciplina</ui:define>
+                <h:inputText id="indDisciplina"
+                       required="true"
+                       disabled="#{historicoItemHome.managed}"
+                          value="#{historicoItemHome.instance.id.indDisciplina}">
+                    <a:support event="onblur" reRender="indDisciplinaDecoration" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <s:decorate id="numNotaDecoration" template="layout/edit.xhtml">
+                <ui:define name="label">numNota</ui:define>
+                <h:inputText id="numNota"
+                       required="true"
+                          value="#{historicoItemHome.instance.numNota}">
+                    <a:support event="onblur" reRender="numNotaDecoration" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <s:decorate id="numFaltaDecoration" template="layout/edit.xhtml">
+                <ui:define name="label">numFalta</ui:define>
+                <h:inputText id="numFalta"
+                       required="true"
+                          value="#{historicoItemHome.instance.numFalta}">
+                    <a:support event="onblur" reRender="numFaltaDecoration" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+        
+            <div style="clear:both">
+                <span class="required">*</span> 
+                required fields
+            </div>
+            
+        </rich:panel>
+                
+        <div class="actionButtons">
+
+            <h:commandButton id="save" 
+                          value="Save" 
+                         action="#{historicoItemHome.persist}"
+                       disabled="#{!historicoItemHome.wired}"
+                       rendered="#{!historicoItemHome.managed}"/>  
+                          			  
+            <h:commandButton id="update" 
+                          value="Save" 
+                         action="#{historicoItemHome.update}"
+                       rendered="#{historicoItemHome.managed}"/>
+                        			  
+            <h:commandButton id="delete" 
+                          value="Delete" 
+                         action="#{historicoItemHome.remove}"
+                       rendered="#{historicoItemHome.managed}"/>
+                    
+            <s:button id="done" 
+                   value="Done"
+             propagation="end"
+                    view="/HistoricoItem.xhtml"
+                rendered="#{historicoItemHome.managed}"/>
+                
+            <s:button id="cancel" 
+                   value="Cancel"
+             propagation="end"
+                    view="/#{empty historicoItemFrom ? 'HistoricoItemList' : historicoItemFrom}.xhtml"
+                rendered="#{!historicoItemHome.managed}"/>
+
+        </div>
+    </h:form>
+
+<rich:tabPanel switchType="ajax">
+    
+    <rich:tab label="historico *" labelClass="required">
+    <div class="association" id="historicoParent">
+    
+        <h:outputText value="No historico" 
+                   rendered="#{historicoItemHome.instance.historico == null}"/>
+        
+        <rich:dataTable var="historico" 
+                   value="#{historicoItemHome.instance.historico}" 
+                rendered="#{historicoItemHome.instance.historico != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="historicoTable">
+            <h:column>
+                <f:facet name="header">idtHistorico</f:facet>
+                #{historico.idtHistorico}
+            </h:column>
+            <h:column>
+	    	    <f:facet name="header">curso idtCurso</f:facet>
+		    	#{historico.curso.idtCurso}
+            </h:column>
+            <h:column>
+	    	    <f:facet name="header">aluno idtAluno</f:facet>
+		    	#{historico.aluno.idtAluno}
+            </h:column>
+            <h:column>
+                <f:facet name="header">action</f:facet>
+                <s:link view="/Historico.xhtml" 
+                         id="viewhistorico" 
+                      value="View" 
+                propagation="none">
+                    <f:param name="historicoIdtHistorico" 
+                           value="#{historico.idtHistorico}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+        <div class="actionButtons">
+            <s:button value="Select historico"
+                       view="/HistoricoList.xhtml">
+                <f:param name="from" value="HistoricoItemEdit"/>
+            </s:button>
+        </div>
+        
+    </div>
+    </rich:tab>
+    
+    <rich:tab label="disciplina *" labelClass="required">
+    <div class="association" id="disciplinaParent">
+    
+        <h:outputText value="No disciplina" 
+                   rendered="#{historicoItemHome.instance.disciplina == null}"/>
+        
+        <rich:dataTable var="disciplina" 
+                   value="#{historicoItemHome.instance.disciplina}" 
+                rendered="#{historicoItemHome.instance.disciplina != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="disciplinaTable">
+            <h:column>
+                <f:facet name="header">idtDisciplina</f:facet>
+                #{disciplina.idtDisciplina}
+            </h:column>
+            <h:column>
+                <f:facet name="header">codDisciplina</f:facet>
+                #{disciplina.codDisciplina}
+            </h:column>
+            <h:column>
+                <f:facet name="header">nomDisciplina</f:facet>
+                #{disciplina.nomDisciplina}
+            </h:column>
+            <h:column>
+                <f:facet name="header">desDisciplina</f:facet>
+                #{disciplina.desDisciplina}
+            </h:column>
+            <h:column>
+                <f:facet name="header">action</f:facet>
+                <s:link view="/Disciplina.xhtml" 
+                         id="viewdisciplina" 
+                      value="View" 
+                propagation="none">
+                    <f:param name="disciplinaIdtDisciplina" 
+                           value="#{disciplina.idtDisciplina}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+        <div class="actionButtons">
+            <s:button value="Select disciplina"
+                       view="/DisciplinaList.xhtml">
+                <f:param name="from" value="HistoricoItemEdit"/>
+            </s:button>
+        </div>
+        
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>
