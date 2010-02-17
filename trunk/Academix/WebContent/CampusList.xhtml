@@ -67,7 +67,7 @@
                     <f:param name="order" value="#{campusList.order=='endereco.idtCep asc' ? 'endereco.idtCep desc' : 'endereco.idtCep asc'}"/>
                 </s:link>
             </f:facet>
-            #{campus.endereco.desLogradouro}, #{campus.numEndereco} #{campus.endereco.desBairro} - #{campus.endereco.desCidade}, #{campus.endereco.desUf}
+            #{campus.endereco.desLogradouro}, #{campus.numEndereco} - #{campus.endereco.desBairro} - #{campus.endereco.desCidade}, #{campus.endereco.desUf}
         </h:column>
         <h:column>
             <f:facet name="header">#{messages['application.label.action']}</f:facet>
