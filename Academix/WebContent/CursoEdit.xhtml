@@ -22,8 +22,7 @@
             <s:decorate id="campusDecoration" template="layout/edit.xhtml">
                 <ui:define name="label">#{messages['application.campus.label']}</ui:define>
                 <h:selectOneMenu value="#{cursoHome.instance.campus}" required="true">
-					<f:selectItem itemValue="" itemLabel="" />
-					<s:selectItems value="#{campusList.resultList}" var="campus" label="#{campus.desCampus}" />
+					<s:selectItems value="#{campusList.resultList}" var="campus" label="#{campus.desCampus}" noSelectionLabel="" />
 					<s:convertEntity />
 				</h:selectOneMenu>
             </s:decorate>
@@ -62,10 +61,12 @@
                 <ui:define name="label">#{messages['application.curso.label.tipoduracao']}</ui:define>
                 <h:selectOneMenu id="indTipoDuracao"
                 		value="#{cursoHome.instance.indTipoDuracao}"
-                		converter="tipoDuracaoConverter"
                 		required="true">
-					<f:selectItem itemValue="" itemLabel="" />
-					<f:selectItems value="#{academixUtil.tipoDuracaoSelectItens}"/>
+					<s:selectItems	value="#{academixUtil.tipoDuracaoSelectItens}"
+									var="tipoDuracao"
+									label="#{tipoDuracao.label}"
+									noSelectionLabel="" />
+					<s:convertEnum />
 				</h:selectOneMenu>
             </s:decorate>
         
