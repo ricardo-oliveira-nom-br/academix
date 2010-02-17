@@ -8,5 +8,5 @@
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="Academix-ejb"/>
 <stringAttribute key="org.hibernate.eclipse.launch.CONFIGURATION_FACTORY" value="JPA"/>
-<stringAttribute key="org.hibernate.eclipse.launch.PROPERTY_FILE" value="/Acdmx-ejb/hibernate-console.properties"/>
+<stringAttribute key="org.hibernate.eclipse.launch.PROPERTY_FILE" value="/Academix-ejb/hibernate-console.properties"/>
 </launchConfiguration>
