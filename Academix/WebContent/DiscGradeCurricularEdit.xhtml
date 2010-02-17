@@ -1,0 +1,84 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                template="layout/template.xhtml">
+                       
+<ui:define name="body">
+    <h:messages globalOnly="true" styleClass="message" id="globalMessages"/>
+    <h:form id="discGradeCurricular" styleClass="edit">
+        <rich:panel>
+            <f:facet name="header">#{discGradeCurricularHome.managed ? messages['application.label.edit'] : messages['application.label.add']} #{messages['application.discgradecurricular.label']}</f:facet>
+			<s:decorate id="gradeCurricularDecoration" template="layout/edit.xhtml">
+				<ui:define name="label">#{messages['application.gradecurricular.label']}</ui:define>
+				<h:selectOneMenu id="gradeCurricular" value="#{discGradeCurricularHome.instance.gradeCurricular}" required="true">
+					<f:selectItem itemValue="" itemLabel="" />
+					<s:selectItems value="#{gradeCurricularList.resultList}" var="gradeCurricular" label="#{gradeCurricular.curso.nomCurso}:#{gradeCurricular.numAno}/#{gradeCurricular.numSemestre}-#{gradeCurricular.numPeriodoVigente}" />
+					<s:convertEntity />
+				</h:selectOneMenu>
+			</s:decorate>
+			
+			<s:decorate id="disciplinaDecoration" template="layout/edit.xhtml">
+				<ui:define name="label">#{messages['application.disciplina.label']}</ui:define>
+				<h:selectOneMenu id="disciplina" value="#{discGradeCurricularHome.instance.disciplina}" required="true">
+					<f:selectItem itemValue="" itemLabel="" />
+					<s:selectItems value="#{disciplinaList.resultList}" var="disciplina" label="#{disciplina.nomDisciplina}" />
+					<s:convertEntity />
+				</h:selectOneMenu>
+			</s:decorate>
+
+            <s:decorate id="numCargaHorariaDecoration" template="layout/edit.xhtml">
+                <ui:define name="label">#{messages['application.gradecurricular.label.numcargahoraria']}</ui:define>
+                <h:inputText id="numCargaHoraria"
+                          value="#{discGradeCurricularHome.instance.numCargaHoraria}">
+                    <a:support event="onblur" reRender="numCargaHorariaDecoration" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+        
+            <div style="clear:both">
+                <span class="required">*</span> 
+                #{messages['application.label.requiredfiels']}
+            </div>
+            
+        </rich:panel>
+                
+        <div class="actionButtons">
+
+            <h:commandButton id="save" 
+                          value="#{messages['application.label.saveCreate']}" 
+                         action="#{discGradeCurricularHome.persist}"
+                       rendered="#{!discGradeCurricularHome.managed}"/>  
+                          			  
+            <h:commandButton id="update" 
+                          value="#{messages['application.label.saveUpdate']}" 
+                         action="#{discGradeCurricularHome.update}"
+                       rendered="#{discGradeCurricularHome.managed}"/>
+                        			  
+            <h:commandButton id="delete" 
+                          value="#{messages['application.label.delete']}" 
+                         action="#{discGradeCurricularHome.remove}"
+                       rendered="#{discGradeCurricularHome.managed}"/>
+                    
+            <s:button id="done" 
+                   value="#{messages['application.label.done']}"
+             propagation="end"
+                    view="/DiscGradeCurricular.xhtml"
+                rendered="#{discGradeCurricularHome.managed}"/>
+                
+            <s:button id="cancel" 
+                   value="#{messages['application.label.cancel']}"
+             propagation="end"
+                    view="/#{empty discGradeCurricularFrom ? 'DiscGradeCurricularList' : discGradeCurricularFrom}.xhtml"
+                rendered="#{!discGradeCurricularHome.managed}"/>
+
+        </div>
+    </h:form>
+</ui:define>
+
+</ui:composition>

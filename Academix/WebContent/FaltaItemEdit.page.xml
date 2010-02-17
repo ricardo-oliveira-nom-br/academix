@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.com/products/seam/pages"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.2.xsd"
+      no-conversation-view-id="/FaltaItemList.xhtml"
+      login-required="true">
+
+   <begin-conversation join="true" flush-mode="MANUAL"/>
+
+   <action execute="#{faltaItemHome.wire}"/>
+
+   <param name="faltaItemFrom"/>
+   <param name="faltaItemIdtFaltaItem" value="#{faltaItemHome.faltaItemIdtFaltaItem}"/>
+   <param name="alunoFrom"/>
+   <param name="alunoIdtAluno" value="#{alunoHome.alunoIdtAluno}"/>
+
+   <param name="faltaFrom"/>
+   <param name="faltaIdtFalta" value="#{faltaHome.faltaIdtFalta}"/>
+   <param name="disciplinaFrom"/>
+   <param name="disciplinaIdtDisciplina" value="#{disciplinaHome.disciplinaIdtDisciplina}"/>
+
+   <param name="turmaFrom"/>
+   <param name="turmaIdtTurma" value="#{turmaHome.turmaIdtTurma}"/>
+   <param name="gradeCurricularFrom"/>
+   <param name="gradeCurricularIdtGradeCurricular" value="#{gradeCurricularHome.gradeCurricularIdtGradeCurricular}"/>
+   <param name="cursoFrom"/>
+   <param name="cursoIdtCurso" value="#{cursoHome.cursoIdtCurso}"/>
+   <param name="campusFrom"/>
+   <param name="campusIdtCampus" value="#{campusHome.campusIdtCampus}"/>
+   <param name="enderecoFrom"/>
+   <param name="enderecoIdtCep" value="#{enderecoHome.enderecoIdtCep}"/>
+
+
+
+
+
+
+
+
+   <navigation from-action="#{faltaItemHome.persist}">
+      <rule if-outcome="persisted">
+         <end-conversation/>
+         <redirect view-id="/FaltaItem.xhtml"/>
+      </rule>
+   </navigation>
+
+   <navigation from-action="#{faltaItemHome.update}">
+      <rule if-outcome="updated">
+         <end-conversation/>
+         <redirect view-id="/FaltaItem.xhtml"/>
+      </rule>
+   </navigation>
+
+   <navigation from-action="#{faltaItemHome.remove}">
+      <rule if-outcome="removed">
+         <end-conversation/>
+         <redirect view-id="/FaltaItemList.xhtml"/>
+      </rule>
+   </navigation>
+
+</page>

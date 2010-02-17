@@ -1,0 +1,127 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                template="layout/template.xhtml">
+                       
+<ui:define name="body">
+    <h:messages globalOnly="true" styleClass="message" id="globalMessages"/>
+    <h:form id="turmaSearch" styleClass="edit">
+        <rich:simpleTogglePanel label="#{messages['application.label.searchParameters']}" switchType="ajax">
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">#{messages['application.turma.label.codigo']}</ui:define>
+                <h:inputText id="codTurma" value="#{turmaList.turma.codTurma}"/>
+            </s:decorate>
+        </rich:simpleTogglePanel>
+        <div class="actionButtons">
+            <h:commandButton id="search" value="#{messages['application.label.search']}" action="/TurmaList.xhtml"/>
+        </div>
+    </h:form>
+    <rich:panel>
+        <f:facet name="header">#{messages['application.label.searchResults']}</f:facet>
+    <div class="results" id="turmaList">
+    <h:outputText value="#{messages['application.turma.empty']}"  rendered="#{empty turmaList.resultList}"/>
+               
+    <rich:dataTable id="turmaList" var="turma" value="#{turmaList.resultList}" rendered="#{not empty turmaList.resultList}">
+        <h:column>
+            <f:facet name="header">
+                <s:link styleClass="columnHeader"
+                             value="#{messages['application.curso.label']} #{turmaList.order=='idtTurma asc' ? messages.down : ( turmaList.order=='idtTurma desc' ? messages.up : '' )}">
+                    <f:param name="order" value="#{turmaList.order=='idtTurma asc' ? 'idtTurma desc' : 'idtTurma asc'}"/>
+                </s:link>
+            </f:facet>
+            #{turma.gradeCurricular.curso.nomCurso}
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <s:link styleClass="columnHeader"
+                             value="#{messages['application.gradecurricular.label.ano']}/#{messages['application.gradecurricular.label.semestre']} #{turmaList.order=='gradeCurricular.idtGradeCurricular asc' ? messages.down : ( turmaList.order=='gradeCurricular.idtGradeCurricular desc' ? messages.up : '' )}">
+                    <f:param name="order" value="#{turmaList.order=='gradeCurricular.idtGradeCurricular asc' ? 'gradeCurricular.idtGradeCurricular desc' : 'gradeCurricular.idtGradeCurricular asc'}"/>
+                </s:link>
+            </f:facet>
+            #{turma.gradeCurricular.numAno}/#{turma.gradeCurricular.numSemestre}
+        </h:column>
+                <h:column>
+            <f:facet name="header">
+                <s:link styleClass="columnHeader"
+                             value="#{messages['application.gradecurricular.label.periodovigente']} #{turmaList.order=='numPeriodoVigente asc' ? messages.down : ( turmaList.order=='numPeriodoVigente desc' ? messages.up : '' )}">
+                    <f:param name="order" value="#{turmaList.order=='numPeriodoVigente asc' ? 'numPeriodoVigente desc' : 'numPeriodoVigente asc'}"/>
+                </s:link>
+            </f:facet>
+            #{turma.numPeriodoVigente}
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <s:link styleClass="columnHeader"
+                             value="#{messages['application.turma.label.codigo']} #{turmaList.order=='codTurma asc' ? messages.down : ( turmaList.order=='codTurma desc' ? messages.up : '' )}">
+                    <f:param name="order" value="#{turmaList.order=='codTurma asc' ? 'codTurma desc' : 'codTurma asc'}"/>
+                </s:link>
+            </f:facet>
+            #{turma.codTurma}
+        </h:column>
+        <h:column>
+            <f:facet name="header">#{messages['application.label.action']}</f:facet>
+            <s:link view="/#{empty from ? 'Turma' : from}.xhtml" 
+                   value="#{messages['application.label.select']}" 
+                      id="turma">
+                <f:param name="turmaIdtTurma" 
+                        value="#{turma.idtTurma}"/>
+            </s:link>
+        </h:column>
+    </rich:dataTable>
+
+    </div>
+    </rich:panel>
+    
+    <div class="tableControl">
+      
+        <s:link view="/TurmaList.xhtml" 
+            rendered="#{turmaList.previousExists}" 
+               value="#{messages.left}#{messages.left} #{messages['application.label.first']}"
+                  id="firstPage">
+          <f:param name="firstResult" value="0"/>
+        </s:link>
+        
+        <s:link view="/TurmaList.xhtml" 
+            rendered="#{turmaList.previousExists}" 
+               value="#{messages.left} #{messages['application.label.previous']}"
+                  id="previousPage">
+            <f:param name="firstResult" 
+                    value="#{turmaList.previousFirstResult}"/>
+        </s:link>
+        
+        <s:link view="/TurmaList.xhtml" 
+            rendered="#{turmaList.nextExists}" 
+               value="#{messages['application.label.next']} #{messages.right}"
+                  id="nextPage">
+            <f:param name="firstResult" 
+                    value="#{turmaList.nextFirstResult}"/>
+        </s:link>
+        
+        <s:link view="/TurmaList.xhtml" 
+            rendered="#{turmaList.nextExists}" 
+               value="#{messages['application.label.last']} #{messages.right}#{messages.right}"
+                  id="lastPage">
+            <f:param name="firstResult" 
+                    value="#{turmaList.lastFirstResult}"/>
+        </s:link>
+        
+    </div>
+    
+    <s:div styleClass="actionButtons" rendered="#{empty from}">
+        <s:button view="/TurmaEdit.xhtml"
+                    id="create" 
+                 value="#{messages['application.label.create']}">
+            <f:param name="turmaIdtTurma"/>
+        </s:button>
+    </s:div>
+    
+</ui:define>
+
+</ui:composition>
+

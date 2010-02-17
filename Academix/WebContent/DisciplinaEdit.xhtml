@@ -1,0 +1,96 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                template="layout/template.xhtml">
+                       
+<ui:define name="body">
+    
+    <h:messages globalOnly="true" styleClass="message" id="globalMessages"/>
+
+    <h:form id="disciplina" styleClass="edit">
+    
+        <rich:panel>
+            <f:facet name="header">#{disciplinaHome.managed ? messages['application.label.edit'] : messages['application.label.add']} #{messages['application.disciplina.label']}</f:facet>
+
+            <s:decorate id="codDisciplinaDecoration" template="layout/edit.xhtml">
+                <ui:define name="label">#{messages['application.disciplina.label.codigo']}</ui:define>
+                <h:inputText id="codDisciplina" 
+                       required="true"
+                           size="10"
+                      maxlength="10"
+                          value="#{disciplinaHome.instance.codDisciplina}">
+                    <a:support event="onblur" reRender="codDisciplinaDecoration" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <s:decorate id="nomDisciplinaDecoration" template="layout/edit.xhtml">
+                <ui:define name="label">#{messages['application.disciplina.label.nome']}</ui:define>
+                <h:inputText id="nomDisciplina" 
+                       required="true"
+                           size="50"
+                      maxlength="50"
+                          value="#{disciplinaHome.instance.nomDisciplina}">
+                    <a:support event="onblur" reRender="nomDisciplinaDecoration" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <s:decorate id="desDisciplinaDecoration" template="layout/edit.xhtml">
+                <ui:define name="label">#{messages['application.disciplina.label.descricao']}</ui:define>
+                <h:inputText id="desDisciplina" 
+                           size="100"
+                      maxlength="100"
+                          value="#{disciplinaHome.instance.desDisciplina}">
+                    <a:support event="onblur" reRender="desDisciplinaDecoration" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+        
+            <div style="clear:both">
+                <span class="required">*</span> 
+                #{messages['application.label.requiredfiels']}
+            </div>
+            
+        </rich:panel>
+                
+        <div class="actionButtons">
+
+            <h:commandButton id="save" 
+                          value="#{messages['application.label.saveCreate']}" 
+                         action="#{disciplinaHome.persist}"
+                       disabled="#{!disciplinaHome.wired}"
+                       rendered="#{!disciplinaHome.managed}"/>  
+                          			  
+            <h:commandButton id="update" 
+                          value="#{messages['application.label.saveUpdate']}" 
+                         action="#{disciplinaHome.update}"
+                       rendered="#{disciplinaHome.managed}"/>
+                        			  
+            <h:commandButton id="delete" 
+                          value="#{messages['application.label.delete']}" 
+                         action="#{disciplinaHome.remove}"
+                       rendered="#{disciplinaHome.managed}"/>
+                    
+            <s:button id="done" 
+                   value="#{messages['application.label.done']}"
+             propagation="end"
+                    view="/Disciplina.xhtml"
+                rendered="#{disciplinaHome.managed}"/>
+                
+            <s:button id="cancel" 
+                   value="#{messages['application.label.cancel']}"
+             propagation="end"
+                    view="/#{empty disciplinaFrom ? 'DisciplinaList' : disciplinaFrom}.xhtml"
+                rendered="#{!disciplinaHome.managed}"/>
+
+        </div>
+    </h:form>
+
+</ui:define>
+
+</ui:composition>

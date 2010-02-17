@@ -1,0 +1,171 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                template="layout/template.xhtml">
+                       
+<ui:define name="body">
+    
+    <h:messages globalOnly="true" styleClass="message" id="globalMessages"/>
+    
+    <h:form id="alunoEnderecoSearch" styleClass="edit">
+    
+        <rich:simpleTogglePanel label="AlunoEndereco search parameters" switchType="ajax">
+        
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">indEndereco</ui:define>
+                <h:inputText id="indEndereco" value="#{alunoEnderecoList.alunoEndereco.id.indEndereco}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">indTipoEndereco</ui:define>
+                <h:inputText id="indTipoEndereco" value="#{alunoEnderecoList.alunoEndereco.indTipoEndereco}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">desComplemento</ui:define>
+                <h:inputText id="desComplemento" value="#{alunoEnderecoList.alunoEndereco.desComplemento}"/>
+            </s:decorate>
+
+        
+        </rich:simpleTogglePanel>
+        
+        <div class="actionButtons">
+            <h:commandButton id="search" value="Search" action="/AlunoEnderecoList.xhtml"/>
+        </div>
+        
+    </h:form>
+    
+    <rich:panel>
+        <f:facet name="header">AlunoEndereco search results</f:facet>
+    <div class="results" id="alunoEnderecoList">
+
+    <h:outputText value="No alunoEndereco exists" 
+               rendered="#{empty alunoEnderecoList.resultList}"/>
+               
+    <rich:dataTable id="alunoEnderecoList" 
+                var="alunoEndereco"
+              value="#{alunoEnderecoList.resultList}" 
+           rendered="#{not empty alunoEnderecoList.resultList}">
+        <h:column>
+            <f:facet name="header">indAluno</f:facet>
+            #{alunoEndereco.id.indAluno}
+        </h:column>
+        <h:column>
+            <f:facet name="header">indEndereco</f:facet>
+            #{alunoEndereco.id.indEndereco}
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <s:link styleClass="columnHeader"
+                             value="endereco idtCep #{alunoEnderecoList.order=='endereco.idtCep asc' ? messages.down : ( alunoEnderecoList.order=='endereco.idtCep desc' ? messages.up : '' )}">
+                    <f:param name="order" value="#{alunoEnderecoList.order=='endereco.idtCep asc' ? 'endereco.idtCep desc' : 'endereco.idtCep asc'}"/>
+                </s:link>
+            </f:facet>
+            #{alunoEndereco.endereco.idtCep}
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <s:link styleClass="columnHeader"
+                             value="aluno idtAluno #{alunoEnderecoList.order=='aluno.idtAluno asc' ? messages.down : ( alunoEnderecoList.order=='aluno.idtAluno desc' ? messages.up : '' )}">
+                    <f:param name="order" value="#{alunoEnderecoList.order=='aluno.idtAluno asc' ? 'aluno.idtAluno desc' : 'aluno.idtAluno asc'}"/>
+                </s:link>
+            </f:facet>
+            #{alunoEndereco.aluno.idtAluno}
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <s:link styleClass="columnHeader"
+                             value="indTipoEndereco #{alunoEnderecoList.order=='indTipoEndereco asc' ? messages.down : ( alunoEnderecoList.order=='indTipoEndereco desc' ? messages.up : '' )}">
+                    <f:param name="order" value="#{alunoEnderecoList.order=='indTipoEndereco asc' ? 'indTipoEndereco desc' : 'indTipoEndereco asc'}"/>
+                </s:link>
+            </f:facet>
+            #{alunoEndereco.indTipoEndereco}
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <s:link styleClass="columnHeader"
+                             value="numEndereco #{alunoEnderecoList.order=='numEndereco asc' ? messages.down : ( alunoEnderecoList.order=='numEndereco desc' ? messages.up : '' )}">
+                    <f:param name="order" value="#{alunoEnderecoList.order=='numEndereco asc' ? 'numEndereco desc' : 'numEndereco asc'}"/>
+                </s:link>
+            </f:facet>
+            #{alunoEndereco.numEndereco}
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <s:link styleClass="columnHeader"
+                             value="desComplemento #{alunoEnderecoList.order=='desComplemento asc' ? messages.down : ( alunoEnderecoList.order=='desComplemento desc' ? messages.up : '' )}">
+                    <f:param name="order" value="#{alunoEnderecoList.order=='desComplemento asc' ? 'desComplemento desc' : 'desComplemento asc'}"/>
+                </s:link>
+            </f:facet>
+            #{alunoEndereco.desComplemento}
+        </h:column>
+        <h:column>
+            <f:facet name="header">action</f:facet>
+            <s:link view="/#{empty from ? 'AlunoEndereco' : from}.xhtml" 
+                   value="Select" 
+                      id="alunoEndereco">
+                <f:param name="alunoEnderecoIndAluno" 
+                        value="#{alunoEndereco.id.indAluno}"/>
+                <f:param name="alunoEnderecoIndEndereco" 
+                        value="#{alunoEndereco.id.indEndereco}"/>
+            </s:link>
+        </h:column>
+    </rich:dataTable>
+
+    </div>
+    </rich:panel>
+    
+    <div class="tableControl">
+      
+        <s:link view="/AlunoEnderecoList.xhtml" 
+            rendered="#{alunoEnderecoList.previousExists}" 
+               value="#{messages.left}#{messages.left} First Page"
+                  id="firstPage">
+          <f:param name="firstResult" value="0"/>
+        </s:link>
+        
+        <s:link view="/AlunoEnderecoList.xhtml" 
+            rendered="#{alunoEnderecoList.previousExists}" 
+               value="#{messages.left} Previous Page"
+                  id="previousPage">
+            <f:param name="firstResult" 
+                    value="#{alunoEnderecoList.previousFirstResult}"/>
+        </s:link>
+        
+        <s:link view="/AlunoEnderecoList.xhtml" 
+            rendered="#{alunoEnderecoList.nextExists}" 
+               value="Next Page #{messages.right}"
+                  id="nextPage">
+            <f:param name="firstResult" 
+                    value="#{alunoEnderecoList.nextFirstResult}"/>
+        </s:link>
+        
+        <s:link view="/AlunoEnderecoList.xhtml" 
+            rendered="#{alunoEnderecoList.nextExists}" 
+               value="Last Page #{messages.right}#{messages.right}"
+                  id="lastPage">
+            <f:param name="firstResult" 
+                    value="#{alunoEnderecoList.lastFirstResult}"/>
+        </s:link>
+        
+    </div>
+    
+    <s:div styleClass="actionButtons" rendered="#{empty from}">
+        <s:button view="/AlunoEnderecoEdit.xhtml"
+                    id="create" 
+                 value="Create alunoEndereco">
+            <f:param name="alunoEnderecoIndAluno"/>
+            <f:param name="alunoEnderecoIndEndereco"/>
+        </s:button>
+    </s:div>
+    
+</ui:define>
+
+</ui:composition>
+

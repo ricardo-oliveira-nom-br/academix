@@ -1,0 +1,202 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                template="layout/template.xhtml">
+                       
+<ui:define name="body">
+    
+    <h:messages globalOnly="true" styleClass="message" id="globalMessages"/>
+    
+    <rich:panel>
+        <f:facet name="header">Historico</f:facet>
+
+        <s:decorate id="idtHistorico" template="layout/display.xhtml">
+            <ui:define name="label">idtHistorico</ui:define>
+            #{historicoHome.instance.idtHistorico}
+        </s:decorate>
+
+        <div style="clear:both"/>
+        
+    </rich:panel>
+    
+    <div class="actionButtons">      
+
+        <s:button view="/HistoricoEdit.xhtml" 
+                    id="edit" 
+                 value="Edit"/>
+
+        <s:button view="/#{empty historicoFrom ? 'HistoricoList' : historicoFrom}.xhtml"
+                    id="done"
+                 value="Done"/>
+
+    </div>
+
+    <rich:tabPanel switchType="ajax">
+
+    <rich:tab label="curso">
+    <div class="association" id="cursoParent">
+        
+        <h:outputText value="No curso" 
+                   rendered="#{historicoHome.instance.curso == null}"/>
+        
+        <rich:dataTable var="curso" 
+                   value="#{historicoHome.instance.curso}" 
+                rendered="#{historicoHome.instance.curso != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="cursoTable">
+            <h:column>
+                <f:facet name="header">idtCurso</f:facet>
+                #{curso.idtCurso}
+            </h:column>
+            <h:column>
+	    	    <f:facet name="header">campus idtCampus</f:facet>
+		    	#{curso.campus.idtCampus}
+            </h:column>
+            <h:column>
+                <f:facet name="header">nomCurso</f:facet>
+                #{curso.nomCurso}
+            </h:column>
+            <h:column>
+                <f:facet name="header">desCurso</f:facet>
+                #{curso.desCurso}
+            </h:column>
+            <h:column>
+                <f:facet name="header">numDuracao</f:facet>
+                #{curso.numDuracao}
+            </h:column>
+            <h:column>
+                <f:facet name="header">indTipoDuracao</f:facet>
+                #{curso.indTipoDuracao}
+            </h:column>
+            <h:column>
+                <f:facet name="header">action</f:facet>
+                <s:link id="viewcurso" 
+                     value="View" 
+                      view="/Curso.xhtml">
+                    <f:param name="cursoIdtCurso" 
+                           value="#{curso.idtCurso}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+        
+    </div>
+    </rich:tab>
+
+    <rich:tab label="aluno">
+    <div class="association" id="alunoParent">
+        
+        <h:outputText value="No aluno" 
+                   rendered="#{historicoHome.instance.aluno == null}"/>
+        
+        <rich:dataTable var="aluno" 
+                   value="#{historicoHome.instance.aluno}" 
+                rendered="#{historicoHome.instance.aluno != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="alunoTable">
+            <h:column>
+                <f:facet name="header">idtAluno</f:facet>
+                #{aluno.idtAluno}
+            </h:column>
+            <h:column>
+                <f:facet name="header">numRa</f:facet>
+                #{aluno.numRa}
+            </h:column>
+            <h:column>
+                <f:facet name="header">nomAluno</f:facet>
+                #{aluno.nomAluno}
+            </h:column>
+            <h:column>
+                <f:facet name="header">numRg</f:facet>
+                #{aluno.numRg}
+            </h:column>
+            <h:column>
+                <f:facet name="header">numCpf</f:facet>
+                #{aluno.numCpf}
+            </h:column>
+            <h:column>
+                <f:facet name="header">datNascimento</f:facet>
+                #{aluno.datNascimento}
+            </h:column>
+            <h:column>
+                <f:facet name="header">action</f:facet>
+                <s:link id="viewaluno" 
+                     value="View" 
+                      view="/Aluno.xhtml">
+                    <f:param name="alunoIdtAluno" 
+                           value="#{aluno.idtAluno}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+        
+    </div>
+    </rich:tab>
+
+    <rich:tab label="historicoItems">
+    <div class="association" id="historicoItemsChildren">
+        
+        <h:outputText value="No historicoItems" 
+                   rendered="#{empty historicoHome.historicoItems}"/>
+        
+        <rich:dataTable value="#{historicoHome.historicoItems}" 
+                       var="historicoItem" 
+                  rendered="#{not empty historicoHome.historicoItems}" 
+                rowClasses="rvgRowOne,rvgRowTwo"
+                        id="historicoItemsTable">
+            <h:column>
+                <f:facet name="header">indHistorico</f:facet>
+                #{historicoItem.id.indHistorico}
+            </h:column>
+            <h:column>
+                <f:facet name="header">indGradeCurricular</f:facet>
+                #{historicoItem.id.indGradeCurricular}
+            </h:column>
+            <h:column>
+                <f:facet name="header">indDisciplina</f:facet>
+                #{historicoItem.id.indDisciplina}
+            </h:column>
+            <h:column>
+                <f:facet name="header">numNota</f:facet>
+                <h:outputText value="#{historicoItem.numNota}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">numFalta</f:facet>
+                <h:outputText value="#{historicoItem.numFalta}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">action</f:facet>
+                <s:link id="selecthistoricoItem" 
+                     value="Select" 
+                      view="/HistoricoItem.xhtml">
+                    <f:param name="historicoItemIndHistorico" 
+                            value="#{historicoItem.id.indHistorico}"/>
+                    <f:param name="historicoItemIndGradeCurricular" 
+                            value="#{historicoItem.id.indGradeCurricular}"/>
+                    <f:param name="historicoItemIndDisciplina" 
+                            value="#{historicoItem.id.indDisciplina}"/>
+                    <f:param name="historicoItemFrom" value="Historico"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+        
+    </div>
+    
+    <div class="actionButtons">
+        <s:button 
+               value="Add historicoItem"
+                view="/HistoricoItemEdit.xhtml">
+            <f:param name="historicoIdtHistorico" 
+                    value="#{historicoHome.instance.idtHistorico}"/>
+            <f:param name="historicoItemFrom" value="Historico"/>
+        </s:button>
+    </div>        
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

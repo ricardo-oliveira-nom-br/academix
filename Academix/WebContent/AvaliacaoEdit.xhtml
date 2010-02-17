@@ -1,0 +1,103 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+                             
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                template="layout/template.xhtml">
+                
+<ui:define name="body">
+	<h:messages globalOnly="true" styleClass="message" id="globalMessages"/>
+	
+	<h:form id="avaliacao">
+		<rich:panel>
+			<f:facet name="header">#{avaliacaoHome.managed ? messages['application.label.edit'] : messages['application.label.add']} #{messages['application.falta.label']}</f:facet>
+			
+			<s:decorate id="turmaDecoration" template="layout/edit.xhtml">
+				<ui:define name="label">#{messages['application.turma.label']}</ui:define>
+				<h:selectOneMenu id="turmaSelect" value="#{avaliacaoHome.instance.turma}">
+					<f:selectItem itemValue="" itemLabel="" />
+					<s:selectItems value="#{avaliacaoHome.listTurma}" var="turma" label="#{turma.codTurma}" />
+					<s:convertEntity />
+					<a:support event="onchange" action="#{avaliacaoHome.loadDisciplinaSelect}" reRender="disciplinaSelect" />
+				</h:selectOneMenu>
+			</s:decorate>
+			
+			<s:decorate id="disciplinaDecoration" template="layout/edit.xhtml">
+				<ui:define name="label">#{messages['application.disciplina.label']}</ui:define>
+				<h:selectOneMenu id="disciplinaSelect" value="#{avaliacaoHome.instance.disciplina}">
+					<f:selectItem itemValue="" itemLabel="" />
+					<s:selectItems value="#{avaliacaoHome.listDisciplina}" var="disc" label="#{disc.nomDisciplina}" />
+					<s:convertEntity />
+					<a:support event="onchange" action="#{avaliacaoHome.loadAvaliacaoItemList}" reRender="avaliacaoItemList" />
+				</h:selectOneMenu>
+			</s:decorate>
+			
+			<s:decorate id="codAvaliacaoDecoration" template="layout/edit.xhtml">
+				<ui:define name="label">#{messages['application.nota.label.codigo']}</ui:define>
+				<h:inputText id="codAvaliacao"
+						value="#{avaliacaoHome.instance.codAvaliacao}"
+						size="8"
+						maxlength="8" />
+			</s:decorate>
+			
+			<div style="clear:both">
+                <span class="required">*</span>
+                #{messages['application.label.requiredfiels']} 
+            </div>
+		
+		</rich:panel>
+	
+		<div class="actionButtons">
+
+            <h:commandButton id="save" 
+                          value="#{messages['application.label.saveCreate']}" 
+                         action="#{avaliacaoHome.preparePersist}"
+                       rendered="#{!avaliacaoHome.managed}"/>  
+                          			  
+            <h:commandButton id="update" 
+                          value="#{messages['application.label.saveUpdate']}" 
+                         action="#{avaliacaoHome.prepareUpdate}"
+                       rendered="#{avaliacaoHome.managed}"/>
+                        			  
+            <h:commandButton id="delete" 
+                          value="#{messages['application.label.delete']}" 
+                         action="#{avaliacaoHome.remove}"
+                       rendered="#{avaliacaoHome.managed}"/>
+                    
+            <s:button id="done" 
+                   value="#{messages['application.label.done']}"
+             propagation="end"
+                    view="/Avaliacao.xhtml"
+                rendered="#{avaliacaoHome.managed}"/>
+                
+            <s:button id="cancel" 
+                   value="#{messages['application.label.cancel']}"
+             propagation="end"
+                    view="/#{empty avaliacaoFrom ? 'AvaliacaoList' : avaliacaoFrom}.xhtml"
+                rendered="#{!avaliacaoHome.managed}"/>
+
+        </div>
+        
+        <rich:dataTable
+				id="avaliacaoItemList"
+				var="avaliacao"
+				value="#{avaliacaoHome.listAvaliacaoItem}"
+				columnsWidth="80%,20%">
+			<h:column>
+				<f:facet name="header">#{messages['application.aluno.label']}</f:facet>
+				#{avaliacao.aluno.nomAluno}
+			</h:column>
+			<h:column>
+				<f:facet name="header">#{messages['application.note.label.nota']}</f:facet>
+				<h:inputText value="#{avaliacao.numNota}" />
+			</h:column>
+		</rich:dataTable>
+	
+	</h:form>
+</ui:define>                
+</ui:composition>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.com/products/seam/pages"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.0.xsd">
+
+	<param name="alunoEnderecoFrom" />
+	<param name="alunoEnderecoIndAluno"
+		value="#{alunoEnderecoHome.alunoEnderecoId.indAluno}" />
+	<param name="alunoEnderecoIndEndereco"
+		value="#{alunoEnderecoHome.alunoEnderecoId.indEndereco}" />
+	<param name="enderecoFrom" />
+	<param name="enderecoIdtCep" value="#{enderecoHome.enderecoIdtCep}" />
+
+	<param name="alunoFrom" />
+	<param name="alunoIdtAluno" value="#{alunoHome.alunoIdtAluno}" />
+
+	<restrict>
+		#{identity.loggedIn and (s:hasRole("admin") or
+		s:hasRole("secretaria"))}
+	</restrict>
+
+</page>

@@ -1,0 +1,55 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                template="layout/template.xhtml">
+                       
+<ui:define name="body">
+    <h:messages globalOnly="true" styleClass="message" id="globalMessages"/>
+    
+    <rich:panel>
+        <f:facet name="header">#{messages['application.turma.label']}</f:facet>
+
+				<s:decorate id="gradeCurricularCurso" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['application.curso.label']}</ui:define>
+            #{turmaHome.instance.gradeCurricular.curso.nomCurso}
+        </s:decorate>
+        
+        <s:decorate id="gradeCurricularAnoSemestre" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['application.gradecurricular.label.ano']}/#{messages['application.gradecurricular.label.semestre']}</ui:define>
+            #{turmaHome.instance.gradeCurricular.numAno}/#{discGradeCurricularHome.instance.gradeCurricular.numSemestre}
+        </s:decorate>
+        
+        <s:decorate id="gradeCurricularPeriodoVigente" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['application.gradecurricular.label.periodovigente']}</ui:define>
+            #{turmaHome.instance.gradeCurricular.numPeriodoVigente}
+        </s:decorate>
+        
+        <s:decorate id="codTurma" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['application.turma.label.codigo']}</ui:define>
+            #{turmaHome.instance.codTurma}
+        </s:decorate>
+
+        <div style="clear:both"/>
+        
+    </rich:panel>
+    
+    <div class="actionButtons">      
+
+        <s:button view="/TurmaEdit.xhtml" 
+                    id="edit" 
+                 value="#{messages['application.label.edit']}"/>
+
+        <s:button view="/#{empty turmaFrom ? 'TurmaList' : turmaFrom}.xhtml"
+                    id="done"
+                 value="#{messages['application.label.done']}"/>
+
+    </div>
+</ui:define>
+
+</ui:composition>
