@@ -71,9 +71,9 @@ public class Campus implements java.io.Serializable {
 		this.endereco = endereco;
 	}
 
-	@Column(name = "des_campus", nullable = false, length = 30)
+	@Column(name = "des_campus", nullable = false, length = 40)
 	@NotNull
-	@Length(max = 30)
+	@Length(max = 40)
 	public String getDesCampus() {
 		return this.desCampus;
 	}
