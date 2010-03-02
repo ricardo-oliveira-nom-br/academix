@@ -20,8 +20,7 @@
 			<s:decorate id="cursoDecoration" template="layout/edit.xhtml">
                 <ui:define name="label">#{messages['application.curso.label']}</ui:define>
                 <h:selectOneMenu value="#{gradeCurricularHome.instance.curso}" required="true">
-					<f:selectItem itemValue="" itemLabel="" />
-					<s:selectItems value="#{cursoList.resultList}" var="curso" label="#{curso.nomCurso}" />
+					<s:selectItems value="#{cursoList.resultList}" var="curso" label="#{curso.nomCurso}" noSelectionLabel="" />
 					<s:convertEntity />
 				</h:selectOneMenu>
             </s:decorate>

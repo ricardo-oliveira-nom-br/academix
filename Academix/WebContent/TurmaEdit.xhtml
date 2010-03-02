@@ -21,8 +21,7 @@
 			<s:decorate id="gradeCurricularDecoration" template="layout/edit.xhtml">
 				<ui:define name="label">#{messages['application.gradecurricular.label']}</ui:define>
 				<h:selectOneMenu id="gradeCurricular" value="#{turmaHome.instance.gradeCurricular}" required="true">
-					<f:selectItem itemValue="" itemLabel="" />
-					<s:selectItems value="#{gradeCurricularList.resultList}" var="gradeCurricular" label="#{gradeCurricular.curso.nomCurso}:#{gradeCurricular.numAno}/#{gradeCurricular.numSemestre}-#{gradeCurricular.numPeriodoVigente}" />
+					<s:selectItems value="#{gradeCurricularList.resultList}" var="gradeCurricular" label="#{gradeCurricular.curso.nomCurso}:#{gradeCurricular.numAno}/#{gradeCurricular.numSemestre}-#{gradeCurricular.numPeriodoVigente}" noSelectionLabel="" />
 					<s:convertEntity />
 				</h:selectOneMenu>
 			</s:decorate>
@@ -49,7 +48,6 @@
             <h:commandButton id="save" 
                           value="#{messages['application.label.saveCreate']}" 
                          action="#{turmaHome.persist}"
-                       disabled="#{!turmaHome.wired}"
                        rendered="#{!turmaHome.managed}"/>  
                           			  
             <h:commandButton id="update" 
