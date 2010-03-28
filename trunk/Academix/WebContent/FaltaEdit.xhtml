@@ -22,8 +22,7 @@
 			<s:decorate id="turmaDecoration" template="layout/edit.xhtml">
 				<ui:define name="label">#{messages['application.turma.label']}</ui:define>
 				<h:selectOneMenu id="turmaSelect" value="#{faltaHome.instance.turma}">
-					<f:selectItem itemValue="" itemLabel="" />
-					<s:selectItems value="#{faltaHome.listTurma}" var="turma" label="#{turma.codTurma}" />
+					<s:selectItems value="#{faltaHome.listTurma}" var="turma" label="#{turma.codTurma}" noSelectionLabel="" />
 					<s:convertEntity />
 					<a:support event="onchange" action="#{faltaHome.loadDisciplinaSelect}" reRender="disciplinaSelect" />
 				</h:selectOneMenu>
@@ -32,8 +31,7 @@
 			<s:decorate id="disciplinaDecoration" template="layout/edit.xhtml">
 				<ui:define name="label">#{messages['application.disciplina.label']}</ui:define>
 				<h:selectOneMenu id="disciplinaSelect" value="#{faltaHome.instance.disciplina}">
-					<f:selectItem itemValue="" itemLabel="" />
-					<s:selectItems value="#{faltaHome.listDisciplina}" var="disc" label="#{disc.nomDisciplina}" />
+					<s:selectItems value="#{faltaHome.listDisciplina}" var="disc" label="#{disc.nomDisciplina}" noSelectionLabel="" />
 					<s:convertEntity />
 					<a:support event="onchange" action="#{faltaHome.loadFaltaItemList}" reRender="faltaItemList" />
 				</h:selectOneMenu>

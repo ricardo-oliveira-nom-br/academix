@@ -18,8 +18,7 @@
 			<s:decorate id="gradeCurricularDecoration" template="layout/edit.xhtml">
 				<ui:define name="label">#{messages['application.gradecurricular.label']}</ui:define>
 				<h:selectOneMenu id="gradeCurricular" value="#{discGradeCurricularHome.instance.gradeCurricular}" required="true">
-					<f:selectItem itemValue="" itemLabel="" />
-					<s:selectItems value="#{gradeCurricularList.resultList}" var="gradeCurricular" label="#{gradeCurricular.curso.nomCurso}:#{gradeCurricular.numAno}/#{gradeCurricular.numSemestre}-#{gradeCurricular.numPeriodoVigente}" />
+					<s:selectItems value="#{gradeCurricularList.resultList}" var="gradeCurricular" label="#{gradeCurricular.curso.nomCurso}:#{gradeCurricular.numAno}/#{gradeCurricular.numSemestre}-#{gradeCurricular.numPeriodoVigente}" noSelectionLabel="" />
 					<s:convertEntity />
 				</h:selectOneMenu>
 			</s:decorate>
@@ -27,8 +26,7 @@
 			<s:decorate id="disciplinaDecoration" template="layout/edit.xhtml">
 				<ui:define name="label">#{messages['application.disciplina.label']}</ui:define>
 				<h:selectOneMenu id="disciplina" value="#{discGradeCurricularHome.instance.disciplina}" required="true">
-					<f:selectItem itemValue="" itemLabel="" />
-					<s:selectItems value="#{disciplinaList.resultList}" var="disciplina" label="#{disciplina.nomDisciplina}" />
+					<s:selectItems value="#{disciplinaList.resultList}" var="disciplina" label="#{disciplina.nomDisciplina}" noSelectionLabel="" />
 					<s:convertEntity />
 				</h:selectOneMenu>
 			</s:decorate>
