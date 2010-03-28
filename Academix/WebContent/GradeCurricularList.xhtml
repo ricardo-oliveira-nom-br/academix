@@ -16,7 +16,25 @@
     <h:form id="gradeCurricularSearch" styleClass="edit">
     
         <rich:simpleTogglePanel label="#{messages['application.label.searchParameters']}" switchType="ajax">
-        
+        	
+        	<s:decorate id="cursoDecoration" template="layout/display.xhtml">
+                <ui:define name="label">#{messages['application.curso.label']}</ui:define>
+                <h:selectOneMenu id="curso" value="#{gradeCurricularList.gradeCurricular.curso}">
+					<s:selectItems value="#{cursoList.resultList}" var="curso" label="#{curso.nomCurso}" noSelectionLabel="" />
+					<s:convertEntity />
+				</h:selectOneMenu>
+            </s:decorate>
+            
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">#{messages['application.disciplina.label.nome']}</ui:define>
+                <h:inputText id="numAno" size="10" value="#{gradeCurricularList.gradeCurricular.numAno}"/>
+            </s:decorate>
+            
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">#{messages['application.disciplina.label.nome']}</ui:define>
+                <h:inputText id="numSemestre" size="4" value="#{gradeCurricularList.gradeCurricular.numSemestre}"/>
+            </s:decorate>
+        	
         
         </rich:simpleTogglePanel>
         

@@ -7,6 +7,12 @@
 		value="#{gradeCurricularList.firstResult}" />
 	<param name="order" value="#{gradeCurricularList.order}" />
 	<param name="from" />
+	<param name="curso"
+		value="#{gradeCurricularList.gradeCurricular.curso}" />
+	<param name="numAno"
+		value="#{gradeCurricularList.gradeCurricular.numAno}" />
+	<param name="numSemestre"
+		value="#{gradeCurricularList.gradeCurricular.numSemestre}" />
 
 	<restrict>
 		#{identity.loggedIn and (s:hasRole("admin") or

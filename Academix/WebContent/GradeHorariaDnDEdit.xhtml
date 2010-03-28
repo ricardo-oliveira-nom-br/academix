@@ -37,8 +37,7 @@
             <s:decorate id="campusDecoration" template="layout/edit.xhtml">
             	<ui:define name="label">#{messages['application.campus.label']}</ui:define>
             	<h:selectOneMenu id="campusSelect" value="#{gradeHorariaHome.campus}">
-            		<f:selectItem itemValue="" itemLabel="" />
-            		<s:selectItems value="#{campusList.resultList}" var="campus" label="#{campus.desCampus}" />
+            		<s:selectItems value="#{campusList.resultList}" var="campus" label="#{campus.desCampus}" noSelectionLabel="" />
             		<s:convertEntity />
             		<a:support event="onchange" action="#{gradeHorariaHome.loadCursoSelect}" reRender="cursoSelect" />
             	</h:selectOneMenu>
@@ -47,8 +46,7 @@
             <s:decorate id="cursoDecoration" template="layout/edit.xhtml">
             	<ui:define name="label">#{messages['application.curso.label']}</ui:define>
             	<h:selectOneMenu id="cursoSelect" value="#{gradeHorariaHome.curso}">
-            		<f:selectItem itemValue="" itemLabel="" />
-            		<s:selectItems value="#{gradeHorariaHome.listCurso}" var="curso" label="#{curso.nomCurso}" />
+            		<s:selectItems value="#{gradeHorariaHome.listCurso}" var="curso" label="#{curso.nomCurso}" noSelectionLabel="" />
             		<s:convertEntity />
             		<a:support event="onchange" action="#{gradeHorariaHome.loadTurmaSelect}" reRender="turmaSelect" />
             	</h:selectOneMenu>
@@ -57,8 +55,7 @@
             <s:decorate id="turmaDecoration" template="layout/edit.xhtml">
             	<ui:define name="label">#{messages['application.turma.label']}</ui:define>
             	<h:selectOneMenu id="turmaSelect" value="#{gradeHorariaHome.turma}">
-            		<f:selectItem itemValue="" itemLabel="" />
-            		<s:selectItems value="#{gradeHorariaHome.listTurma}" var="turma" label="#{turma.codTurma}" />
+            		<s:selectItems value="#{gradeHorariaHome.listTurma}" var="turma" label="#{turma.codTurma}" noSelectionLabel="" />
             		<s:convertEntity />
             		<a:support event="onchange" action="#{gradeHorariaHome.loadGradeHoraria}" reRender="groupPanel" />
             	</h:selectOneMenu>
