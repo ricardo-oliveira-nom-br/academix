@@ -10,6 +10,8 @@ import java.util.Arrays;
 @Name("localizacaoList")
 public class LocalizacaoList extends EntityQuery<Localizacao> {
 
+	private static final long serialVersionUID = 5296178240300834673L;
+
 	private static final String EJBQL = "select localizacao from Localizacao localizacao";
 
 	private static final String[] RESTRICTIONS = { "lower(localizacao.desLocalizacao) like lower(concat(#{localizacaoList.localizacao.desLocalizacao},'%'))", };
