@@ -48,8 +48,7 @@
 				<s:decorate id="campusDecoration" template="layout/edit.xhtml">
 					<ui:define name="label">#{messages['application.campus.label']}</ui:define>
 					<h:selectOneMenu id="campusSelect" value="#{matriculaHome.campus}">
-						<f:selectItem itemValue="" itemLabel="" />
-						<s:selectItems value="#{matriculaHome.listCampus}" var="campus" label="#{campus.desCampus}" />
+						<s:selectItems value="#{matriculaHome.listCampus}" var="campus" label="#{campus.desCampus}" noSelectionLabel="" />
 						<s:convertEntity />
 						<a:support event="onchange" action="#{matriculaHome.loadCursoSelect}" reRender="cursoSelect" />
 					</h:selectOneMenu>
@@ -58,8 +57,7 @@
 				<s:decorate id="cursoDecoration" template="layout/edit.xhtml">
 					<ui:define name="label">#{messages['application.curso.label']}</ui:define>
 					<h:selectOneMenu id="cursoSelect" value="#{matriculaHome.curso}">
-						<f:selectItem itemValue="" itemLabel="" />
-						<s:selectItems value="#{matriculaHome.listCurso}" var="curso" label="#{curso.nomCurso}" />
+						<s:selectItems value="#{matriculaHome.listCurso}" var="curso" label="#{curso.nomCurso}" noSelectionLabel="" />
 						<s:convertEntity />
 						<a:support event="onchange" action="#{matriculaHome.loadTurmaSelect}" reRender="turmaSelect" />
 					</h:selectOneMenu>
@@ -69,7 +67,7 @@
 					<ui:define name="label">#{messages['application.turma.label']}</ui:define>
 					<h:selectOneMenu id="turmaSelect" value="#{matriculaHome.turma}">
 						<f:selectItem itemValue="" itemLabel="" />
-						<s:selectItems value="#{matriculaHome.listTurma}" var="turma" label="#{turma.codTurma}" />
+						<s:selectItems value="#{matriculaHome.listTurma}" var="turma" label="#{turma.codTurma}" noSelectionLabel="" />
 						<s:convertEntity />
 					</h:selectOneMenu>
 				</s:decorate>

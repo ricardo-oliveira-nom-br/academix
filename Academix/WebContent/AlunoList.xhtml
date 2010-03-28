@@ -19,22 +19,22 @@
         
             <s:decorate template="layout/display.xhtml">
                 <ui:define name="label">#{messages['application.aluno.label.ra']}</ui:define>
-                <h:inputText id="numRa" value="#{alunoList.aluno.numRa}"/>
+                <h:inputText id="numRa" value="#{alunoList.aluno.numRa}" size="10" maxlength="10" />
             </s:decorate>
 
             <s:decorate template="layout/display.xhtml">
                 <ui:define name="label">#{messages['application.aluno.label.nome']}</ui:define>
-                <h:inputText id="nomAluno" value="#{alunoList.aluno.nomAluno}"/>
+                <h:inputText id="nomAluno" value="#{alunoList.aluno.nomAluno}" size="50" maxlength="50" />
             </s:decorate>
 
             <s:decorate template="layout/display.xhtml">
                 <ui:define name="label">#{messages['application.aluno.label.rg']}</ui:define>
-                <h:inputText id="numRg" value="#{alunoList.aluno.numRg}"/>
+                <h:inputText id="numRg" value="#{alunoList.aluno.numRg}" size="9" maxlength="9" />
             </s:decorate>
 
             <s:decorate template="layout/display.xhtml">
                 <ui:define name="label">#{messages['application.aluno.label.cpf']}</ui:define>
-                <h:inputText id="numCpf" value="#{alunoList.aluno.numCpf}"/>
+                <h:inputText id="numCpf" value="#{alunoList.aluno.numCpf}" size="11" maxlength="11" />
             </s:decorate>
 
         
