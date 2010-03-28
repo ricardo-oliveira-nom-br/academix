@@ -11,6 +11,7 @@ import br.inf.prismasoft.academix.entity.*;
 @Name("avaliacaoHome")
 public class AvaliacaoHome extends EntityHome<Avaliacao> {
 
+	private static final long serialVersionUID = -1491035614732297519L;
 	@In(create = true)
 	DisciplinaHome disciplinaHome;
 	@In(create = true)

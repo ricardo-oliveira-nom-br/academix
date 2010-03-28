@@ -10,6 +10,8 @@ import java.util.Arrays;
 @Name("alunoList")
 public class AlunoList extends EntityQuery<Aluno> {
 
+	private static final long serialVersionUID = -7790005558814622435L;
+
 	private static final String EJBQL = "select aluno from Aluno aluno";
 
 	private static final String[] RESTRICTIONS = {
