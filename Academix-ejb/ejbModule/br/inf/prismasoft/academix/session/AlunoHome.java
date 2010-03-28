@@ -10,6 +10,8 @@ import br.inf.prismasoft.academix.entity.*;
 @Name("alunoHome")
 public class AlunoHome extends EntityHome<Aluno> {
 
+	private static final long serialVersionUID = 3162093249845875141L;
+
 	public void setAlunoIdtAluno(Integer id) {
 		setId(id);
 	}
