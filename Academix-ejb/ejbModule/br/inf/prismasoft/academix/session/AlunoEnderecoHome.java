@@ -9,6 +9,7 @@ import br.inf.prismasoft.academix.entity.*;
 @Name("alunoEnderecoHome")
 public class AlunoEnderecoHome extends EntityHome<AlunoEndereco> {
 
+	private static final long serialVersionUID = -8416801633010366822L;
 	@In(create = true)
 	EnderecoHome enderecoHome;
 	@In(create = true)
