@@ -1,0 +1,36 @@
+<div class="row">
+	<div class="col-md-12">
+		<ol class="breadcrumb">
+			<li><a href="#">Principal</a></li>
+			<li><a href="#">Cadastros</a></li>
+			<li>Endere&ccedil;o</li>
+		</ol>
+		<h1>Endere&ccedil;os</h1>
+		<table class="datatable table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th>Logradouro</th>
+					<th>CEP</th>
+					<th>Bairro</th>
+					<th>Estado</th>
+					<th>UF</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="endereco in enderecos">
+					<td>{{endereco.logradouro}}</td>
+					<td>{{endereco.cep}}</td>
+					<td>{{endereco.bairro}}</td>
+					<td>{{endereco.cidade}}</td>
+					<td>{{endereco.uf}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<script>
+  // Initialize Datatables
+  $(document).ready( function() {
+    $('.datatable').dataTable();
+  });
+</script>
