@@ -32,7 +32,7 @@ public class Endereco implements Serializable {
 	private String bairro;
 
 	@Column(length = 40)
-	private String estado;
+	private String cidade;
 
 	@Enumerated(EnumType.STRING)
 	private UF uf;
@@ -102,12 +102,12 @@ public class Endereco implements Serializable {
 		this.bairro = bairro;
 	}
 
-	public String getEstado() {
-		return estado;
+	public String getCidade() {
+		return cidade;
 	}
 
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
 	}
 
 	public UF getUf() {
@@ -130,8 +130,8 @@ public class Endereco implements Serializable {
 			result += ", cep: " + cep;
 		if (bairro != null && !bairro.trim().isEmpty())
 			result += ", bairro: " + bairro;
-		if (estado != null && !estado.trim().isEmpty())
-			result += ", estado: " + estado;
+		if (cidade != null && !cidade.trim().isEmpty())
+			result += ", estado: " + cidade;
 		if (uf != null)
 			result += ", uf: " + uf;
 		return result;
