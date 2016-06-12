@@ -1,4 +1,6 @@
-angular.module('academix', []).controller('CampusListController', function CampusListController($scope) {
+angular.module('academix').controller('CampusListController', 
+		function ($scope) {
+	
 	$scope.campus = [
 	    {
 	    	nome: "Ipiranga",

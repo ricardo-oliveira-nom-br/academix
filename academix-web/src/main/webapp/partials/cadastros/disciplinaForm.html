@@ -1,0 +1,52 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<ol class="breadcrumb">
+				<li><a href="#">Principal</a></li>
+				<li><a href="#">Cadastros</a></li>
+				<li>Disciplina</li>
+				<li>Novo</li>
+			</ol>
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Nome</label>
+					<div class="col-sm-6 form-inline">
+						<input class="col-sm-4 form-control" size="90">
+						<label class="col-sm-1 control-label">Sigla</label>
+						<input class="col-sm-4 form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Descri&ccedil;&atilde;o</label>
+					<div class="col-sm-6">
+						<input class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Ementa</label>
+					<div class="col-sm-6">
+						<textarea class="form-control" rows="5">
+						</textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Bibliografia</label>
+					<div class="col-sm-6">
+						<textarea class="form-control" rows="5">
+						</textarea>
+					</div>
+				</div>
+				<div class="col-sm-4  col-sm-offset-2">
+					<button class="btn btn-primary" type="submit">Adicionar</button>
+					<a class="btn  btn-default" ng-href="#/cadastros/disciplina">Cancelar</a>
+				</div>
+			</form>			
+		</div>
+	</div>
+</div>
+<script>
+  // Initialize Datatables
+  $(document).ready( function() {
+    $('.datatable').dataTable();
+  });
+</script>

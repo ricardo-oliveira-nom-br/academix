@@ -4,18 +4,24 @@
 			<ol class="breadcrumb">
 				<li><a href="#">Principal</a></li>
 				<li><a href="#">Cadastros</a></li>
-				<li>Curso</li>
+				<li>Grade Curricular</li>
 			</ol>
-			<h1>Campus</h1>
+			<h1>Grade Curricular</h1>
 			<table class="datatable table table-striped table-bordered">
 				<thead>
 					<tr>
-						<th>Nome</th>
+						<th>Campus</th>
+						<th>Curso</th>
+						<th>Ano</th>
+						<th>Semestre</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="curso in cursos">
-						<td>{{curso.nome}}</td>
+					<tr ng-repeat="grade in grades">
+						<td>{{grade.campus.nome}}</td>
+						<td>{{grade.curso.nome}}</td>
+						<td>{{grade.ano}}</td>
+						<td>{{grade.semestre}}</td>
 					</tr>
 				</tbody>
 			</table>

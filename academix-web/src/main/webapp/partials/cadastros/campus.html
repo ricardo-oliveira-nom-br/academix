@@ -1,33 +1,33 @@
-
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-12">
-				<ol class="breadcrumb">
-					<li><a href="#">Principal</a></li>
-					<li><a href="#">Cadastros</a></li>
-					<li>Campus</li>
-				</ol>
-				<h1>Campus</h1>
-				<table class="datatable table table-striped table-bordered">
-					<thead>
-						<tr>
-							<th>Nome</th>
-							<th>Endere&ccedil;o</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="campi in campus">
-							<td>{{campi.nome}}</td>
-							<td>{{campi.endereco.logradouro}}, {{campi.numero}}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<ol class="breadcrumb">
+				<li><a href="#">Principal</a></li>
+				<li><a href="#">Cadastros</a></li>
+				<li>Campus</li>
+			</ol>
+			<h1>Campus</h1>
+			<table class="datatable table table-striped table-bordered">
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th>Endere&ccedil;o</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="campi in campus">
+						<td>{{campi.nome}}</td>
+						<td>{{campi.endereco.logradouro}}, {{campi.numero}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<a class="btn btn-primary" ng-href="#/cadastros/campus/create" role="button" >Adicionar Campus</a>
 		</div>
 	</div>
-	<script>
-      // Initialize Datatables
-      $(document).ready( function() {
-        $('.datatable').dataTable();
-      });
-    </script>
+</div>
+<script>
+   // Initialize Datatables
+   $(document).ready( function() {
+     $('.datatable').dataTable();
+   });
+ </script>

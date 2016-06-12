@@ -4,9 +4,9 @@
 			<ol class="breadcrumb">
 				<li><a href="#">Principal</a></li>
 				<li><a href="#">Cadastros</a></li>
-				<li>Curso</li>
+				<li>Disciplina</li>
 			</ol>
-			<h1>Campus</h1>
+			<h1>Disciplina</h1>
 			<table class="datatable table table-striped table-bordered">
 				<thead>
 					<tr>
@@ -14,11 +14,12 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="curso in cursos">
-						<td>{{curso.nome}}</td>
+					<tr ng-repeat="disciplina in disciplinas">
+						<td>{{disciplina.nome}}</td>
 					</tr>
 				</tbody>
 			</table>
+			<a class="btn btn-primary" ng-href="#/cadastros/disciplina/create" role="button" >Adicionar Disciplina</a>
 		</div>
 	</div>
 </div>

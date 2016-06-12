@@ -1,4 +1,6 @@
-angular.module('academix', []).controller('CursoListController', function CursoListController($scope) {
+angular.module('academix').controller('CursoListController', 
+		function ($scope) {
+	
 	$scope.cursos = [
 	    {
 	    	nome: "Ciência da computação",
