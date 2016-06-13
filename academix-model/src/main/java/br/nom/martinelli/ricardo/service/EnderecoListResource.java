@@ -14,7 +14,7 @@ import br.nom.martinelli.ricardo.model.Endereco;
 
 @Path("/")
 @Stateless
-public class EnderecoListService {
+public class EnderecoListResource {
 	
 	@PersistenceContext
 	private EntityManager em;
