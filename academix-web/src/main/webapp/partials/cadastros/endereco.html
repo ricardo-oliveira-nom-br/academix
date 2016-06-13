@@ -6,7 +6,7 @@
 			<li>Endere&ccedil;o</li>
 		</ol>
 		<h1>Endere&ccedil;os</h1>
-		<table class="datatable table table-striped table-bordered">
+		<table class="datatable table table-striped table-bordered table-hover">
 			<thead>
 				<tr>
 					<th>Logradouro</th>
@@ -14,15 +14,17 @@
 					<th>Bairro</th>
 					<th>Estado</th>
 					<th>UF</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="endereco in enderecos">
-					<td>{{endereco.logradouro}}</td>
-					<td>{{endereco.cep}}</td>
-					<td>{{endereco.bairro}}</td>
-					<td>{{endereco.cidade}}</td>
-					<td>{{endereco.uf}}</td>
+					<td><a ng-href="#/cadastros/endereco/{{endereco.id}}">{{endereco.logradouro}}</a></td>
+					<td><a ng-href="#/cadastros/endereco/{{endereco.id}}">{{endereco.cep}}</a></td>
+					<td><a ng-href="#/cadastros/endereco/{{endereco.id}}">{{endereco.bairro}}</a></td>
+					<td><a ng-href="#/cadastros/endereco/{{endereco.id}}">{{endereco.cidade}}</a></td>
+					<td><a ng-href="#/cadastros/endereco/{{endereco.id}}">{{endereco.uf}}</a></td>
+					<td width="10"><a class="btn btn-default" ng-href=""><span class="icon glyphicon glyphicon-trash"></span></a></td>
 				</tr>
 			</tbody>
 		</table>

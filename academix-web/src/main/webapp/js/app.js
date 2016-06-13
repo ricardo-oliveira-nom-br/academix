@@ -16,7 +16,11 @@ angular.module('academix', ['ngRoute'])
 		})
 		.when('/cadastros/endereco/create', {
 			templateUrl: 'partials/cadastros/enderecoForm.html',
-			controller: 'EnderecoListController',
+			controller: 'EnderecoController',
+		})
+		.when('/cadastros/endereco/:id', {
+			templateUrl: 'partials/cadastros/enderecoForm.html',
+			controller: 'EnderecoController',
 		})
 		.when('/cadastros/campus', {
 			templateUrl: 'partials/cadastros/campus.html',
@@ -49,18 +53,18 @@ angular.module('academix', ['ngRoute'])
 		.when('/cadastros/turma', {
 			templateUrl: 'partials/cadastros/turma.html',
 			controller: 'TurmaListController',
+		})
+		.when('/cadastros/aluno', {
+			templateUrl: 'partials/cadastros/aluno.html',
+			controller: 'AlunoListController',
+		})
+		.when('/cadastros/professor', {
+			templateUrl: 'partials/cadastros/professor.html',
+			controller: 'ProfessorListController',
+		})
+		.when('/cadastros/localizacao', {
+			templateUrl: 'partials/cadastros/localizacao.html',
+			controller: 'LocalizacaoListController',
 		});
-//		$routeProvider.when('/cadastros/aluno', {
-//			templateUrl: 'partials/cadastros/aluno.html',
-//			controller: 'AlunoListController',
-//		});
-//		$routeProvider.when('/cadastros/professor', {
-//			templateUrl: 'partials/cadastros/professor.html',
-//			controller: 'ProfessorListController',
-//		});
-//		$routeProvider.when('/cadastros/localizacao', {
-//			templateUrl: 'partials/cadastros/localizacao.html',
-//			controller: 'LocalizacaoListController',
-//		});
 		
 });

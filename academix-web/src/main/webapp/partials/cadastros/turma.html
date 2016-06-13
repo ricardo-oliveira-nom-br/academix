@@ -4,21 +4,30 @@
 			<ol class="breadcrumb">
 				<li><a href="#">Principal</a></li>
 				<li><a href="#">Cadastros</a></li>
-				<li>Curso</li>
+				<li>Turma</li>
 			</ol>
-			<h1>Campus</h1>
+			<h1>Turma</h1>
 			<table class="datatable table table-striped table-bordered">
 				<thead>
 					<tr>
-						<th>Nome</th>
+						<th>Campus</th>
+						<th>curso</th>
+						<th>Ano</th>
+						<th>Semestre</th>
+						<th>Sigla</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="curso in cursos">
-						<td>{{curso.nome}}</td>
+					<tr ng-repeat="turma in turmas">
+						<td>{{turma.gradeCurricular.campus.nome}}</td>
+						<td>{{turma.gradeCurricular.curso.nome}}</td>
+						<td>{{turma.gradeCurricular.ano}}</td>
+						<td>{{turma.gradeCurricular.semestre}}</td>
+						<td>{{turma.sigla}}</td>
 					</tr>
 				</tbody>
 			</table>
+			<a class="btn btn-primary" ng-href="#/cadastros/turma/create" role="button" >Adicionar Turma</a>
 		</div>
 	</div>
 </div>

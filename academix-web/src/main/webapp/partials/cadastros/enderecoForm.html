@@ -4,69 +4,71 @@
 			<li><a href="#">Principal</a></li>
 			<li><a href="#">Cadastros</a></li>
 			<li>Endere&ccedil;o</li>
-			<li>Novo</li>
+			<li ng-hide="endereco.id">Novo</li>
+			<li ng-show="endereco.id">Editar</li>
 		</ol>
-		<form class="form-horizontal">
+		<form class="form-horizontal" ng-submit="salvaEndereco()">
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="campoCep">CEP</label>
 				<div class="col-sm-1">
-					<input class="form-control" size="10" id="campoCep" placeholder="CEP">
+					<input class="form-control" size="10" id="campoCep" ng-model="endereco.cep" placeholder="CEP">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="campoLogradouro">Logradouro</label>
 				<div class="col-sm-6">
-					<input class="form-control" id="campoLogradouro" placeholder="Logradouro">
+					<input class="form-control" id="campoLogradouro" ng-model="endereco.logradouro" placeholder="Logradouro">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="exampleInputPassword1">Bairro</label>
 				<div class="col-sm-4">
-					<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+					<input type="text" class="form-control" id="exampleInputPassword1" ng-model="endereco.bairro" placeholder="Bairro">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="exampleInputPassword1">Cidade</label>
 				<div class="col-sm-4">
-					<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+					<input type="password" class="form-control" id="exampleInputPassword1" ng-model="endereco.cidade" placeholder="Cidade">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="exampleInputPassword1">UF</label>
 				<div class="col-sm-4">
-					<select class="form-control">
-						<option>AC</option>
-						<option>AL</option>
-						<option>AM</option>
-						<option>AP</option>
-						<option>BA</option>
-						<option>CE</option>
-						<option>DF</option>
-						<option>ES</option>
-						<option>GO</option>
-						<option>MA</option>
-						<option>MG</option>
-						<option>MS</option>
-						<option>MT</option>
-						<option>PA</option>
-						<option>PB</option>
-						<option>PE</option>
-						<option>PI</option>
-						<option>PR</option>
-						<option>RJ</option>
-						<option>RN</option>
-						<option>RO</option>
-						<option>RR</option>
-						<option>RS</option>
-						<option>SC</option>
-						<option>SE</option>
-						<option>SP</option>
-						<option>TO</option>
+					<select ng-model="endereco.uf" class="form-control">
+						<option value="AC">AC</option>
+						<option value="AL">AL</option>
+						<option value="AM">AM</option>
+						<option value="AP">AP</option>
+						<option value="BA">BA</option>
+						<option value="CE">CE</option>
+						<option value="DF">DF</option>
+						<option value="ES">ES</option>
+						<option value="GO">GO</option>
+						<option value="MA">MA</option>
+						<option value="MG">MG</option>
+						<option value="MS">MS</option>
+						<option value="MT">MT</option>
+						<option value="PA">PA</option>
+						<option value="PB">PB</option>
+						<option value="PE">PE</option>
+						<option value="PI">PI</option>
+						<option value="PR">PR</option>
+						<option value="RJ">RJ</option>
+						<option value="RN">RN</option>
+						<option value="RO">RO</option>
+						<option value="RR">RR</option>
+						<option value="RS">RS</option>
+						<option value="SC">SC</option>
+						<option value="SE">SE</option>
+						<option value="SP">SP</option>
+						<option value="TO">TO</option>
 					</select>
 				</div>
 			</div>
 			<div class="col-sm-4  col-sm-offset-2">
-				<button class="btn btn-primary" type="submit">Adicionar</button>
+				<button class="btn btn-primary" ng-hide="endereco.id" type="submit">Adicionar</button>
+				<button class="btn btn-primary" ng-show="endereco.id" type="submit">Alterar</button>
 				<a class="btn  btn-default" ng-href="#/cadastros/endereco">Cancelar</a>
 			</div>
 		</form>
