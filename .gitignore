@@ -1,5 +1,7 @@
 .classpath
 .project
+.tern-project
 .settings/
 academix-web/target/
 target/
+bin/
