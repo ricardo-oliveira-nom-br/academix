@@ -11,6 +11,10 @@ import javax.persistence.Version;
 @Entity
 public class Nota implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3738687740447698494L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)

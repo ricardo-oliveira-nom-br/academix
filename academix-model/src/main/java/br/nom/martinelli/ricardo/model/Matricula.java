@@ -11,6 +11,10 @@ import javax.persistence.Version;
 @Entity
 public class Matricula implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8139950108530434088L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)

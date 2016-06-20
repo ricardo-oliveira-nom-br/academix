@@ -11,6 +11,10 @@ import javax.persistence.Version;
 @Entity
 public class Aluno implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1158259599404860517L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)

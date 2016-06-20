@@ -4,36 +4,35 @@ angular.module('academix')
 	function ($scope) {
 	
 	$scope.enderecos = [
-	    {
-	    	id: 1,
-	    	logradouro: "Rua Vergueiro",
-	    	cep: "04273100",
-	    	bairro: "Vila Firmiano Pinto",
-	    	cidade: "São Paulo",
-	    	uf: "SP"
-	    },
-	    {
-	    	id: 2,
-	    	logradouro: "Rua Marquês de Lages",
-	    	cep: "04162001",
-	    	bairro: "Vila das Mercês",
-	    	cidade: "São Paulo",
-	    	uf: "SP"
-	    }
+//	    {
+//	    	id: 1,
+//	    	logradouro: "Rua Vergueiro",
+//	    	cep: "04273100",
+//	    	bairro: "Vila Firmiano Pinto",
+//	    	cidade: "São Paulo",
+//	    	uf: "SP"
+//	    },
+//	    {
+//	    	id: 2,
+//	    	logradouro: "Rua Marquês de Lages",
+//	    	cep: "04162001",
+//	    	bairro: "Vila das Mercês",
+//	    	cidade: "São Paulo",
+//	    	uf: "SP"
+//	    }
 	];
 	
 	function obterEnderecos() {
 		$.ajax({
 			url: "http://localhost:8080/academix-model/rest/alunos",
-			dataType: "json"
-		}).done(function(list){
+			dataType: "jsonp"
+		}).done(function(list) {
 			$scope.enderecos = list;
-			alert("Success! " + msg);
-		}).fail(function(jqHXR, textStatus){
-			alert("Oh, no! " + textStatus);
+		}).fail(function(jqHXR, textStatus, error){
+			alert("Oh, no! " + error);
 		});
 	}
-	//obterEnderecos();
+	obterEnderecos();
 	
 })
 

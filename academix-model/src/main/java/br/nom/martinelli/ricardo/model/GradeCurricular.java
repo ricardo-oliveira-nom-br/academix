@@ -11,6 +11,10 @@ import javax.persistence.Version;
 @Entity
 public class GradeCurricular implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2272575727685266302L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)

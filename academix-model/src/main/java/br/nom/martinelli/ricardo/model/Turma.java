@@ -11,6 +11,10 @@ import javax.persistence.Version;
 @Entity
 public class Turma implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1278279496723572779L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)

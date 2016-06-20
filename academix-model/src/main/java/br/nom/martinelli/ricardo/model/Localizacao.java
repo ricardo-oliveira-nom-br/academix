@@ -11,6 +11,10 @@ import javax.persistence.Version;
 @Entity
 public class Localizacao implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8131750946828053542L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)

@@ -14,6 +14,10 @@ import javax.persistence.EnumType;
 @Entity
 public class Endereco implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8394643303041865105L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)

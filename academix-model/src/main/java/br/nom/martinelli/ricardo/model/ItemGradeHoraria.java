@@ -11,6 +11,10 @@ import javax.persistence.Version;
 @Entity
 public class ItemGradeHoraria implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6444683402465375592L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)

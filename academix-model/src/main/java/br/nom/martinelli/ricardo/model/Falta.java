@@ -11,6 +11,10 @@ import javax.persistence.Version;
 @Entity
 public class Falta implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6774954608130396926L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)

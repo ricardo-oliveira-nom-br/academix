@@ -13,6 +13,10 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Campus implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2951632826636329977L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)

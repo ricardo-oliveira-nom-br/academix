@@ -11,6 +11,10 @@ import javax.persistence.Version;
 @Entity
 public class Professor implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7037693550595289112L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)
