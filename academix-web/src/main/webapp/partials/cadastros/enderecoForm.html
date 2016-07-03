@@ -11,31 +11,31 @@
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="campoCep">CEP</label>
 				<div class="col-sm-1">
-					<input class="form-control" size="10" id="campoCep" ng-model="endereco.cep" placeholder="CEP">
+					<input class="form-control" size="10" name="campoCep" ng-model="endereco.cep" placeholder="CEP" required>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="campoLogradouro">Logradouro</label>
 				<div class="col-sm-6">
-					<input class="form-control" id="campoLogradouro" ng-model="endereco.logradouro" placeholder="Logradouro">
+					<input class="form-control" name="campoLogradouro" ng-model="endereco.logradouro" placeholder="Logradouro" required>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="campoBairro">Bairro</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="campoBairro" ng-model="endereco.bairro" placeholder="Bairro">
+					<input type="text" class="form-control" id="campoBairro" ng-model="endereco.bairro" placeholder="Bairro" required>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="campoCidade">Cidade</label>
 				<div class="col-sm-4">
-					<input type="test" class="form-control" id="campoCidade" ng-model="endereco.cidade" placeholder="Cidade">
+					<input type="test" class="form-control" id="campoCidade" ng-model="endereco.cidade" placeholder="Cidade" required>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="campoUf">UF</label>
 				<div class="col-sm-4">
-					<select ng-model="endereco.uf" id="campoUf" class="form-control">
+					<select ng-model="endereco.uf" id="campoUf" class="form-control" required>
 						<option value="AC">AC</option>
 						<option value="AL">AL</option>
 						<option value="AM">AM</option>
@@ -74,3 +74,32 @@
 		</form>
 	</div>
 </div>
+<script>
+	$('form').validate({
+		rules: {
+			campoCep: {
+				maxLength: 8,
+				required: true
+			},
+			campoLogradouro: {
+				maxLength: 40,
+				required: true
+			}
+		},
+		highlight: function(element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+        unhighlight: function(element) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+        errorElement: 'span',
+        errorClass: 'help-block',
+        errorPlacement: function(error, element) {
+            if(element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+	});
+</script>

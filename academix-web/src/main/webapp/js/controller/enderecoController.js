@@ -3,6 +3,15 @@ angular.module('academix')
 .controller('EnderecoListController', function($scope, Endereco) {
 
 	$scope.enderecos = [];
+	
+	$scope.$on('MSG', function(msg) {
+		$scope.mensagem = msg;
+	})
+	
+	$scope.$on('MSG_ERRO', function(erro) {
+		$scope.erro = erro;
+	});
+	
 
 	function obterEnderecos() {
 //		$scope.enderecos = Endereco.jsonpquery();
@@ -11,6 +20,7 @@ angular.module('academix')
 				$scope.enderecos = enderecos;
 			},
 			function(erro) {
+				$scope.erro = {texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + erro};
 				console.log(erro);
 			}
 		);
@@ -20,6 +30,7 @@ angular.module('academix')
 		Endereco.delete({id: endereco.id},
 			obterEnderecos,
 			function(erro) {
+				$scope.erro = {texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + erro};
 				console.log(erro);
 			}
 		);
@@ -30,7 +41,7 @@ angular.module('academix')
 })
 
 .controller('EnderecoController',
-		function($scope, $routeParams, $window, Endereco) {
+		function($scope, $rootScope, $routeParams, $window, Endereco) {
 	
 	if($routeParams.enderecoId) {
 		Endereco.get({id: $routeParams.enderecoId},
@@ -38,6 +49,7 @@ angular.module('academix')
 					$scope.endereco = endereco;
 				},
 				function(erro) {
+					$scope.erro = {texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + erro};
 					console.log(erro);
 				}
 			);
@@ -49,8 +61,11 @@ angular.module('academix')
 		if($scope.endereco.id) {
 			$scope.endereco.$update()
 			.then(function() {
+				$rootScope.$broadcast('MSG',
+					{texto: "Endereço adicionado com sucesso!"});
 				console.log("Sucesso!");
 			}, function(error) {
+				$scope.erro = {texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + erro};
 				console.log(error);
 			});
 		} else {
@@ -58,6 +73,8 @@ angular.module('academix')
 			.then(function() {
 				console.log("Sucesso!");
 			}, function(error) {
+				$rootScope.$broadcast('MSG_ERRO',
+					{texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + error});
 				console.log(error);
 			});
 		}

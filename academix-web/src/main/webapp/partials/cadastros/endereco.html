@@ -5,6 +5,20 @@
 			<li><a href="#">Cadastros</a></li>
 			<li>Endere&ccedil;o</li>
 		</ol>
+		<div class="alert alert-danger alert-dismissable" ng-show="erro.texto">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+				<span class="pficon pficon-close"></span>
+			</button>
+			<span class="pficon pficon-error-circle-o"></span>
+			{{erro.texto}}
+		</div>
+		<div class="alert alert-success alert-dismissable" ng-show="mensagem.texto">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+				<span class="pficon pficon-close"></span>
+			</button>
+			<span class="pficon pficon-ok"></span>
+			{{mensagem.texto}}
+		</div>
 		<h1>Endere&ccedil;os</h1>
 		<table class="datatable table table-striped table-bordered table-hover">
 			<thead>
