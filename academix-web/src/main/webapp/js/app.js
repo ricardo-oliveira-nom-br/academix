@@ -1,4 +1,4 @@
-angular.module('academix', ['ngRoute'])
+angular.module('academix', ['ngRoute','academix.services'])
 	.config(function($routeProvider) {
 		
 		// Secretaria
@@ -18,7 +18,7 @@ angular.module('academix', ['ngRoute'])
 			templateUrl: 'partials/cadastros/enderecoForm.html',
 			controller: 'EnderecoController',
 		})
-		.when('/cadastros/endereco/:id', {
+		.when('/cadastros/endereco/:enderecoId', {
 			templateUrl: 'partials/cadastros/enderecoForm.html',
 			controller: 'EnderecoController',
 		})

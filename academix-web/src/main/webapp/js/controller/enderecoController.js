@@ -1,70 +1,68 @@
 angular.module('academix')
 
-.controller('EnderecoListController',
-	function ($scope) {
-	
-	$scope.enderecos = [
-//	    {
-//	    	id: 1,
-//	    	logradouro: "Rua Vergueiro",
-//	    	cep: "04273100",
-//	    	bairro: "Vila Firmiano Pinto",
-//	    	cidade: "São Paulo",
-//	    	uf: "SP"
-//	    },
-//	    {
-//	    	id: 2,
-//	    	logradouro: "Rua Marquês de Lages",
-//	    	cep: "04162001",
-//	    	bairro: "Vila das Mercês",
-//	    	cidade: "São Paulo",
-//	    	uf: "SP"
-//	    }
-	];
-	
+.controller('EnderecoListController', function($scope, Endereco) {
+
+	$scope.enderecos = [];
+
 	function obterEnderecos() {
-		$.ajax({
-			url: "http://localhost:8080/academix-model/rest/alunos",
-			dataType: "jsonp"
-		}).done(function(list) {
-			$scope.enderecos = list;
-		}).fail(function(jqHXR, textStatus, error){
-			alert("Oh, no! " + error);
-		});
+//		$scope.enderecos = Endereco.jsonpquery();
+		Endereco.query(
+			function(enderecos) {
+				$scope.enderecos = enderecos;
+			},
+			function(erro) {
+				console.log(erro);
+			}
+		);
 	}
-	obterEnderecos();
+
+	$scope.removeEndereco = function(endereco) {
+		Endereco.delete({id: endereco.id},
+			obterEnderecos,
+			function(erro) {
+				console.log(erro);
+			}
+		);
+	}
 	
+	obterEnderecos();
+
 })
 
 .controller('EnderecoController',
-	function ($scope, $routeParams) {
+		function($scope, $routeParams, $window, Endereco) {
 	
-	if($routeParams.id) {
-		switch($routeParams.id) {
-		case "1":
-			$scope.endereco = {
-		    	id: 1,
-		    	logradouro: "Rua Vergueiro",
-		    	cep: "04273100",
-		    	bairro: "Vila Firmiano Pinto",
-		    	cidade: "São Paulo",
-		    	uf: "SP"
-		    };
-			break;
-		case "2":
-			$scope.endereco = {
-		    	id: 2,
-		    	logradouro: "Rua Marquês de Lages",
-		    	cep: "04162001",
-		    	bairro: "Vila das Mercês",
-		    	cidade: "São Paulo",
-		    	uf: "SP"
-		    };
-			break;
-		}
+	if($routeParams.enderecoId) {
+		Endereco.get({id: $routeParams.enderecoId},
+				function(endereco) {
+					$scope.endereco = endereco;
+				},
+				function(erro) {
+					console.log(erro);
+				}
+			);
+	} else {
+		$scope.endereco = new Endereco();
 	}
 	
 	$scope.salvaEndereco = function() {
-		
+		if($scope.endereco.id) {
+			$scope.endereco.$update()
+			.then(function() {
+				console.log("Sucesso!");
+			}, function(error) {
+				console.log(error);
+			});
+		} else {
+			$scope.endereco.$save()
+			.then(function() {
+				console.log("Sucesso!");
+			}, function(error) {
+				console.log(error);
+			});
+		}
+		$window.location.href = "#/cadastros/endereco"
 	}
+
+	
 });

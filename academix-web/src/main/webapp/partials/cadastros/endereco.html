@@ -24,7 +24,7 @@
 					<td><a ng-href="#/cadastros/endereco/{{endereco.id}}">{{endereco.bairro}}</a></td>
 					<td><a ng-href="#/cadastros/endereco/{{endereco.id}}">{{endereco.cidade}}</a></td>
 					<td><a ng-href="#/cadastros/endereco/{{endereco.id}}">{{endereco.uf}}</a></td>
-					<td width="10"><a class="btn btn-default" ng-href=""><span class="icon glyphicon glyphicon-trash"></span></a></td>
+					<td width="10"><a class="btn btn-default" ng-click="removeEndereco(endereco)"><span class="icon glyphicon glyphicon-trash"></span></a></td>
 				</tr>
 			</tbody>
 		</table>
