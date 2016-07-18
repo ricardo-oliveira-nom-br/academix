@@ -12,12 +12,14 @@
 					<tr>
 						<th>Nome</th>
 						<th>Endere&ccedil;o</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="campi in campus">
-						<td>{{campi.nome}}</td>
-						<td>{{campi.endereco.logradouro}}, {{campi.numero}}</td>
+						<td><a ng-href="#/cadastros/campus/{{campi.id}}">{{campi.nome}}</a></td>
+						<td><a ng-href="#/cadastros/campus/{{campi.id}}">{{campi.endereco.logradouro}}, {{campi.numero}}</a></td>
+						<td width="10"><a class="btn btn-default" ng-click="removeCampus(campi)"><span class="icon glyphicon glyphicon-trash"></span></a></td>
 					</tr>
 				</tbody>
 			</table>

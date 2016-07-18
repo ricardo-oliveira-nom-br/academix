@@ -7,7 +7,7 @@
 				<li>Curso</li>
 				<li>Novo</li>
 			</ol>
-			<form class="form-horizontal">
+			<form class="form-horizontal" ng-submit="salvaCurso()">
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Nome</label>
 					<div class="col-sm-6">
@@ -27,7 +27,7 @@
 				</div>
 				<div class="col-sm-4  col-sm-offset-2">
 					<button class="btn btn-primary" type="submit">Adicionar</button>
-					<a class="btn  btn-default" ng-href="#/cadastros/endereco">Cancelar</a>
+					<a class="btn  btn-default" ng-href="#/cadastros/curso">Cancelar</a>
 				</div>
 			</form>
 		</div>

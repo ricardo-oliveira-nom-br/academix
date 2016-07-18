@@ -7,25 +7,25 @@
 				<li>Campus</li>
 				<li>Novo</li>
 			</ol>
-			<form class="form-horizontal">
+			<form class="form-horizontal" ng-submit="salvaCampus()">
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="campoNome">Nome</label>
-					<div class="col-sm-4">
-						<input class="form-control" size="10" maxlength="8" id="campoNome" placeholder="Nome">
+					<div class="col-sm-6">
+						<input class="form-control" size="10" maxlength="30" id="campoNome"  ng-model="campus.nome" placeholder="Nome">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="campoEnderecoLogradouro">Endere&ccedil;o</label>
-					<div class="col-sm-4 form-inline">
+					<div class="col-sm-6 form-inline">
 						<input class="form-control" id="campoEnderecoLogradouro" size="60" type="text" disabled>
 						<button class="btn btn-default" data-toggle="modal" data-target="#enderecoModal">Selecionar</button>
 					</div>
 				</div>
 				<div class="form-group form-inline">
 					<label class="col-sm-2 control-label" for="campoNumero">Numero</label>
-					<div class="col-sm-4 form-inline">
-					<input class="col-sm-1 form-control" size="6" id="campoNumero">
-					<label class="col-sm-3 control-label" for="campoComplemento">Complemento</label>
+					<div class="col-sm-6 form-inline">
+					<input class="col-sm-1 form-control" size="6" id="campoNumero"  ng-model="campus.numero">
+					<label class="col-sm-3 control-label" for="campoComplemento"  ng-model="campus.complemento">Complemento</label>
 					<input class="col-sm-1 form-control" />
 					<label class="col-sm-1" for="campoUf">UF</label>
 						<input class="col-sm-1 form-control" size="4" id="campoUf" disabled/>
@@ -33,14 +33,15 @@
 				</div>
 				<div class="form-group form-inline">
 					<label class="col-sm-2 control-label" for="campoBairro">Bairro</label>
-					<div class="col-sm-4 form-inline">
+					<div class="col-sm-6 form-inline">
 						<input class="col-sm-2 form-control" size="30" id="campoBairro" disabled>
 						<label class="col-sm-2 control-label" for="campoCidade">Cidade</label>
 						<input class="col-sm-2 form-control" size="30" disabled>
 					</div>
 				</div>
-				<div class="col-sm-4 col-sm-offset-2">
-					<button class="btn btn-primary" type="submit">Adicionar</button>
+				<div class="col-sm-6 col-sm-offset-2">
+					<button class="btn btn-primary" ng-hide="campus.id" type="submit">Adicionar</button>
+					<button class="btn btn-primary" ng-show="campus.id" type="submit">Alterar</button>
 					<a class="btn  btn-default" ng-href="#/cadastros/campus">Cancelar</a>
 				</div>
 			</form>

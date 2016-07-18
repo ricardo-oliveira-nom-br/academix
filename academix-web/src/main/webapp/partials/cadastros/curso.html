@@ -10,12 +10,16 @@
 			<table class="datatable table table-striped table-bordered">
 				<thead>
 					<tr>
+						<th>Campus</th>
 						<th>Nome</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="curso in cursos">
-						<td>{{curso.nome}}</td>
+						<td><a ng-href="#/cadastros/curso/{{curso.id}}">{{curso.campus.nome}}</a></td>
+						<td><a ng-href="#/cadastros/curso/{{curso.id}}">{{curso.nome}}</a></td>
+						<td width="10"><a class="btn btn-default" ng-click="removeCurso(curso)"><span class="icon glyphicon glyphicon-trash"></span></a></td>
 					</tr>
 				</tbody>
 			</table>

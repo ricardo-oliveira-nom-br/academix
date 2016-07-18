@@ -1,6 +1,4 @@
-angular.module('academix')
-
-.controller('EnderecoListController', function($scope, Endereco) {
+angular.module('academix').controller('EnderecoListController', function($scope, Endereco) {
 
 	$scope.enderecos = [];
 	
@@ -11,7 +9,6 @@ angular.module('academix')
 	$scope.$on('MSG_ERRO', function(erro) {
 		$scope.erro = erro;
 	});
-	
 
 	function obterEnderecos() {
 //		$scope.enderecos = Endereco.jsonpquery();

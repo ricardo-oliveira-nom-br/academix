@@ -28,7 +28,11 @@ angular.module('academix', ['ngRoute','academix.services'])
 		})
 		.when('/cadastros/campus/create', {
 			templateUrl: 'partials/cadastros/campusForm.html',
-			controller: 'CampusListController',
+			controller: 'CampusController',
+		})
+		.when('/cadastros/campus/:campusId', {
+			templateUrl: 'partials/cadastros/campusForm.html',
+			controller: 'CampusController',
 		})
 		.when('/cadastros/curso', {
 			templateUrl: 'partials/cadastros/curso.html',
@@ -36,7 +40,11 @@ angular.module('academix', ['ngRoute','academix.services'])
 		})
 		.when('/cadastros/curso/create', {
 			templateUrl: 'partials/cadastros/cursoForm.html',
-			controller: 'CursoListController',
+			controller: 'CursoController',
+		})
+		.when('/cadastros/curso/:cursoId', {
+			templateUrl: 'partials/cadastros/cursoForm.html',
+			controller: 'CursoController',
 		})
 		.when('/cadastros/gradeCurricular', {
 			templateUrl: 'partials/cadastros/gradeCurricular.html',
