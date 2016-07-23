@@ -11,7 +11,7 @@ angular.module('academix').controller('CampusListController', function ($scope, 
 	});
 	
 	function obterCampus() {
-//		$scope.enderecos = Endereco.jsonpquery();
+// $scope.enderecos = Endereco.jsonpquery();
 		Campus.query(
 			function(campus) {
 				$scope.campus = campus;
@@ -38,7 +38,7 @@ angular.module('academix').controller('CampusListController', function ($scope, 
 })
 
 .controller('CampusController',
-		function($scope, $rootScope, $routeParams, $window, Campus) {
+		function($scope, $rootScope, $routeParams, $window, Campus, Endereco) {
 	
 	if($routeParams.campusId) {
 		Campus.get({id: $routeParams.campusId},
@@ -52,6 +52,24 @@ angular.module('academix').controller('CampusListController', function ($scope, 
 			);
 	} else {
 		$scope.campus = new Campus();
+	}
+	
+	$scope.enderecos = [];
+	
+	function popupEnderecos(){
+		Endereco.query(
+				function(enderecos) {
+					$scope.enderecos = enderecos;
+				},
+				function(erro) {
+					$scope.erro = {texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + erro};
+					console.log(erro);
+				}
+			);
+	}
+	
+	$scope.selecionaEndereco = function(endereco) {
+		$scope.campus.endereco = endereco;
 	}
 	
 	$scope.salvaCampus = function() {
@@ -77,6 +95,8 @@ angular.module('academix').controller('CampusListController', function ($scope, 
 		}
 		$window.location.href = "#/cadastros/campus"
 	}
+	
+	popupEnderecos();
 
 	
 });

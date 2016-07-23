@@ -10,16 +10,21 @@
 			<table class="datatable table table-striped table-bordered">
 				<thead>
 					<tr>
+						<th>Campus</th>
 						<th>Nome</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="localizacao in localizacoes">
-						<td>{{localizacao.nome}}</td>
+						<td><a ng-href="#/cadastros/localizacao/{{localizacao.id}}">{{localizacao.campus.nome}}</a></td>
+						<td><a ng-href="#/cadastros/localizacao/{{localizacao.id}}">{{localizacao.nome}}</a></td>
+						<td width="10"><a class="btn btn-default" ng-click="removeLocalizacao(localizacao)"><span class="icon glyphicon glyphicon-trash"></span></a></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
+		<a class="btn btn-primary" ng-href="#/cadastros/localizacao/create" role="button" >Adicionar Localiza&ccedil;&atilde;o</a>
 	</div>
 </div>
 <script>

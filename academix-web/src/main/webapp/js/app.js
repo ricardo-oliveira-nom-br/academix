@@ -22,6 +22,8 @@ angular.module('academix', ['ngRoute','academix.services'])
 			templateUrl: 'partials/cadastros/enderecoForm.html',
 			controller: 'EnderecoController',
 		})
+		
+		
 		.when('/cadastros/campus', {
 			templateUrl: 'partials/cadastros/campus.html',
 			controller: 'CampusListController',
@@ -34,6 +36,8 @@ angular.module('academix', ['ngRoute','academix.services'])
 			templateUrl: 'partials/cadastros/campusForm.html',
 			controller: 'CampusController',
 		})
+		
+		
 		.when('/cadastros/curso', {
 			templateUrl: 'partials/cadastros/curso.html',
 			controller: 'CursoListController',
@@ -46,6 +50,8 @@ angular.module('academix', ['ngRoute','academix.services'])
 			templateUrl: 'partials/cadastros/cursoForm.html',
 			controller: 'CursoController',
 		})
+		
+		
 		.when('/cadastros/gradeCurricular', {
 			templateUrl: 'partials/cadastros/gradeCurricular.html',
 			controller: 'GradeCurricularListController',
@@ -54,6 +60,8 @@ angular.module('academix', ['ngRoute','academix.services'])
 			templateUrl: 'partials/cadastros/gradeCurricularForm.html',
 			controller: 'GradeCurricularListController',
 		})
+		
+		
 		.when('/cadastros/disciplina', {
 			templateUrl: 'partials/cadastros/disciplina.html',
 			controller: 'DisciplinaListController',
@@ -62,21 +70,37 @@ angular.module('academix', ['ngRoute','academix.services'])
 			templateUrl: 'partials/cadastros/disciplinaForm.html',
 			controller: 'DisciplinaListController',
 		})
+		
+		
 		.when('/cadastros/turma', {
 			templateUrl: 'partials/cadastros/turma.html',
 			controller: 'TurmaListController',
 		})
+		
+		
 		.when('/cadastros/aluno', {
 			templateUrl: 'partials/cadastros/aluno.html',
 			controller: 'AlunoListController',
 		})
+		
+		
 		.when('/cadastros/professor', {
 			templateUrl: 'partials/cadastros/professor.html',
 			controller: 'ProfessorListController',
 		})
+		
+		
 		.when('/cadastros/localizacao', {
 			templateUrl: 'partials/cadastros/localizacao.html',
 			controller: 'LocalizacaoListController',
+		})
+		.when('/cadastros/localizacao/create', {
+			templateUrl: 'partials/cadastros/localizacaoForm.html',
+			controller: 'LocalizacaoController',
+		})
+		.when('/cadastros/localizacao/:localizacaoId', {
+			templateUrl: 'partials/cadastros/localizacaoForm.html',
+			controller: 'LocalizacaoController',
 		});
 		
 });

@@ -38,7 +38,9 @@ angular.module('academix').controller('CursoListController', function ($scope, C
 })
 
 .controller('CursoController',
-		function($scope, $rootScope, $routeParams, $window, Curso) {
+		function($scope, $rootScope, $routeParams, $window, Curso, Campus) {
+	
+	$scope.campus = [];
 	
 	if($routeParams.campusId) {
 		Curso.get({id: $routeParams.cursoId},
@@ -52,6 +54,19 @@ angular.module('academix').controller('CursoListController', function ($scope, C
 			);
 	} else {
 		$scope.curso = new Curso();
+	}
+	
+	function listarCampus() {
+// $scope.enderecos = Endereco.jsonpquery();
+		Campus.query(
+			function(campus) {
+				$scope.campus = campus;
+			},
+			function(erro) {
+				$scope.erro = {texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + erro};
+				console.log(erro);
+			}
+		);
 	}
 	
 	$scope.salvaCurso = function() {
@@ -78,5 +93,5 @@ angular.module('academix').controller('CursoListController', function ($scope, C
 		$window.location.href = "#/cadastros/curso"
 	}
 
-	
+	listarCampus();
 });
