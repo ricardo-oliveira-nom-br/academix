@@ -32,6 +32,12 @@ public class Disciplina implements Serializable {
 	@Column
 	private String bibliografia;
 
+	@Column(length = 8, nullable = false)
+	private String sigla;
+
+	@Column
+	private String descricao;
+
 	public Long getId() {
 		return this.id;
 	}
@@ -97,18 +103,35 @@ public class Disciplina implements Serializable {
 		this.bibliografia = bibliografia;
 	}
 
+	public String getSigla() {
+		return sigla;
+	}
+
+	public void setSigla(String sigla) {
+		this.sigla = sigla;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
 	@Override
 	public String toString() {
 		String result = getClass().getSimpleName() + " ";
-		if (id != null)
-			result += "id: " + id;
-		result += ", version: " + version;
 		if (nome != null && !nome.trim().isEmpty())
-			result += ", nome: " + nome;
+			result += "nome: " + nome;
 		if (ementa != null && !ementa.trim().isEmpty())
 			result += ", ementa: " + ementa;
 		if (bibliografia != null && !bibliografia.trim().isEmpty())
 			result += ", bibliografia: " + bibliografia;
+		if (sigla != null && !sigla.trim().isEmpty())
+			result += ", sigla: " + sigla;
+		if (descricao != null && !descricao.trim().isEmpty())
+			result += ", descricao: " + descricao;
 		return result;
 	}
 }

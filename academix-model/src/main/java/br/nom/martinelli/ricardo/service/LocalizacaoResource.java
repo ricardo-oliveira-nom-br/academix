@@ -15,11 +15,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-import br.nom.martinelli.ricardo.model.Endereco;
+import br.nom.martinelli.ricardo.model.Localizacao;
 
-@Path("enderecos")
+@Path("localizacao")
 @Stateless
-public class EnderecoListResource {
+public class LocalizacaoResource {
 
 	@PersistenceContext
 	private EntityManager em;
@@ -27,40 +27,40 @@ public class EnderecoListResource {
 	@GET
 	@Path("")
 	@Produces("application/json")
-	public List<Endereco> getEnderecos() {
-		Query q = em.createQuery("SELECT e FROM Endereco e");
-		List<Endereco> enderecos = q.getResultList();
+	public List<Localizacao> getLocalizacoes() {
+		Query q = em.createQuery("SELECT e FROM Localizacao e");
+		List<Localizacao> enderecos = q.getResultList();
 		return enderecos;
 	}
 	
 	@POST
 	@Path("")
 	@Consumes("application/json")
-	public void adicionaEndereco(Endereco endereco) {
-		em.persist(endereco);
+	public void adicionaLocalizacao(Localizacao localizacao) {
+		em.persist(localizacao);
 	}
 	
 	@PUT
 	@Path("")
 	@Consumes("application/json")
-	public void alteraEndereco(Endereco endereco) {
-		em.merge(endereco);
+	public void alteraLocalizacao(Localizacao localizacao) {
+		em.merge(localizacao);
 	}
 	
 
 	@GET
 	@Path("{id}")
 	@Produces("application/json")
-	public Endereco getEndereco(@PathParam("id") Long id) {
-		Endereco endereco = em.find(Endereco.class, id);
-		return endereco;
+	public Localizacao getLocalizacao(@PathParam("id") Long id) {
+		Localizacao localizacao = em.find(Localizacao.class, id);
+		return localizacao;
 	}
 
 	@DELETE
 	@Path("{id}")
-	public void removeEndereco(@PathParam("id") Long id) {
-		Endereco endereco = em.find(Endereco.class, id);
-		em.remove(endereco);
+	public void removeLocalizacao(@PathParam("id") Long id) {
+		Localizacao localizacao = em.find(Localizacao.class, id);
+		em.remove(localizacao);
 	}
 
 }

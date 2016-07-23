@@ -19,7 +19,7 @@ import br.nom.martinelli.ricardo.model.Campus;
 
 @Path("campus")
 @Stateless
-public class CampusListResource {
+public class CampusResource {
 	
 	@PersistenceContext
 	private EntityManager em;

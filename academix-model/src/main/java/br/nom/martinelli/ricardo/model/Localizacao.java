@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
 import javax.persistence.Version;
+import br.nom.martinelli.ricardo.model.Campus;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Localizacao implements Serializable {
@@ -23,6 +25,15 @@ public class Localizacao implements Serializable {
 	@Column(name = "version")
 	private int version;
 
+	@ManyToOne
+	private Campus campus;
+
+	@Column(length = 30, nullable = false)
+	private String nome;
+
+	@Column(length = 3, nullable = false)
+	private Integer quantidade;
+
 	public Long getId() {
 		return this.id;
 	}
@@ -37,14 +48,6 @@ public class Localizacao implements Serializable {
 
 	public void setVersion(final int version) {
 		this.version = version;
-	}
-
-	@Override
-	public String toString() {
-		String result = getClass().getSimpleName() + " ";
-		if (id != null)
-			result += "id: " + id;
-		return result;
 	}
 
 	@Override
@@ -69,6 +72,40 @@ public class Localizacao implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	public Campus getCampus() {
+		return this.campus;
+	}
+
+	public void setCampus(final Campus campus) {
+		this.campus = campus;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public Integer getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(Integer quantidade) {
+		this.quantidade = quantidade;
+	}
+
+	@Override
+	public String toString() {
+		String result = getClass().getSimpleName() + " ";
+		if (nome != null && !nome.trim().isEmpty())
+			result += "nome: " + nome;
+		if (quantidade != null)
+			result += ", quantidade: " + quantidade;
 		return result;
 	}
 }

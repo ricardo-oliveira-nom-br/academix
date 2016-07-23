@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
 import javax.persistence.Version;
+import br.nom.martinelli.ricardo.types.Periodicidade;
+import javax.persistence.Enumerated;
 
 @Entity
 public class Curso implements Serializable {
@@ -21,7 +23,7 @@ public class Curso implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
-	
+
 	@Version
 	@Column(name = "version")
 	private int version;
@@ -31,6 +33,12 @@ public class Curso implements Serializable {
 
 	@ManyToOne
 	private Curso campus;
+
+	@Enumerated
+	private Periodicidade periodicidade;
+
+	@Column(length = 2, nullable = false)
+	private Integer periodo;
 
 	public Long getId() {
 		return this.id;
@@ -89,16 +97,29 @@ public class Curso implements Serializable {
 		this.campus = campus;
 	}
 
+	public Periodicidade getPeriodicidade() {
+		return periodicidade;
+	}
+
+	public void setPeriodicidade(Periodicidade periodicidade) {
+		this.periodicidade = periodicidade;
+	}
+
+	public Integer getPeriodo() {
+		return periodo;
+	}
+
+	public void setPeriodo(Integer periodo) {
+		this.periodo = periodo;
+	}
+
 	@Override
 	public String toString() {
 		String result = getClass().getSimpleName() + " ";
-		if (id != null)
-			result += "id: " + id;
-		result += ", version: " + version;
 		if (nome != null && !nome.trim().isEmpty())
-			result += ", nome: " + nome;
-		if (campus != null)
-			result += ", campus: " + campus;
+			result += "nome: " + nome;
+		if (periodo != null)
+			result += ", periodo: " + periodo;
 		return result;
 	}
 }
