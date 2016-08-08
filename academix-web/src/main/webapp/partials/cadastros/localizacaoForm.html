@@ -7,7 +7,7 @@
 			<li ng-hide="localizacao.id">Novo</li>
 			<li ng-show="localizacao.id">Editar</li>
 		</ol>
-		<form class="form-horizontal" ng-submit="salvaLocalizacao()">
+		<form class="form-horizontal" ng-submit="salvaLocalizacao()" novalidate>
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="campoCampus">Campus</label>
 				<div class="col-sm-4">
@@ -20,7 +20,13 @@
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="campoNome">Nome</label>
 				<div class="col-sm-1">
-					<input class="form-control" size="30" name="campoNome" ng-model="localizacao.nome" placeholder="Nome" required>
+					<input class="form-control" size="80" name="campoNome" ng-model="localizacao.nome" placeholder="Nome" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="campoCapacidade">Capacidade</label>
+				<div class="col-sm-1">
+					<input class="form-control" size="80" name="campoCapacidade" ng-model="localizacao.quantidade" placeholder="Capacidade" required>
 				</div>
 			</div>
 			<div class="col-sm-4  col-sm-offset-2">

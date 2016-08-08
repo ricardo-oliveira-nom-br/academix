@@ -42,7 +42,7 @@ angular.module('academix').controller('CursoListController', function ($scope, C
 	
 	$scope.campus = [];
 	
-	if($routeParams.campusId) {
+	if($routeParams.cursoId) {
 		Curso.get({id: $routeParams.cursoId},
 				function(curso) {
 					$scope.curso = curso;

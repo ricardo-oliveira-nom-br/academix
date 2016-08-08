@@ -6,16 +6,20 @@
 				<li><a href="#">Cadastros</a></li>
 				<li>Disciplina</li>
 			</ol>
-			<h1>Disciplina</h1>
+			<h1>Disciplinas</h1>
 			<table class="datatable table table-striped table-bordered">
 				<thead>
 					<tr>
 						<th>Nome</th>
+						<th>Sigla</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="disciplina in disciplinas">
-						<td>{{disciplina.nome}}</td>
+						<td><a ng-href="#/cadastros/disciplina/{{disciplina.id}}">{{disciplina.nome}}</a></td>
+						<td><a ng-href="#/cadastros/disciplina/{{disciplina.id}}">{{disciplina.sigla}}</a></td>
+						<td width="10"><a class="btn btn-default" ng-click="removeDisciplina(disciplina)"><span class="icon glyphicon glyphicon-trash"></span></a></td>
 					</tr>
 				</tbody>
 			</table>

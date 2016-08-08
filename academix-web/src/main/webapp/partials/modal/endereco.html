@@ -1,4 +1,4 @@
-<div class="modal fade" id="enderecoModal" tabindex="-1" role="dialog"
+<div class="modal fade bs-example-modal-lg" id="enderecoModal" tabindex="-1" role="dialog"
 	aria-labelledby="enderecoModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -10,16 +10,7 @@
 				<h4 class="modal-title" id="enderecoModalLabel">Endere&ccedil;os</h4>
 			</div>
 			<div class="modal-body">
-				<form class="form-inline">
-					<div class="form-group">
-						<label class="control-label" for="textInput-modal-markup">Pesquisar
-							por</label> <input type="text" id="textInput-modal-markup"
-							class="form-control"> <select class="form-control">
-							<option value="">CEP</option>
-							<option value="">Logradouro</option>
-						</select>
-						<button class="btn btn-primary">Pesquisar</button>
-					</div>
+				<form class="form-inline" id="formModalEndereco">
 					<h1>Endere&ccedil;os</h1>
 					<table
 						class="datatable table table-striped table-bordered table-hover">
@@ -34,15 +25,15 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="endereco in enderecos">
-								<td>{{endereco.logradouro}}</a></td>
-								<td>{{endereco.cep}}</td>
+							<tr ng-repeat="end in listaEndereco">
+								<td>{{end.logradouro}}</a></td>
+								<td>{{end.cep}}</td>
 								<td>{{endereco.bairro}}</td>
 								<td>{{endereco.cidade}}</td>
 								<td>{{endereco.uf}}</td>
 								<td width="10">
-									<a class="btn btn-default" ng-click="selecionaEndereco(endereco)">
-										<span class="icon glyphicon glyphicon-trash" />
+									<a class="btn btn-default" ng-click="selecionaEndereco(end)">
+										<span class="icon glyphicon glyphicon-ok" />
 									</a>
 								</td>
 							</tr>

@@ -7,36 +7,36 @@
 				<li>Campus</li>
 				<li>Novo</li>
 			</ol>
-			<form class="form-horizontal" ng-submit="salvaCampus()">
+			<form name="campusForm" class="form-horizontal" ng-submit="salvaCampus()" novalidate>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="campoNome">Nome</label>
-					<div class="col-sm-6">
-						<input class="form-control" size="10" maxlength="30" id="campoNome"  ng-model="campus.nome" placeholder="Nome">
+					<div class="col-sm-5">
+						<input class="form-control" size="10" maxlength="30" id="campoNome"  ng-model="campus.nome" placeholder="Nome" required>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="campoEnderecoLogradouro">Endere&ccedil;o</label>
 					<div class="col-sm-6 form-inline">
-						<input class="form-control" id="campoEnderecoLogradouro" size="60" type="text" disabled>
+						<input class="form-control" id="campoEnderecoLogradouro" name="campoEnderecoLogradouro" ng-model="campus.endereco.logradouro" size="60" type="text" disabled>
 						<a href="" class="btn btn-default" data-toggle="modal" data-target="#enderecoModal">Selecionar</a>
 					</div>
 				</div>
 				<div class="form-group form-inline">
 					<label class="col-sm-2 control-label" for="campoNumero">Numero</label>
 					<div class="col-sm-6 form-inline">
-					<input class="col-sm-1 form-control" size="6" id="campoNumero"  ng-model="campus.numero">
-					<label class="col-sm-3 control-label" for="campoComplemento"  ng-model="campus.complemento">Complemento</label>
-					<input class="col-sm-1 form-control" />
-					<label class="col-sm-1" for="campoUf">UF</label>
-						<input class="col-sm-1 form-control" size="4" id="campoUf" disabled/>
+					<input class="col-sm-1 form-control" size="6" id="campoNumero" name="campoNumero" ng-model="campus.numero" required>
+					<label class="col-sm-3 control-label" for="campoComplemento">Complemento</label>
+					<input class="col-sm-1 form-control" id="campoComplemento" ng-model="campus.complemento" />
+					<label class="col-sm-1" for="campoEnderecoUf">UF</label>
+						<input class="col-sm-1 form-control" size="4" id="campoEnderecoUf" name="campoEnderecoUf" disabled/>
 					</div>
 				</div>
 				<div class="form-group form-inline">
-					<label class="col-sm-2 control-label" for="campoBairro">Bairro</label>
+					<label class="col-sm-2 control-label" for="campoEnderecoBairro">Bairro</label>
 					<div class="col-sm-6 form-inline">
-						<input class="col-sm-2 form-control" size="30" id="campoBairro" disabled>
-						<label class="col-sm-2 control-label" for="campoCidade">Cidade</label>
-						<input class="col-sm-2 form-control" size="30" disabled>
+						<input class="col-sm-2 form-control" size="30" id="campoEnderecoBairro" name="campoBairro" disabled>
+						<label class="col-sm-2 control-label" for="campoEnderecoCidade">Cidade</label>
+						<input class="col-sm-2 form-control" size="30" id="campoEnderecoCidade" name="campoCidade" disabled>
 					</div>
 				</div>
 				<div class="col-sm-6 col-sm-offset-2">
@@ -53,6 +53,57 @@
 	$(document).ready( function() {
 		$('.datatable').dataTable();
 	});
-	$("#modal").load("partials/modal/endereco.html");
+	//$("#modal").load("partials/modal/endereco.html");
 </script>
-<div id="modal"></div>
+<div class="modal fade bs-example-modal-lg" id="enderecoModal" tabindex="-1" role="dialog"
+	aria-labelledby="enderecoModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">
+					<span class="pficon pficon-close"></span>
+				</button>
+				<h4 class="modal-title" id="enderecoModalLabel">Endere&ccedil;os</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-inline" id="formModalEndereco">
+					<h1>Endere&ccedil;os</h1>
+					<table
+						class="datatable table table-striped table-bordered table-hover">
+						<thead>
+							<tr>
+								<th>Logradouro</th>
+								<th>CEP</th>
+								<th>Bairro</th>
+								<th>Estado</th>
+								<th>UF</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="end in listaEndereco">
+								<td>{{end.logradouro}}</a></td>
+								<td>{{end.cep}}</td>
+								<td>{{end.bairro}}</td>
+								<td>{{end.cidade}}</td>
+								<td>{{end.uf}}</td>
+								<td width="10">
+									<a class="btn btn-default" ng-click="selecionaEndereco(endereco)" data-dismiss="modal">
+										<span class="icon glyphicon glyphicon-trash" />
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+  // Initialize Datatables
+  $(document).ready( function() {
+    $('.datatable').dataTable();
+  });
+</script>

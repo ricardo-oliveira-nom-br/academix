@@ -55,6 +55,10 @@ angular.module('academix').controller('EnderecoListController', function($scope,
 	}
 	
 	$scope.salvaEndereco = function() {
+		if(!$scope.endereco.$valid) {
+			return;
+		}
+		
 		if($scope.endereco.id) {
 			$scope.endereco.$update()
 			.then(function() {

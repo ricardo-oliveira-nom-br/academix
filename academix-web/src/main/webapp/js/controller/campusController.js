@@ -40,6 +40,8 @@ angular.module('academix').controller('CampusListController', function ($scope, 
 .controller('CampusController',
 		function($scope, $rootScope, $routeParams, $window, Campus, Endereco) {
 	
+	$scope.listaEndereco = [];
+	
 	if($routeParams.campusId) {
 		Campus.get({id: $routeParams.campusId},
 				function(campus) {
@@ -54,12 +56,10 @@ angular.module('academix').controller('CampusListController', function ($scope, 
 		$scope.campus = new Campus();
 	}
 	
-	$scope.enderecos = [];
-	
 	function popupEnderecos(){
 		Endereco.query(
 				function(enderecos) {
-					$scope.enderecos = enderecos;
+					$scope.listaEndereco = enderecos;
 				},
 				function(erro) {
 					$scope.erro = {texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + erro};
@@ -70,9 +70,16 @@ angular.module('academix').controller('CampusListController', function ($scope, 
 	
 	$scope.selecionaEndereco = function(endereco) {
 		$scope.campus.endereco = endereco;
+		$scope.campusForm['campoEnderecoLogradouro'].$render();
+		//$scope.campusForm['campoEnderecoUf'].$render();
+		//$scope.campusForm['campoEnderecoBairro'].$render();
+		//$scope.campusForm['campoEnderecoCidade'].$render();
 	}
 	
 	$scope.salvaCampus = function() {
+		if($scope.campus.endereco == null) {
+			$scope.campus.endereco = {};
+		}
 		if($scope.campus.id) {
 			$scope.campus.$update()
 			.then(function() {
@@ -97,6 +104,5 @@ angular.module('academix').controller('CampusListController', function ($scope, 
 	}
 	
 	popupEnderecos();
-
 	
 });

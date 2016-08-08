@@ -68,7 +68,11 @@ angular.module('academix', ['ngRoute','academix.services'])
 		})
 		.when('/cadastros/disciplina/create', {
 			templateUrl: 'partials/cadastros/disciplinaForm.html',
-			controller: 'DisciplinaListController',
+			controller: 'DisciplinaController',
+		})
+		.when('/cadastros/disciplina/:disciplinaId', {
+			templateUrl: 'partials/cadastros/disciplinaForm.html',
+			controller: 'DisciplinaController',
 		})
 		
 		

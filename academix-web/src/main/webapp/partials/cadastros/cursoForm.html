@@ -12,20 +12,21 @@
 					<label class="col-sm-2 control-label" for="campoCampus">Campus</label>
 					<div class="col-sm-4">
 						<select ng-model="curso.campus"
-							ng-options="campi.nome for campi in campus"
+							ng-options="campi.id as campi.nome for campi in campus"
 							id="campoCampus" class="form-control" required>
 						</select>
 					</div>
+					<input type="hidden" ng-model="curso.campus.endereco">
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Nome</label>
-					<div class="col-sm-6">
+					<div class="col-sm-5">
 						<input ng-model="curso.nome" class="form-control">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Periodicidade</label>
-					<div class="col-sm-6 form-inline">
+					<div class="col-sm-5 form-inline">
 						<select ng-model="curso.periodicidade" class="col-sm-4 form-control">
 							<option value="0">Anual</option>
 							<option value="1">Semestral</option>

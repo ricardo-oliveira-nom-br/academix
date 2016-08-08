@@ -7,33 +7,31 @@
 				<li>Disciplina</li>
 				<li>Novo</li>
 			</ol>
-			<form class="form-horizontal">
+			<form class="form-horizontal" ng-submit="salvaDisciplina()" novalidate>
 				<div class="form-group">
-					<label class="col-sm-2 control-label">Nome</label>
+					<label class="col-sm-2 control-label" for="campoNome">Nome</label>
 					<div class="col-sm-6 form-inline">
-						<input class="col-sm-4 form-control" size="90">
+						<input class="col-sm-4 form-control" ng-model="disciplina.nome" size="70">
 						<label class="col-sm-1 control-label">Sigla</label>
-						<input class="col-sm-4 form-control">
+						<input class="col-sm-4 form-control" ng-model="disciplina.sigla" size="20">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Descri&ccedil;&atilde;o</label>
 					<div class="col-sm-6">
-						<input class="form-control">
+						<input class="form-control" ng-model="disciplina.descricao" >
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Ementa</label>
 					<div class="col-sm-6">
-						<textarea class="form-control" rows="5">
-						</textarea>
+						<textarea class="form-control" rows="5" ng-model="disciplina.ementa"></textarea>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Bibliografia</label>
 					<div class="col-sm-6">
-						<textarea class="form-control" rows="5">
-						</textarea>
+						<textarea class="form-control" rows="5" ng-model="disciplina.bibliografia"></textarea>
 					</div>
 				</div>
 				<div class="col-sm-4  col-sm-offset-2">
