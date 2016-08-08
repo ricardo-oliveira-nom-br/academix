@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Version;
 import br.nom.martinelli.ricardo.model.Endereco;
@@ -28,7 +29,7 @@ public class Campus implements Serializable {
 	@Column(length = 40)
 	private String nome;
 
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.MERGE})
 	private Endereco endereco;
 
 	@Column

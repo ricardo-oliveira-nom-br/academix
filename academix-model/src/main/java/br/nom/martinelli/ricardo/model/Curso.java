@@ -32,7 +32,7 @@ public class Curso implements Serializable {
 	private String nome;
 
 	@ManyToOne
-	private Curso campus;
+	private Campus campus;
 
 	@Enumerated
 	private Periodicidade periodicidade;
@@ -61,12 +61,12 @@ public class Curso implements Serializable {
 		if (this == obj) {
 			return true;
 		}
-		if (!(obj instanceof Curso)) {
+		if (!(obj instanceof Campus)) {
 			return false;
 		}
-		Curso other = (Curso) obj;
+		Campus other = (Campus) obj;
 		if (id != null) {
-			if (!id.equals(other.id)) {
+			if (!id.equals(other.getId())) {
 				return false;
 			}
 		}
@@ -89,11 +89,11 @@ public class Curso implements Serializable {
 		this.nome = nome;
 	}
 
-	public Curso getCampus() {
+	public Campus getCampus() {
 		return campus;
 	}
 
-	public void setCampus(Curso campus) {
+	public void setCampus(Campus campus) {
 		this.campus = campus;
 	}
 
