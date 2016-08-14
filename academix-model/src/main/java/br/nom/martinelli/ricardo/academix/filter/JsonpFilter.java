@@ -1,4 +1,4 @@
-package br.nom.martinelli.ricardo.filter;
+package br.nom.martinelli.ricardo.academix.filter;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;

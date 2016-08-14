@@ -1,4 +1,4 @@
-package br.nom.martinelli.ricardo.service;
+package br.nom.martinelli.ricardo.academix.service;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-import br.nom.martinelli.ricardo.model.Campus;
+import br.nom.martinelli.ricardo.academix.model.Campus;
 
 @Path("campus")
 @Stateless

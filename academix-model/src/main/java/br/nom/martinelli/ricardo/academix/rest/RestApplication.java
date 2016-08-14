@@ -1,4 +1,4 @@
-package br.nom.martinelli.ricardo.rest;
+package br.nom.martinelli.ricardo.academix.rest;
 
 import javax.ws.rs.core.Application;
 import javax.ws.rs.ApplicationPath;

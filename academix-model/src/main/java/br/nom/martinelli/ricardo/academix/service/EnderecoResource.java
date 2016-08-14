@@ -1,11 +1,8 @@
-package br.nom.martinelli.ricardo.service;
+package br.nom.martinelli.ricardo.academix.service;
 
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -15,36 +12,38 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-import br.nom.martinelli.ricardo.model.Endereco;
+import br.nom.martinelli.ricardo.academix.model.Endereco;
+import br.nom.martinelli.ricardo.academix.repository.EnderecoRepository;
 
 @Path("endereco")
 @Stateless
 public class EnderecoResource {
-
-	@PersistenceContext
-	private EntityManager em;
+	
+	private EnderecoRepository repositorio = new EnderecoRepository();
 
 	@GET
 	@Path("")
 	@Produces("application/json")
 	public List<Endereco> getEnderecos() {
-		Query q = em.createQuery("SELECT e FROM Endereco e");
-		List<Endereco> enderecos = q.getResultList();
-		return enderecos;
+		return repositorio.listarTodos();
 	}
 	
 	@POST
 	@Path("")
 	@Consumes("application/json")
 	public void adicionaEndereco(Endereco endereco) {
-		em.persist(endereco);
+		if(repositorio.validaDados(endereco)) {
+			repositorio.adiciona(endereco);	
+		}
 	}
 	
 	@PUT
 	@Path("")
 	@Consumes("application/json")
 	public void alteraEndereco(Endereco endereco) {
-		em.merge(endereco);
+		if(repositorio.validaDados(endereco)) {
+			repositorio.altera(endereco);
+		}
 	}
 	
 
@@ -52,15 +51,13 @@ public class EnderecoResource {
 	@Path("{id}")
 	@Produces("application/json")
 	public Endereco getEndereco(@PathParam("id") Long id) {
-		Endereco endereco = em.find(Endereco.class, id);
-		return endereco;
+		return repositorio.comChave(id);
 	}
 
 	@DELETE
 	@Path("{id}")
 	public void removeEndereco(@PathParam("id") Long id) {
-		Endereco endereco = em.find(Endereco.class, id);
-		em.remove(endereco);
+		repositorio.remove(repositorio.comChave(id));
 	}
 
 }
