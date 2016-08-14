@@ -1,4 +1,4 @@
-package br.nom.martinelli.ricardo.model;
+package br.nom.martinelli.ricardo.academix.model;
 
 import javax.persistence.Entity;
 import java.io.Serializable;

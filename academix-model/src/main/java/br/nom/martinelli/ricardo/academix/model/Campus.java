@@ -1,4 +1,4 @@
-package br.nom.martinelli.ricardo.model;
+package br.nom.martinelli.ricardo.academix.model;
 
 import javax.persistence.Entity;
 import java.io.Serializable;
@@ -8,7 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Version;
-import br.nom.martinelli.ricardo.model.Endereco;
+
+import br.nom.martinelli.ricardo.academix.model.Endereco;
+
 import javax.persistence.ManyToOne;
 
 @Entity
