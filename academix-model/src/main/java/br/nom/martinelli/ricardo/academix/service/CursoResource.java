@@ -1,11 +1,8 @@
-package br.nom.martinelli.ricardo.service;
+package br.nom.martinelli.ricardo.academix.service;
 
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -15,52 +12,52 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-import br.nom.martinelli.ricardo.model.Curso;
+import br.nom.martinelli.ricardo.academix.model.Curso;
+import br.nom.martinelli.ricardo.academix.repository.CursoRepository;
 
 @Path("curso")
 @Stateless
 public class CursoResource {
-	
-	@PersistenceContext
-	private EntityManager em;
+
+	// TODO: Ver uma forma de fazer isso com CDI
+	private CursoRepository repositorio = new CursoRepository();
 	
 	@GET
 	@Path("")
 	@Produces("application/json")
 	public List<Curso> getCursos() {
-		Query q = em.createQuery("SELECT e FROM Curso e");
-		List<Curso> curso = q.getResultList();
-		return curso;
+		return repositorio.listarTodos();
 	}
 	
 	@POST
 	@Path("")
 	@Consumes("application/json")
 	public void adicionaCurso(Curso curso) {
-		em.persist(curso);
+		if(repositorio.validaDados(curso)) {
+			repositorio.adiciona(curso);	
+		}
 	}
 	
 	@PUT
 	@Path("")
 	@Consumes("application/json")
 	public void alteraCurso(Curso curso) {
-		em.merge(curso);
+		if(repositorio.validaDados(curso)) {
+			repositorio.altera(curso);
+		}
 	}
-	
 
 	@GET
 	@Path("{id}")
 	@Produces("application/json")
 	public Curso getCurso(@PathParam("id") Long id) {
-		Curso curso = em.find(Curso.class, id);
-		return curso;
+		return repositorio.comChave(id);
 	}
 
 	@DELETE
 	@Path("{id}")
 	public void removeCurso(@PathParam("id") Long id) {
-		Curso curso = em.find(Curso.class, id);
-		em.remove(curso);
+		repositorio.remove(repositorio.comChave(id));
 	}
 
 }

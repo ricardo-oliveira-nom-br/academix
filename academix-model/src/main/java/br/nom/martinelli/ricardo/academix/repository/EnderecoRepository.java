@@ -9,6 +9,7 @@ public class EnderecoRepository extends AbstractRepository<Endereco, Long> {
 	}
 	
 	public boolean validaDados(Endereco endereco) {
+		// TODO Implementar validação
 		return false;
 	}
 

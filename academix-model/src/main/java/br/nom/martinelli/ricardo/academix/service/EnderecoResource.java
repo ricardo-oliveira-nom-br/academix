@@ -18,7 +18,8 @@ import br.nom.martinelli.ricardo.academix.repository.EnderecoRepository;
 @Path("endereco")
 @Stateless
 public class EnderecoResource {
-	
+
+	// TODO: Ver uma forma de fazer isso com CDI
 	private EnderecoRepository repositorio = new EnderecoRepository();
 
 	@GET
@@ -45,7 +46,6 @@ public class EnderecoResource {
 			repositorio.altera(endereco);
 		}
 	}
-	
 
 	@GET
 	@Path("{id}")

@@ -11,9 +11,9 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import br.nom.martinelli.ricardo.model.Campus;
-import br.nom.martinelli.ricardo.rest.RestApplication;
-import br.nom.martinelli.ricardo.service.CampusResource;
+import br.nom.martinelli.ricardo.academix.model.Campus;
+import br.nom.martinelli.ricardo.academix.rest.RestApplication;
+import br.nom.martinelli.ricardo.academix.service.CampusResource;
 
 @RunWith(Arquillian.class)
 public class CampusTest {

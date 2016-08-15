@@ -1,11 +1,8 @@
-package br.nom.martinelli.ricardo.service;
+package br.nom.martinelli.ricardo.academix.service;
 
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -15,52 +12,52 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-import br.nom.martinelli.ricardo.model.Disciplina;
+import br.nom.martinelli.ricardo.academix.model.Disciplina;
+import br.nom.martinelli.ricardo.academix.repository.DisciplinaRepository;
 
 @Path("disciplina")
 @Stateless
 public class DisciplinaResource {
 
-	@PersistenceContext
-	private EntityManager em;
-
+	// TODO: Ver uma forma de fazer isso com CDI
+	private DisciplinaRepository repositorio = new DisciplinaRepository(); 
+	
 	@GET
 	@Path("")
 	@Produces("application/json")
 	public List<Disciplina> getisciplinas() {
-		Query q = em.createQuery("SELECT d FROM Disciplina d");
-		List<Disciplina> disciplinas = q.getResultList();
-		return disciplinas;
+		return repositorio.listarTodos();
 	}
 	
 	@POST
 	@Path("")
 	@Consumes("application/json")
 	public void adicionaDisciplina(Disciplina disciplina) {
-		em.persist(disciplina);
+		if(repositorio.validaDados(disciplina)) {
+			repositorio.adiciona(disciplina);
+		}
 	}
 	
 	@PUT
 	@Path("")
 	@Consumes("application/json")
 	public void alteraDisciplina(Disciplina disciplina) {
-		em.merge(disciplina);
+		if(repositorio.validaDados(disciplina)) {
+			repositorio.altera(disciplina);
+		}
 	}
-	
 
 	@GET
 	@Path("{id}")
 	@Produces("application/json")
 	public Disciplina getDisciplina(@PathParam("id") Long id) {
-		Disciplina disciplina = em.find(Disciplina.class, id);
-		return disciplina;
+		return repositorio.comChave(id);
 	}
 
 	@DELETE
 	@Path("{id}")
 	public void removeDisciplina(@PathParam("id") Long id) {
-		Disciplina disciplina = em.find(Disciplina.class, id);
-		em.remove(disciplina);
+		repositorio.remove(repositorio.comChave(id));
 	}
 
 }

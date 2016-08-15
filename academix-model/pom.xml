@@ -8,6 +8,12 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>academix-model</artifactId>
+	<packaging>war</packaging>
+	<properties>
+		<version.arquillian_universe>1.0.0.Alpha3</version.arquillian_universe>
+		<version.junit>4.12</version.junit>
+	</properties>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -32,6 +38,7 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
@@ -63,7 +70,7 @@
 			<artifactId>jboss-ejb-api_3.1_spec</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<!-- test artifacts -->
 		<dependency>
 			<groupId>org.arquillian.universe</groupId>
@@ -96,6 +103,7 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -107,8 +115,42 @@
 					<warName>academix-model</warName>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.15.16</version>
+				<configuration>
+					<images>
+						<image>
+							<alias>service</alias>
+							<name>academix/academix-model:${project.version}</name>
+						</image>
+					</images>
+				</configuration>
+
+
+				<executions>
+					<execution>
+						<id>start</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<!-- "build" should be used to create the images with the artifact -->
+							<goal>build</goal>
+							<goal>start</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>stop</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>stop</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
+
 	<profiles>
 		<profile>
 			<id>arquillian-wildfly-remote</id>
@@ -137,11 +179,7 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 		</profile>
-		
+
 	</profiles>
-	<packaging>war</packaging>
-	<properties>
-		<version.arquillian_universe>1.0.0.Alpha3</version.arquillian_universe>
-		<version.junit>4.12</version.junit>
-	</properties>
+
 </project>

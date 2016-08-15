@@ -3,9 +3,6 @@ package br.nom.martinelli.ricardo.academix.service;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -16,51 +13,51 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import br.nom.martinelli.ricardo.academix.model.Campus;
+import br.nom.martinelli.ricardo.academix.repository.CampusRepository;
 
 @Path("campus")
 @Stateless
 public class CampusResource {
 	
-	@PersistenceContext
-	private EntityManager em;
+	// TODO: Ver uma forma de fazer isso com CDI
+	private CampusRepository repositorio = new CampusRepository();	
 	
 	@GET
 	@Path("")
 	@Produces("application/json")
 	public List<Campus> getCampus() {
-		Query q = em.createQuery("SELECT e FROM Campus e");
-		List<Campus> campus = q.getResultList();
-		return campus;
+		return repositorio.listarTodos();
 	}
 	
 	@POST
 	@Path("")
 	@Consumes("application/json")
 	public void adicionaCampus(Campus campus) {
-		em.persist(campus);
+		if(repositorio.validaDados(campus)) {
+			repositorio.adiciona(campus);
+		}
 	}
 	
 	@PUT
 	@Path("")
 	@Consumes("application/json")
 	public void alteraCampus(Campus campus) {
-		em.merge(campus);
+		if (repositorio.validaDados(campus)) {
+			repositorio.altera(campus);
+		}
 	}
-	
 
 	@GET
 	@Path("{id}")
 	@Produces("application/json")
 	public Campus getCampus(@PathParam("id") Long id) {
-		Campus campus = em.find(Campus.class, id);
-		return campus;
+		return repositorio.comChave(id);
 	}
 
 	@DELETE
 	@Path("{id}")
 	public void removeCampus(@PathParam("id") Long id) {
-		Campus campus = em.find(Campus.class, id);
-		em.remove(campus);
+		repositorio.remove(repositorio.comChave(id));
 	}
 
 }
