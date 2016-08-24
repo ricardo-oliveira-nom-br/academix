@@ -2,7 +2,11 @@ package br.nom.martinelli.ricardo.academix.model;
 
 import javax.persistence.Entity;
 import java.io.Serializable;
+import java.util.Set;
+
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
@@ -22,6 +26,10 @@ public class GradeCurricular implements Serializable {
 	@Version
 	@Column(name = "version")
 	private int version;
+	@ManyToOne
+	private Curso curso;
+	@OneToMany
+	private Set<ItemGradeCurricular> itens;
 
 	public Long getId() {
 		return this.id;
@@ -37,6 +45,22 @@ public class GradeCurricular implements Serializable {
 
 	public void setVersion(final int version) {
 		this.version = version;
+	}
+
+	public Curso getCurso() {
+		return curso;
+	}
+
+	public void setCurso(Curso curso) {
+		this.curso = curso;
+	}
+
+	public Set<ItemGradeCurricular> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ItemGradeCurricular> itens) {
+		this.itens = itens;
 	}
 
 	@Override

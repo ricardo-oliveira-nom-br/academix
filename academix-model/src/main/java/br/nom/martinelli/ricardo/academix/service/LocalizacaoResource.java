@@ -3,6 +3,7 @@ package br.nom.martinelli.ricardo.academix.service;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -13,14 +14,18 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import br.nom.martinelli.ricardo.academix.model.Localizacao;
+import br.nom.martinelli.ricardo.academix.repository.CampusRepository;
 import br.nom.martinelli.ricardo.academix.repository.LocalizacaoRepository;
 
 @Path("localizacao")
 @Stateless
 public class LocalizacaoResource {
 
-	// TODO: Ver uma forma de fazer isso com CDI
-	private LocalizacaoRepository repositorio = new LocalizacaoRepository();
+	@Inject
+	LocalizacaoRepository repositorio;
+	
+	@Inject
+	CampusRepository campus;
 
 	@GET
 	@Path("")
@@ -34,6 +39,7 @@ public class LocalizacaoResource {
 	@Consumes("application/json")
 	public void adicionaLocalizacao(Localizacao localizacao) {
 		if(repositorio.validaDados(localizacao)) {
+			localizacao.setCampus(campus.comChave(localizacao.getCampus().getId()));
 			repositorio.adiciona(localizacao);
 		}
 	}
@@ -43,6 +49,7 @@ public class LocalizacaoResource {
 	@Consumes("application/json")
 	public void alteraLocalizacao(Localizacao localizacao) {
 		if(repositorio.validaDados(localizacao)) {
+			localizacao.setCampus(campus.comChave(localizacao.getCampus().getId()));
 			repositorio.altera(localizacao);
 		}
 	}

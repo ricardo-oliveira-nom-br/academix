@@ -3,6 +3,7 @@ package br.nom.martinelli.ricardo.academix.model;
 import javax.persistence.Entity;
 import java.io.Serializable;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
@@ -22,6 +23,12 @@ public class ItemGradeCurricular implements Serializable {
 	@Version
 	@Column(name = "version")
 	private int version;
+	@Column(name = "periodoLetivo")
+	private int periodoLetivo;
+	@ManyToOne
+	private Disciplina disciplina;
+	@Column(name = "cargaHoraria")
+	private int cargaHoraria;
 
 	public Long getId() {
 		return this.id;
@@ -37,6 +44,30 @@ public class ItemGradeCurricular implements Serializable {
 
 	public void setVersion(final int version) {
 		this.version = version;
+	}
+
+	public int getPeriodoLetivo() {
+		return periodoLetivo;
+	}
+
+	public void setPeriodoLetivo(int periodoLetivo) {
+		this.periodoLetivo = periodoLetivo;
+	}
+
+	public Disciplina getDisciplina() {
+		return disciplina;
+	}
+
+	public void setDisciplina(Disciplina disciplina) {
+		this.disciplina = disciplina;
+	}
+
+	public int getCargaHoraria() {
+		return cargaHoraria;
+	}
+
+	public void setCargaHoraria(int cargaHoraria) {
+		this.cargaHoraria = cargaHoraria;
 	}
 
 	@Override

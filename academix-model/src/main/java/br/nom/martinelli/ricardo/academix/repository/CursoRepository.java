@@ -10,8 +10,10 @@ public class CursoRepository extends AbstractRepository<Curso, Long> {
 
 	@Override
 	public boolean validaDados(Curso entidade) {
+		boolean valido = true;
+		
 		// TODO Implementar validação
-		return false;
+		return valido;
 	}
 
 }

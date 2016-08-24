@@ -3,9 +3,11 @@ package br.nom.martinelli.ricardo.academix.model;
 import javax.persistence.Entity;
 import java.io.Serializable;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Version;
 
 @Entity
@@ -22,6 +24,20 @@ public class Professor implements Serializable {
 	@Version
 	@Column(name = "version")
 	private int version;
+	@Column(name = "nome", length = 40)
+	private String nome;
+	@Embedded
+	private Endereco enderecoResidencial;
+	@Column(name = "numeroResidencial", length = 8)
+	private Integer enderecoResidencialNumero;
+	@Column(name = "complementoResidencial", length = 30)
+	private String enderecoResidencialComplemento;
+	@Embedded
+	private Endereco enderecoComercial;
+	@Column(name = "numeroComercial", length = 8)
+	private Integer enderecoComercialNumero;
+	@Column(name = "complementoComercial", length = 30)
+	private String enderecoComercialComplemento;
 
 	public Long getId() {
 		return this.id;

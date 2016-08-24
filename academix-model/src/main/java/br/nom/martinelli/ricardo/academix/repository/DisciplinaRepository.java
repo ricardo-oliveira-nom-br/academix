@@ -9,9 +9,13 @@ public class DisciplinaRepository extends AbstractRepository<Disciplina, Long> {
 	}
 
 	@Override
-	public boolean validaDados(Disciplina entidade) {
-		// TODO Implementar validação
-		return false;
+	public boolean validaDados(Disciplina disciplina) {
+		boolean valido = false;
+		
+		valido = disciplina.getNome() != null && !"".equals(disciplina.getNome()) && disciplina.getNome().length() <= 30;
+		valido = disciplina.getSigla() != null && !"".equals(disciplina.getSigla()) && disciplina.getSigla().length() <= 8;
+
+		return valido;
 	}
 
 }

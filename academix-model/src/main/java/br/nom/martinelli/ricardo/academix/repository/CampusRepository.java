@@ -10,8 +10,14 @@ public class CampusRepository extends AbstractRepository<Campus, Long> {
 
 	@Override
 	public boolean validaDados(Campus campus) {
-		// TODO Implementar validação
-		return false;
+		boolean valido = false;
+		
+		valido = campus.getNome() != null && !"".equals(campus.getNome());
+		valido = campus.getEndereco() != null && campus.getEndereco().getId() != null;
+		valido = campus.getNumero() != null && campus.getNumero().intValue() > 0;
+		valido = (campus.getComplemento() == null) ? true : !"".equals(campus.getComplemento()) && campus.getComplemento().length() <= 30;
+		
+		return valido;
 	}
 	
 }

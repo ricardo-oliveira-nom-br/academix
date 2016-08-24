@@ -10,8 +10,13 @@ public class LocalizacaoRepository extends AbstractRepository<Localizacao, Long>
 
 	@Override
 	public boolean validaDados(Localizacao entidade) {
-		// TODO Implementar validação
-		return false;
+		boolean valido = false;
+		
+		valido = entidade.getCampus() != null && entidade.getCampus().getId() != null;
+		valido = entidade.getNome() != null && !"".equals(entidade.getNome()) && entidade.getNome().length() <= 30;
+		valido = entidade.getQuantidade() != null && entidade.getQuantidade() <= 999;
+		
+		return valido;
 	}
 
 }

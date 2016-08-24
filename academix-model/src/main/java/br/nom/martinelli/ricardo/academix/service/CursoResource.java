@@ -3,6 +3,7 @@ package br.nom.martinelli.ricardo.academix.service;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -13,14 +14,18 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import br.nom.martinelli.ricardo.academix.model.Curso;
+import br.nom.martinelli.ricardo.academix.repository.CampusRepository;
 import br.nom.martinelli.ricardo.academix.repository.CursoRepository;
 
 @Path("curso")
 @Stateless
 public class CursoResource {
 
-	// TODO: Ver uma forma de fazer isso com CDI
-	private CursoRepository repositorio = new CursoRepository();
+	@Inject
+	CursoRepository repositorio;
+	
+	@Inject
+	CampusRepository campus;
 	
 	@GET
 	@Path("")
@@ -34,6 +39,7 @@ public class CursoResource {
 	@Consumes("application/json")
 	public void adicionaCurso(Curso curso) {
 		if(repositorio.validaDados(curso)) {
+			curso.setCampus(campus.comChave(curso.getCampus().getId()));
 			repositorio.adiciona(curso);	
 		}
 	}
@@ -43,6 +49,7 @@ public class CursoResource {
 	@Consumes("application/json")
 	public void alteraCurso(Curso curso) {
 		if(repositorio.validaDados(curso)) {
+			curso.setCampus(campus.comChave(curso.getCampus().getId()));
 			repositorio.altera(curso);
 		}
 	}
