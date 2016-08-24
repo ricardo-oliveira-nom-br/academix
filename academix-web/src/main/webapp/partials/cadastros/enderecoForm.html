@@ -7,13 +7,17 @@
 			<li ng-hide="endereco.id">Novo</li>
 			<li ng-show="endereco.id">Editar</li>
 		</ol>
+		<div ng-show="erro" class="toast-pf alert alert-danger">
+		  <span class="pficon pficon-error-circle-o"></span>
+		  {{erro.statusText}}
+		</div>
 		<form id="enderecoForm" class="form-horizontal"
 			ng-submit="salvaEndereco()" novalidate>
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="campoCep">CEP</label>
 				<div class="col-sm-1">
 					<input class="form-control" size="10" name="campoCep"
-						ng-model="endereco.cep" placeholder="CEP" integer required>
+						ng-model="endereco.cep" placeholder="CEP">
 
 				</div>
 			</div>
@@ -21,28 +25,27 @@
 				<label class="col-sm-2 control-label" for="campoLogradouro">Logradouro</label>
 				<div class="col-sm-6">
 					<input class="form-control" name="campoLogradouro"
-						ng-model="endereco.logradouro" placeholder="Logradouro" required>
+						ng-model="endereco.logradouro" placeholder="Logradouro">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="campoBairro">Bairro</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" id="campoBairro"
-						ng-model="endereco.bairro" placeholder="Bairro" required>
+						ng-model="endereco.bairro" placeholder="Bairro">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="campoCidade">Cidade</label>
 				<div class="col-sm-4">
 					<input type="test" class="form-control" id="campoCidade"
-						ng-model="endereco.cidade" placeholder="Cidade" required>
+						ng-model="endereco.cidade" placeholder="Cidade">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="campoUf">UF</label>
 				<div class="col-sm-4">
-					<select ng-model="endereco.uf" id="campoUf" class="form-control"
-						required>
+					<select ng-model="endereco.uf" id="campoUf" class="form-control">
 						<option value="AC">AC</option>
 						<option value="AL">AL</option>
 						<option value="AM">AM</option>
@@ -81,15 +84,3 @@
 		</form>
 	</div>
 </div>
-<style type="text/css">
-.css-form input.ng-invalid.ng-touched {
-	background-color: #FA787E;
-}
-
-.css-form input.ng-valid.ng-touched {
-	background-color: #78FA89;
-}
-</style>
-<script>
-$('#enderecoForm').validate();
-</script>

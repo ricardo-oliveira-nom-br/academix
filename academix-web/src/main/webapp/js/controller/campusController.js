@@ -71,15 +71,12 @@ angular.module('academix').controller('CampusListController', function ($scope, 
 	$scope.selecionaEndereco = function(endereco) {
 		$scope.campus.endereco = endereco;
 		$scope.campusForm['campoEnderecoLogradouro'].$render();
-		//$scope.campusForm['campoEnderecoUf'].$render();
-		//$scope.campusForm['campoEnderecoBairro'].$render();
-		//$scope.campusForm['campoEnderecoCidade'].$render();
+		$scope.campusForm['campoEnderecoUf'].$render();
+		$scope.campusForm['campoEnderecoBairro'].$render();
+		$scope.campusForm['campoEnderecoCidade'].$render();
 	}
 	
 	$scope.salvaCampus = function() {
-		if($scope.campus.endereco == null) {
-			$scope.campus.endereco = {};
-		}
 		if($scope.campus.id) {
 			$scope.campus.$update()
 			.then(function() {

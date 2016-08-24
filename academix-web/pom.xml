@@ -7,6 +7,7 @@
   </parent>
   <artifactId>academix-web</artifactId>
   <packaging>war</packaging>
+
   <build>
     <plugins>
       <plugin>
@@ -18,6 +19,71 @@
           <warName>academix</warName>
         </configuration>
       </plugin>
+      <plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.15.16</version>
+				<configuration>
+					<images>
+						<image>
+							<alias>service</alias>
+							<name>academix/academix-model:${project.version}</name>
+						</image>
+					</images>
+				</configuration>
+
+
+				<executions>
+					<execution>
+						<id>start</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<!-- "build" should be used to create the images with the artifact -->
+							<goal>build</goal>
+							<goal>start</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>stop</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>stop</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
     </plugins>
   </build>
+  
+  <profiles>
+		<profile>
+			<id>arquillian-wildfly-remote</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>2.14.1</version>
+						<configuration>
+							<systemPropertyVariables>
+								<arquillian.launch>arquillian-wildfly-managed</arquillian.launch>
+							</systemPropertyVariables>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+			<dependencies>
+				<dependency>
+					<groupId>org.wildfly</groupId>
+					<artifactId>wildfly-arquillian-container-remote</artifactId>
+					<version>8.2.1.Final</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+
+	</profiles>
+  
 </project>

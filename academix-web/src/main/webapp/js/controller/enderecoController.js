@@ -16,9 +16,9 @@ angular.module('academix').controller('EnderecoListController', function($scope,
 			function(enderecos) {
 				$scope.enderecos = enderecos;
 			},
-			function(erro) {
-				$scope.erro = {texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + erro};
-				console.log(erro);
+			function(msg) {
+				$scope.erro = {texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + msg.statusText};
+				console.log(msg);
 			}
 		);
 	}
@@ -26,9 +26,9 @@ angular.module('academix').controller('EnderecoListController', function($scope,
 	$scope.removeEndereco = function(endereco) {
 		Endereco.delete({id: endereco.id},
 			obterEnderecos,
-			function(erro) {
-				$scope.erro = {texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + erro};
-				console.log(erro);
+			function(msg) {
+				$scope.erro = {texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + msg.statusText};
+				console.log(msg);
 			}
 		);
 	}
@@ -38,16 +38,16 @@ angular.module('academix').controller('EnderecoListController', function($scope,
 })
 
 .controller('EnderecoController',
-		function($scope, $rootScope, $routeParams, $window, Endereco) {
+		function($scope, $rootScope, $routeParams, $window, $timeout, Endereco) {
 	
 	if($routeParams.enderecoId) {
 		Endereco.get({id: $routeParams.enderecoId},
 				function(endereco) {
 					$scope.endereco = endereco;
 				},
-				function(erro) {
-					$scope.erro = {texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + erro};
-					console.log(erro);
+				function(msg) {
+					$scope.erro = {texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + msg.statusText};
+					console.log(msg);
 				}
 			);
 	} else {
@@ -55,28 +55,30 @@ angular.module('academix').controller('EnderecoListController', function($scope,
 	}
 	
 	$scope.salvaEndereco = function() {
-		if(!$scope.endereco.$valid) {
-			return;
-		}
-		
 		if($scope.endereco.id) {
 			$scope.endereco.$update()
 			.then(function() {
 				$rootScope.$broadcast('MSG',
 					{texto: "Endereço adicionado com sucesso!"});
 				console.log("Sucesso!");
-			}, function(error) {
-				$scope.erro = {texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + erro};
-				console.log(error);
+			}, function(msg) {
+				$scope.erro = {texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + msg.statusText};
+				console.log(msg);
+				return;
 			});
 		} else {
 			$scope.endereco.$save()
 			.then(function() {
 				console.log("Sucesso!");
-			}, function(error) {
+				$timeout(function() {
+					$rootScope.$broadcast('MSG',
+					{texto: "Endereço adicionado com sucesso!"});
+				}, 100);
+			}, function(msg) {
 				$rootScope.$broadcast('MSG_ERRO',
-					{texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + error});
-				console.log(error);
+					{texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + msg.statusText});
+				console.log(msg);
+				return;
 			});
 		}
 		$window.location.href = "#/cadastros/endereco"

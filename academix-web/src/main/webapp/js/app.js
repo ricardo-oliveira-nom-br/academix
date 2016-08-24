@@ -1,7 +1,17 @@
 angular.module('academix', ['ngRoute','academix.services'])
 	.config(function($routeProvider) {
 		
+		$routeProvider
+		
 		// Secretaria
+		.when('/cadastros/gradeCurricular', {
+			templateUrl: 'partials/secretaria/gradeCurricular.html',
+			controller: 'GradeCurricularListController',
+		})
+		.when('/cadastros/gradeCurricular/create', {
+			templateUrl: 'partials/secretaria/gradeCurricularForm.html',
+			controller: 'GradeCurricularController',
+		})
 		
 		// Aluno
 		
@@ -10,7 +20,7 @@ angular.module('academix', ['ngRoute','academix.services'])
 		// Relatorios
 		
 		// Cadastros
-		$routeProvider.when('/cadastros/endereco', {
+		.when('/cadastros/endereco', {
 			templateUrl: 'partials/cadastros/endereco.html',
 			controller: 'EnderecoListController',
 		})
@@ -49,16 +59,6 @@ angular.module('academix', ['ngRoute','academix.services'])
 		.when('/cadastros/curso/:cursoId', {
 			templateUrl: 'partials/cadastros/cursoForm.html',
 			controller: 'CursoController',
-		})
-		
-		
-		.when('/cadastros/gradeCurricular', {
-			templateUrl: 'partials/cadastros/gradeCurricular.html',
-			controller: 'GradeCurricularListController',
-		})
-		.when('/cadastros/gradeCurricular/create', {
-			templateUrl: 'partials/cadastros/gradeCurricularForm.html',
-			controller: 'GradeCurricularListController',
 		})
 		
 		

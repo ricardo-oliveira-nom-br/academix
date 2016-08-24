@@ -8,10 +8,10 @@
 				<li>Novo</li>
 			</ol>
 			<form class="form-horizontal" ng-submit="salvaCurso()">
-				<div class="form-group">
+				<div class="form-group"> 
 					<label class="col-sm-2 control-label" for="campoCampus">Campus</label>
 					<div class="col-sm-4">
-						<select ng-model="curso.campus"
+						<select ng-model="curso.campus.id"
 							ng-options="campi.id as campi.nome for campi in campus"
 							id="campoCampus" class="form-control" required>
 						</select>
@@ -28,8 +28,12 @@
 					<label class="col-sm-2 control-label">Periodicidade</label>
 					<div class="col-sm-5 form-inline">
 						<select ng-model="curso.periodicidade" class="col-sm-4 form-control">
-							<option value="0">Anual</option>
-							<option value="1">Semestral</option>
+							<option value="DIARIO">Diário</option>
+							<option value="SEMANAL">Semanal</option>
+							<option value="MENSAL">Mensal</option>
+							<option value="BIMESTRAL">Bimestral</option>
+							<option value="SEMESTRAL">Semestral</option>
+							<option value="ANUAL">Anual</option>
 						</select>
 						<label class="col-sm-2 control-label">Periodo</label>
 						<input ng-model="curso.periodo" class="form-control">

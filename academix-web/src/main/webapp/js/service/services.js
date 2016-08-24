@@ -52,4 +52,15 @@ angular.module('academix.services', ['ngResource'])
 			     method : 'PUT' // this method issues a PUT request
 			}
         });
-});
+})
+
+.factory('GradeCurricular', function($resource) {
+	return $resource('http://localhost:8080/academix-model/api/gradeCurricular/:id',{},{
+	        jsonpquery: { method: 'JSONP', params: {callback: 'JSON_CALLBACK'}, isArray: true},
+	        update: {
+			     method : 'PUT' // this method issues a PUT request
+			}
+        });
+}
+
+);

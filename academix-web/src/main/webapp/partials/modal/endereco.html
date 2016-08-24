@@ -28,11 +28,11 @@
 							<tr ng-repeat="end in listaEndereco">
 								<td>{{end.logradouro}}</a></td>
 								<td>{{end.cep}}</td>
-								<td>{{endereco.bairro}}</td>
-								<td>{{endereco.cidade}}</td>
-								<td>{{endereco.uf}}</td>
+								<td>{{end.bairro}}</td>
+								<td>{{end.cidade}}</td>
+								<td>{{end.uf}}</td>
 								<td width="10">
-									<a class="btn btn-default" ng-click="selecionaEndereco(end)">
+									<a class="btn btn-default" ng-click="selecionaEndereco(end)" data-dismiss="modal">
 										<span class="icon glyphicon glyphicon-ok" />
 									</a>
 								</td>

@@ -7,39 +7,72 @@
 				<li>Grade Curricular</li>
 			</ol>
 			<form class="form-horizontal">
-				<div class="form-group">
-					<label class="col-sm-2 control-label">Campus</label>
-					<div class="col-sm-8">
-						<input class="form-control"/>
+				<div class="form-group"> 
+					<label class="col-sm-2 control-label" for="campoCampus">Campus</label>
+					<div class="col-sm-4">
+						<select ng-model="gradeCurricular.campus.id"
+							ng-options="campi.id as campi.nome for campi in campus"
+							id="campoCampus" class="form-control" required>
+						</select>
 					</div>
+					<input type="hidden" ng-model="gradeCurricular.campus.endereco">
 				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label">Curso</label>
-					<div class="col-sm-8">
-						<input class="form-control"/>
+				<div class="form-group"> 
+					<label class="col-sm-2 control-label" for="campoCurso">Curso</label>
+					<div class="col-sm-4">
+						<select ng-model="gradeCurricular.curso.id"
+							ng-options="curso.id as curso.nome for curso in cursos"
+							id="campoCurso" class="form-control" required>
+						</select>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="campoAno">Ano</label>
 					<div class="col-sm-8 form-inline">
-						<input class="col-sm-2 form-control" id="campoAno" />
-						<label class="col-sm-1 control-label" for="campoSemestre">Semestre</label>
-						<input class="col-sm-1 form-control"  id="campoSemestre" />
+						<input class="col-sm-2 form-control" id="campoAno" /> <label
+							class="col-sm-1 control-label" for="campoSemestre">Semestre</label>
+						<input class="col-sm-1 form-control" id="campoSemestre" />
 					</div>
 				</div>
-				<div class="form-group col-sm-offset-2 col-sm-8">
-					<div class="col-sm-offset-3 col-sm-10">
-						<button class="btn  btn-default" id="add-item">Adicionar Disciplina</button>
-						<div>
-							<table class="table datatable table-stripped table-bordered">
-								<thead>
-									<th>Disciplina</th>
-									<th>Carga hor&aacute;ria</th>
-								</thead>
-							</table>
+				<ul class="col-sm-10 nav nav-tabs">
+					<li><a id="periodo1" data-toggle="tab" href="">1</a></li>
+					<li><a id="periodo2" data-toggle="tab" href="">2</a></li>
+					<li><a id="periodo3" data-toggle="tab" href="">3</a></li>
+					<li><a id="periodo4" data-toggle="tab" href="">4</a></li>
+				</ul>
+				<div class="tab-content">
+					<div id="periodo1" class="tab-pane face in active">
+						<div class="form-group col-sm-offset-2 col-sm-8">
+							<div class="col-sm-offset-3 col-sm-10">
+								<button class="btn  btn-default" id="add-item">Adicionar Disciplina</button>
+								<div>
+									<table class="table datatable table-stripped table-bordered">
+										<thead>
+											<th>Disciplina</th>
+											<th>Carga hor&aacute;ria</th>
+										</thead>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="periodo2" class="tab-pane fade">
+						<div class="form-group col-sm-offset-2 col-sm-8">
+							<div class="col-sm-offset-3 col-sm-10">
+								<button class="btn  btn-default" id="add-item">Adicionar Disciplina</button>
+								<div>
+									<table class="table datatable table-stripped table-bordered">
+										<thead>
+											<th>Disciplina</th>
+											<th>Carga hor&aacute;ria</th>
+										</thead>
+									</table>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
+
 				<div class="col-sm-4 col-sm-offset-2">
 					<button class="btn btn-primary" type="submit">Adicionar</button>
 					<a class="btn  btn-default" ng-href="#/cadastros/gradeCurricular">Cancelar</a>
@@ -59,4 +92,9 @@
 		]).draw(false);
     });
   });
+  //Select tab by name
+  $('.nav-tabs a[id="periodo1"]').tab('show')
+  $('.nav-tabs a[id="periodo2"]').tab('show')
+  $('.nav-tabs a[id="periodo3"]').tab('show')
+  $('.nav-tabs a[id="periodo4"]').tab('show')
 </script>
