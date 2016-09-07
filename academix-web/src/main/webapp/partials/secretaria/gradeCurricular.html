@@ -12,16 +12,16 @@
 					<tr>
 						<th>Campus</th>
 						<th>Curso</th>
-						<th>Ano</th>
-						<th>Semestre</th>
+						<th>Ano Base</th>
+						<th>Semestre Base</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="grade in grades">
-						<td>{{grade.campus.nome}}</td>
+						<td>{{grade.curso.campus.nome}}</td>
 						<td>{{grade.curso.nome}}</td>
-						<td>{{grade.ano}}</td>
-						<td>{{grade.semestre}}</td>
+						<td>{{grade.itens[0].ano}}</td>
+						<td>{{grade.itens[0].semestre}}</td>
 					</tr>
 				</tbody>
 			</table>

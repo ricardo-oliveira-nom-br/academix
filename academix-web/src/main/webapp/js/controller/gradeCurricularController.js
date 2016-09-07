@@ -2,80 +2,55 @@ angular.module('academix').controller('GradeCurricularListController', function 
 	
 	$scope.grades = [
 	    {
-	    	campus: {
-		    	nome: "Ipiranga",
-		    	endereco: {
-		    		logradouro: "Rua Vergueiro",
-			    	cep: "04273100",
-			    	bairro: "Vila Firmiano Pinto",
-			    	cidade: "São Paulo",
-			    	uf: "SP"
-		    	},
-		    	numero: "7133",
-		    	complemento: ""
-		    },
-		    curso: {
+    		id: 1,
+    		version: 0,
+    		curso: {
+    			campus: {
+    		    	nome: "Ipiranga",
+    		    	endereco: {
+    		    		logradouro: "Rua Vergueiro",
+    			    	cep: "04273100",
+    			    	bairro: "Vila Firmiano Pinto",
+    			    	cidade: "São Paulo",
+    			    	uf: "SP"
+    		    	},
+    		    	numero: "7133",
+    		    	complemento: ""
+    		    },
 		    	nome: "Ciência da computação",
+		    	periodicidade: 5,
+		    	periodo: 4
 		    },
-		    ano: 2015,
-		    semestre: 1
-	    },
-	    {
-	    	campus: {
-		    	nome: "Ipiranga",
-		    	endereco: {
-		    		logradouro: "Rua Vergueiro",
-			    	cep: "04273100",
-			    	bairro: "Vila Firmiano Pinto",
-			    	cidade: "São Paulo",
-			    	uf: "SP"
-		    	},
-		    	numero: "7133",
-		    	complemento: ""
-		    },
-		    curso: {
-		    	nome: "Ciência da computação",
-		    },
-		    ano: 2015,
-		    semestre: 2
-	    },
-	    {
-	    	campus: {
-		    	nome: "Ipiranga",
-		    	endereco: {
-		    		logradouro: "Rua Vergueiro",
-			    	cep: "04273100",
-			    	bairro: "Vila Firmiano Pinto",
-			    	cidade: "São Paulo",
-			    	uf: "SP"
-		    	},
-		    	numero: "7133",
-		    	complemento: ""
-		    },
-		    curso: {
-		    	nome: "Ciência da computação",
-		    },
-		    ano: 2016,
-		    semestre: 1
-	    },
-	    {
-	    	campus: {
-		    	nome: "Ipiranga",
-		    	endereco: {
-		    		logradouro: "Rua Vergueiro",
-			    	cep: "04273100",
-			    	bairro: "Vila Firmiano Pinto",
-			    	cidade: "São Paulo",
-			    	uf: "SP"
-		    	},
-		    	numero: "7133",
-		    	complemento: ""
-		    },
-		    curso: {
-		    	nome: "Ciência da computação",
-		    },
-		    ano: 2016,
-		    semestre: 2
+	    	itens: [
+	    	    {
+	    	    	id: 1,
+	    	    	version: 0,
+	    	    	periodoLetivo: 1,
+	    	    	ano: 2015,
+	    		    semestre: 1
+	    	    },
+	    	    {
+	    	    	id: 2,
+	    	    	version: 0,
+	    	    	periodoLetivo: 2,
+	    	    	ano: 2016,
+	    		    semestre: 1
+	    	    },
+	    	    {
+	    	    	id: 3,
+	    	    	version: 0,
+	    	    	periodoLetivo: 3,
+	    	    	ano: 2017,
+	    		    semestre: 1
+	    	    },
+	    	    {
+	    	    	id: 4,
+	    	    	version: 0,
+	    	    	periodoLetivo: 4,
+	    	    	ano: 2018,
+	    		    semestre: 1
+	    	    }
+	    	]
 	    }
 	];
 	
@@ -99,6 +74,12 @@ angular.module('academix').controller('GradeCurricularListController', function 
 	$scope.campus = [];
 	
 	$scope.cursos = [];
+	
+	$scope.number = 4;
+	
+	$scope.getNumber = function(num) {
+	    return new Array(num);   
+	}
 	
 	if($routeParams.gradeCurricularId) {
 		GradeCurricular.get({id: $routeParams.gradeCurricularId},

@@ -12,7 +12,7 @@ angular.module('academix').controller('ProfessorListController',
 	});
 
 	function obterProfessores() {
-// $scope.enderecos = Endereco.jsonpquery();
+// $scope.professores = Professor.jsonpquery();
 		Professor.query(
 			function(professores) {
 				$scope.professores = professores;

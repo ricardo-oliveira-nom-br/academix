@@ -1,0 +1,113 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<ol class="breadcrumb">
+				<li><a href="#">Principal</a></li>
+				<li><a href="#">Cadastros</a></li>
+				<li>Professor</li>
+				<li ng-hide="endereco.id">Novo</li>
+				<li ng-show="endereco.id">Editar</li>
+			</ol>
+			<div ng-show="erro" class="toast-pf alert alert-danger">
+			  <span class="pficon pficon-error-circle-o"></span>
+			  {{erro.statusText}}
+			</div>
+			<form id="professorForm" class="form-horizontal" ng-submit="salvaProfessor()" novalidate>
+				<uib-tabset class="col-md-10" active="active">
+					<uib-tab index="0" heading="Dados Pessoais">
+						<br>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="campoNome">Nome</label>
+							<div class="col-sm-5">
+								<input class="form-control" size="10" name="campoNome" ng-model="professor.nome" placeholder="Nome">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="campoRg">RG</label>
+							<div class="col-sm-6 form-inline">
+								<input class="col-sm-1 form-control" id="campoRg" ng-model="professor.rg" placeholder="00.000.000-X">
+								<label class="col-sm-3 control-label" for="campoCpf">CPF</label>
+								<input class="col-sm-1 form-control" id="campoCpf" ng-model="professor.cpf" placeholder="000.000.000-00">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="campoEndResLogradouro">Endere&ccedil;o</label>
+							<div class="col-sm-6 form-inline">
+								<input class="form-control" id="campoEndResLogradouro" ng-model="professor.enderecoResidencial.logradouro" size="60" type="text" disabled>
+								<a href="" class="btn btn-default" data-toggle="modal" data-target="#enderecoModal">Selecionar</a>
+							</div>
+						</div>
+						<div class="form-group form-inline">
+							<label class="col-sm-2 control-label" for="campoEndResNumero">Numero</label>
+							<div class="col-sm-6 form-inline">
+							<input class="col-sm-1 form-control" size="6" id="campoEndResNumero" ng-model="professor.enderedoResidencial.numero">
+							<label class="col-sm-3 control-label" for="campoEndResComplemento">Complemento</label>
+							<input class="col-sm-1 form-control" id="campoEndResComplemento" ng-model="professor.enderedoResidencial.complemento" />
+							<label class="col-sm-1" for="campoEndResUf">UF</label>
+								<input class="col-sm-1 form-control" size="4" id="campoEnderecoUf" ng-model="professor.enderedoResidencial.uf" disabled/>
+							</div>
+						</div>
+						<div class="form-group form-inline">
+							<label class="col-sm-2 control-label" for="campoEndResBairro">Bairro</label>
+							<div class="col-sm-6 form-inline">
+								<input class="col-sm-2 form-control" size="30" id="campoEndResBairro" ng-model="professor.enderedoResidencial.bairro" disabled>
+								<label class="col-sm-2 control-label" for="campoEnderecoCidade">Cidade</label>
+								<input class="col-sm-2 form-control" size="30" id="campoEndResCidade" ng-model="professor.enderedoResidencial.cidade" disabled>
+							</div>
+						</div>
+					</uib-tab>
+					<uib-tab index="1" heading="Dados Comerciais">
+						<br>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="campoEmpresa">Empresa</label>
+							<div class="col-sm-5">
+								<input class="form-control" size="10" name="campoEmpresa" ng-model="professor.empresa" placeholder="Empresa">
+			
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="campoEndComLogradouro">Endere&ccedil;o</label>
+							<div class="col-sm-6 form-inline">
+								<input class="form-control" id="campoEndComLogradouro" ng-model="professor.enderedoComercial.logradouro" size="60" type="text" disabled>
+								<a href="" class="btn btn-default" data-toggle="modal" data-target="#enderecoModal">Selecionar</a>
+							</div>
+						</div>
+						<div class="form-group form-inline">
+							<label class="col-sm-2 control-label" for="campoEndComNumero">Numero</label>
+							<div class="col-sm-6 form-inline">
+							<input class="col-sm-1 form-control" size="6" id="campoEndComNumero" ng-model="professor.enderedoComercial.numero">
+							<label class="col-sm-3 control-label" for="campoEndComComplemento">Complemento</label>
+							<input class="col-sm-1 form-control" id="campoEndComComplemento" ng-model="professor.enderedoComercial.complemento" />
+							<label class="col-sm-1" for="campoEndComUf">UF</label>
+								<input class="col-sm-1 form-control" size="4" id="campoEndComUf" ng-model="professor.enderedoComercial.uf" disabled/>
+							</div>
+						</div>
+						<div class="form-group form-inline">
+							<label class="col-sm-2 control-label" for="campoEndComBairro">Bairro</label>
+							<div class="col-sm-6 form-inline">
+								<input class="col-sm-2 form-control" size="30" id="campoEndComBairro" ng-model="professor.enderedoComercial.bairro" disabled>
+								<label class="col-sm-2 control-label" for="campoEndComCidade">Cidade</label>
+								<input class="col-sm-2 form-control" size="30" id="campoEndComCidade" ng-model="professor.enderedoComercial.cidade" disabled>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="campoProfissao">Profiss&atilde;o</label>
+							<div class="col-sm-5">
+								<input class="form-control" size="10" name="campoProfissao" ng-model="professor.profissao" placeholder="Profissão">
+							</div>
+						</div>
+					</uib-tab>
+					<uib-tab index="2" heading="Experiência Acadêmica">
+						I've got an HTML heading, and a select callback. Pretty cool!
+					</uib-tab>
+				</uib-tabset>
+	
+				<div class="col-sm-4  col-sm-offset-2">
+					<button class="btn btn-primary" ng-hide="professor.id" type="submit">Adicionar</button>
+					<button class="btn btn-primary" ng-show="professor.id" type="submit">Alterar</button>
+					<a class="btn  btn-default" ng-href="#/cadastros/professor">Cancelar</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
