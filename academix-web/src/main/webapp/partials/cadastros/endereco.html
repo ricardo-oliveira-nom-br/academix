@@ -1,48 +1,50 @@
-<div class="row">
-	<div class="col-md-12">
-		<ol class="breadcrumb">
-			<li><a href="#">Principal</a></li>
-			<li><a href="#">Cadastros</a></li>
-			<li>Endere&ccedil;o</li>
-		</ol>
-		<div class="alert alert-danger alert-dismissable" ng-show="erro.texto">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-				<span class="pficon pficon-close"></span>
-			</button>
-			<span class="pficon pficon-error-circle-o"></span>
-			{{erro.texto}}
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<ol class="breadcrumb">
+				<li><a href="#">Principal</a></li>
+				<li><a href="#">Cadastros</a></li>
+				<li>Endere&ccedil;o</li>
+			</ol>
+			<div class="alert alert-danger alert-dismissable" ng-show="erro.texto">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+					<span class="pficon pficon-close"></span>
+				</button>
+				<span class="pficon pficon-error-circle-o"></span>
+				{{erro.texto}}
+			</div>
+			<div class="alert alert-success alert-dismissable" ng-show="mensagem.texto">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+					<span class="pficon pficon-close"></span>
+				</button>
+				<span class="pficon pficon-ok"></span>
+				{{mensagem.texto}}
+			</div>
+			<h1>Endere&ccedil;os</h1>
+			<table class="datatable table table-striped table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>Logradouro</th>
+						<th>CEP</th>
+						<th>Bairro</th>
+						<th>Estado</th>
+						<th>UF</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="endereco in enderecos">
+						<td><a ng-href="#/cadastros/endereco/{{endereco.id}}">{{endereco.logradouro}}</a></td>
+						<td><a ng-href="#/cadastros/endereco/{{endereco.id}}">{{endereco.cep}}</a></td>
+						<td><a ng-href="#/cadastros/endereco/{{endereco.id}}">{{endereco.bairro}}</a></td>
+						<td><a ng-href="#/cadastros/endereco/{{endereco.id}}">{{endereco.cidade}}</a></td>
+						<td><a ng-href="#/cadastros/endereco/{{endereco.id}}">{{endereco.uf}}</a></td>
+						<td width="10"><a class="btn btn-default" ng-click="removeEndereco(endereco)"><span class="icon glyphicon glyphicon-trash"></span></a></td>
+					</tr>
+				</tbody>
+			</table>
+			<a class="btn btn-primary" ng-href="#/cadastros/endereco/create" role="button" >Adicionar Endere&ccedil;o</a>
 		</div>
-		<div class="alert alert-success alert-dismissable" ng-show="mensagem.texto">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-				<span class="pficon pficon-close"></span>
-			</button>
-			<span class="pficon pficon-ok"></span>
-			{{mensagem.texto}}
-		</div>
-		<h1>Endere&ccedil;os</h1>
-		<table class="datatable table table-striped table-bordered table-hover">
-			<thead>
-				<tr>
-					<th>Logradouro</th>
-					<th>CEP</th>
-					<th>Bairro</th>
-					<th>Estado</th>
-					<th>UF</th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="endereco in enderecos">
-					<td><a ng-href="#/cadastros/endereco/{{endereco.id}}">{{endereco.logradouro}}</a></td>
-					<td><a ng-href="#/cadastros/endereco/{{endereco.id}}">{{endereco.cep}}</a></td>
-					<td><a ng-href="#/cadastros/endereco/{{endereco.id}}">{{endereco.bairro}}</a></td>
-					<td><a ng-href="#/cadastros/endereco/{{endereco.id}}">{{endereco.cidade}}</a></td>
-					<td><a ng-href="#/cadastros/endereco/{{endereco.id}}">{{endereco.uf}}</a></td>
-					<td width="10"><a class="btn btn-default" ng-click="removeEndereco(endereco)"><span class="icon glyphicon glyphicon-trash"></span></a></td>
-				</tr>
-			</tbody>
-		</table>
-		<a class="btn btn-primary" ng-href="#/cadastros/endereco/create" role="button" >Adicionar Endere&ccedil;o</a>
 	</div>
 </div>
 <script>
