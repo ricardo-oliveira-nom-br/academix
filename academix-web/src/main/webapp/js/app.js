@@ -1,4 +1,4 @@
-angular.module('academix', ['ngRoute','academix.services'])
+angular.module('academix', ['ngRoute','academix.services', 'ui.bootstrap'])
 	.config(function($routeProvider) {
 		
 		$routeProvider
@@ -91,6 +91,14 @@ angular.module('academix', ['ngRoute','academix.services'])
 		.when('/cadastros/professor', {
 			templateUrl: 'partials/cadastros/professor.html',
 			controller: 'ProfessorListController',
+		})
+		.when('/cadastros/professor/create', {
+			templateUrl: 'partials/cadastros/professorForm.html',
+			controller: 'ProfessorController',
+		})
+		.when('/cadastros/professor/:professorId', {
+			templateUrl: 'partials/cadastros/professorForm.html',
+			controller: 'ProfessorController',
 		})
 		
 		
