@@ -1,40 +1,42 @@
-<div class="row">
-	<div class="col-md-12">
-		<ol class="breadcrumb">
-			<li><a href="#">Principal</a></li>
-			<li><a href="#">Cadastros</a></li>
-			<li>Localiza&ccedil;&atilde;o</li>
-			<li ng-hide="localizacao.id">Novo</li>
-			<li ng-show="localizacao.id">Editar</li>
-		</ol>
-		<form class="form-horizontal" ng-submit="salvaLocalizacao()" novalidate>
-			<div class="form-group">
-				<label class="col-sm-2 control-label" for="campoCampus">Campus</label>
-				<div class="col-sm-4">
-					<select ng-model="localizacao.campus"
-						ng-options="campi.nome for campi in campus"
-						id="campoCampus" class="form-control" required>
-					</select>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<ol class="breadcrumb">
+				<li><a href="#">Principal</a></li>
+				<li><a href="#">Cadastros</a></li>
+				<li>Localiza&ccedil;&atilde;o</li>
+				<li ng-hide="localizacao.id">Novo</li>
+				<li ng-show="localizacao.id">Editar</li>
+			</ol>
+			<form class="form-horizontal" ng-submit="salvaLocalizacao()" novalidate>
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="campoCampus">Campus</label>
+					<div class="col-sm-4">
+						<select ng-model="localizacao.campus"
+							ng-options="campi.nome for campi in campus"
+							id="campoCampus" class="form-control" required>
+						</select>
+					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-2 control-label" for="campoNome">Nome</label>
-				<div class="col-sm-1">
-					<input class="form-control" size="80" name="campoNome" ng-model="localizacao.nome" placeholder="Nome" required>
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="campoNome">Nome</label>
+					<div class="col-sm-1">
+						<input class="form-control" size="80" name="campoNome" ng-model="localizacao.nome" placeholder="Nome" required>
+					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-2 control-label" for="campoCapacidade">Capacidade</label>
-				<div class="col-sm-1">
-					<input class="form-control" size="80" name="campoCapacidade" ng-model="localizacao.quantidade" placeholder="Capacidade" required>
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="campoCapacidade">Capacidade</label>
+					<div class="col-sm-1">
+						<input class="form-control" size="80" name="campoCapacidade" ng-model="localizacao.quantidade" placeholder="Capacidade" required>
+					</div>
 				</div>
-			</div>
-			<div class="col-sm-4  col-sm-offset-2">
-				<button class="btn btn-primary" ng-hide="localizacao.id" type="submit">Adicionar</button>
-				<button class="btn btn-primary" ng-show="localizacao.id" type="submit">Alterar</button>
-				<a class="btn  btn-default" ng-href="#/cadastros/localizacao">Cancelar</a>
-			</div>
-		</form>
+				<div class="col-sm-4  col-sm-offset-2">
+					<button class="btn btn-primary" ng-hide="localizacao.id" type="submit">Adicionar</button>
+					<button class="btn btn-primary" ng-show="localizacao.id" type="submit">Alterar</button>
+					<a class="btn  btn-default" ng-href="#/cadastros/localizacao">Cancelar</a>
+				</div>
+			</form>
+		</div>
 	</div>
 </div>
 <script>
