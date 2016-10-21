@@ -34,18 +34,14 @@ public class EnderecoResource {
 	@Path("")
 	@Consumes("application/json")
 	public void adicionaEndereco(Endereco endereco) {
-		if(repositorio.validaDados(endereco)) {
-			repositorio.adiciona(endereco);	
-		}
+		repositorio.adiciona(endereco);	
 	}
 	
 	@PUT
 	@Path("")
 	@Consumes("application/json")
 	public void alteraEndereco(Endereco endereco) {
-		if(repositorio.validaDados(endereco)) {
-			repositorio.altera(endereco);
-		}
+		repositorio.altera(endereco);
 	}
 
 	@GET

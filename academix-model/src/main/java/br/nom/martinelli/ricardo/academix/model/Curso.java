@@ -8,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
 import javax.persistence.Version;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import br.nom.martinelli.ricardo.academix.types.Periodicidade;
 
@@ -20,26 +23,29 @@ public class Curso implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -5067320816432750512L;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
-
 	@Version
 	@Column(name = "version")
 	private int version;
 
-	@Column(length = 40)
+	@Column(length = 40, nullable = false)
+	@NotNull
+	@Size(max = 40)
 	private String nome;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
+	@NotNull
 	private Campus campus;
 
 	@Enumerated
 	private Periodicidade periodicidade;
 
 	@Column(length = 2, nullable = false)
+	@NotNull
+	@Max(99)
 	private Integer periodo;
 
 	public Long getId() {

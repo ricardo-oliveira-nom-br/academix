@@ -58,9 +58,8 @@ angular.module('academix').controller('DisciplinaListController', function($scop
 		if($scope.disciplina.id) {
 			$scope.disciplina.$update()
 			.then(function() {
-				$rootScope.$broadcast('MSG',
-					{texto: "Disciplina adicionada com sucesso!"});
 				console.log("Sucesso!");
+				$window.location.href = "#/cadastros/disciplina";
 			}, function(error) {
 				$scope.erro = {texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + erro};
 				console.log(error);
@@ -69,13 +68,12 @@ angular.module('academix').controller('DisciplinaListController', function($scop
 			$scope.disciplina.$save()
 			.then(function() {
 				console.log("Sucesso!");
+				$window.location.href = "#/cadastros/disciplina";
 			}, function(error) {
-				$rootScope.$broadcast('MSG_ERRO',
-					{texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + error});
+				$scope.erro = {texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + erro};
 				console.log(error);
 			});
 		}
-		$window.location.href = "#/cadastros/disciplina"
 	}
 
 	

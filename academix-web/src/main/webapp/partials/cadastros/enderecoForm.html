@@ -10,14 +10,14 @@
 			</ol>
 			<div ng-show="erro" class="toast-pf alert alert-danger">
 			  <span class="pficon pficon-error-circle-o"></span>
-			  {{erro.statusText}}
+			  {{erro.texto}}
 			</div>
 			<form id="enderecoForm" class="form-horizontal"
 				ng-submit="salvaEndereco()" novalidate>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="campoCep">CEP</label>
 					<div class="col-sm-1">
-						<input class="form-control" size="10" name="campoCep"
+						<input class="form-control" size="10" name="campoCep" ng-trim="false"
 							ng-model="endereco.cep" placeholder="CEP">
 	
 					</div>
@@ -25,7 +25,7 @@
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="campoLogradouro">Logradouro</label>
 					<div class="col-sm-6">
-						<input class="form-control" name="campoLogradouro"
+						<input class="form-control" name="campoLogradouro" ng-trim="false"
 							ng-model="endereco.logradouro" placeholder="Logradouro">
 					</div>
 				</div>

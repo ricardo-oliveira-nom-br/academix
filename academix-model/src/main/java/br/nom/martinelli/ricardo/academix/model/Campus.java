@@ -1,17 +1,17 @@
 package br.nom.martinelli.ricardo.academix.model;
 
-import javax.persistence.Entity;
 import java.io.Serializable;
-import javax.persistence.Id;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Version;
-
-import br.nom.martinelli.ricardo.academix.model.Endereco;
-
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Version;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Campus implements Serializable {
@@ -28,19 +28,26 @@ public class Campus implements Serializable {
 	@Column(name = "version")
 	private int version;
 
-	@Column(length = 40)
+	@Column(length = 40, nullable = false)
+	@NotNull
+	@Size(max = 40)
 	private String nome;
 
-	@ManyToOne(cascade = {CascadeType.MERGE})
+	@ManyToOne(optional = false)
+	@NotNull
 	private Endereco endereco;
 
-	@Column
+	@Column(nullable = false)
+	@NotNull
+	@Max(99999)
 	private Integer numero;
 
 	@Column(length = 30)
+	@Size(max = 30)
 	private String complemento;
 
 	@Column(length = 13)
+	@Size(max = 13)
 	private String telefone;
 
 	public Long getId() {

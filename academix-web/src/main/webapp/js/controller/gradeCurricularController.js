@@ -75,7 +75,9 @@ angular.module('academix').controller('GradeCurricularListController', function 
 	
 	$scope.cursos = [];
 	
-	$scope.number = 4;
+	$scope.number = 0;
+	
+	$scope.campusSelecionado = {};
 	
 	$scope.getNumber = function(num) {
 	    return new Array(num);   
@@ -107,9 +109,9 @@ angular.module('academix').controller('GradeCurricularListController', function 
 			});
 	}
 	
-	function listarCursos() {
+	$scope.listarCursos = function() {
 		// $scope.enderecos = Endereco.jsonpquery();
-		Curso.query(
+		Curso.doCampus({id: $scope.campusSelecionado},
 			function(cursos) {
 				$scope.cursos = cursos;
 			},
@@ -117,8 +119,16 @@ angular.module('academix').controller('GradeCurricularListController', function 
 				$scope.erro = {texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + erro};
 				console.log(erro);
 			});
-	}
+	};
+	
+	$scope.selecionarCurso = function() {
+		$scope.cursos.map(function(c) {
+			if(c.id == $scope.gradeCurricular.curso.id) {
+				$scope.number = c.periodo;
+				return;
+			}
+		});
+	};
 			
 	listarCampus();
-	listarCursos();
 });

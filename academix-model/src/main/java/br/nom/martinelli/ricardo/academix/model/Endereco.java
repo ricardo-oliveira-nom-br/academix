@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
 import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import br.nom.martinelli.ricardo.academix.types.UF;
 
@@ -29,15 +31,21 @@ public class Endereco implements Serializable {
 	private int version;
 
 	@Column(length = 50, nullable = false)
+	@NotNull
+	@Size(max = 50)
 	private String logradouro;
 
 	@Column(length = 8, nullable = false)
+	@NotNull
+	@Size(min = 8, max = 8)
 	private String cep;
 
 	@Column(length = 40)
+	@Size(max = 40)
 	private String bairro;
 
 	@Column(length = 40)
+	@Size(max = 40)
 	private String cidade;
 
 	@Enumerated(EnumType.STRING)

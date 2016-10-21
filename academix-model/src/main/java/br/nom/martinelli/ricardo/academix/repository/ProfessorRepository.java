@@ -8,10 +8,9 @@ public class ProfessorRepository extends AbstractRepository<Professor, Long> {
 		super(Professor.class);
 	}
 
-	@Override
 	public boolean validaDados(Professor entidade) {
 		// TODO Implementar validação
-		return false;
+		return true;
 	}
 
 }

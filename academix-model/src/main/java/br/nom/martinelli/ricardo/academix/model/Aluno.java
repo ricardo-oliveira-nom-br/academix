@@ -22,6 +22,9 @@ public class Aluno implements Serializable {
 	@Version
 	@Column(name = "version")
 	private int version;
+	
+	@Column
+	private String nome;
 
 	public Long getId() {
 		return this.id;

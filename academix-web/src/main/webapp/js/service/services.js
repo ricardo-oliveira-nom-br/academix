@@ -23,7 +23,8 @@ angular.module('academix.services', ['ngResource'])
 	        jsonpquery: { method: 'JSONP', params: {callback: 'JSON_CALLBACK'}, isArray: true},
 	        update: {
 			     method : 'PUT' // this method issues a PUT request
-			}
+			},
+			doCampus: { method: 'GET', url: 'http://localhost:8080/academix-model/api/curso/campus/:id', isArray: true}
         });
 })
 

@@ -8,7 +8,6 @@ public class GradeCurricularRepository extends AbstractRepository<GradeCurricula
 		super(GradeCurricular.class);
 	}
 
-	@Override
 	public boolean validaDados(GradeCurricular entidade) {
 		return false;
 	}

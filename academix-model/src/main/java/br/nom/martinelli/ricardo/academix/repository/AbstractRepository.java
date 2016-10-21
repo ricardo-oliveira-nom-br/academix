@@ -21,8 +21,6 @@ public abstract class AbstractRepository<T,I> {
 		this.tipo = clazz;
 	}
 	
-	public abstract boolean validaDados(T entidade);
-
 	public List<T> listarTodos() {
 		CriteriaQuery<T> cq = em.getCriteriaBuilder().createQuery(tipo);
 		Root<T> root = cq.from(tipo);

@@ -80,26 +80,23 @@ angular.module('academix').controller('CampusListController', function ($scope, 
 		if($scope.campus.id) {
 			$scope.campus.$update()
 			.then(function() {
-				$rootScope.$broadcast('MSG',
-					{texto: "Campus adicionado com sucesso!"});
 				console.log("Sucesso!");
+				$window.location.href = "#/cadastros/campus"
 			}, function(error) {
-				$scope.erro = {texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + erro};
+				$scope.erro = {texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + error};
 				console.log(error);
 			});
 		} else {
 			$scope.campus.$save()
 			.then(function() {
 				console.log("Sucesso!");
+				$window.location.href = "#/cadastros/campus"
 			}, function(error) {
-				$rootScope.$broadcast('MSG_ERRO',
-					{texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + error});
+				$rootScope.$broadcast('MSG_ERRO', {texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + error});
 				console.log(error);
 			});
 		}
-		$window.location.href = "#/cadastros/campus"
 	}
 	
 	popupEnderecos();
-	
 });

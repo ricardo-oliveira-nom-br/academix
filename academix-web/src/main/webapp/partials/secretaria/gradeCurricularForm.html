@@ -10,8 +10,9 @@
 				<div class="form-group"> 
 					<label class="col-sm-2 control-label" for="campoCampus">Campus</label>
 					<div class="col-sm-4">
-						<select ng-model="gradeCurricular.campus.id"
+						<select ng-model="campusSelecionado"
 							ng-options="campi.id as campi.nome for campi in campus"
+							ng-change="listarCursos()"
 							id="campoCampus" class="form-control" required>
 						</select>
 					</div>
@@ -22,6 +23,7 @@
 					<div class="col-sm-4">
 						<select ng-model="gradeCurricular.curso.id"
 							ng-options="curso.id as curso.nome for curso in cursos"
+							ng-change="selecionarCurso()"
 							id="campoCurso" class="form-control" required>
 						</select>
 					</div>
@@ -38,11 +40,12 @@
 				<uib-tabset class="col-md-10" active="active">
 					<uib-tab index="$index + 1" ng-repeat="i in getNumber(number) track by $index" heading="{{$index+1}}">
 						<br>
+						Período {{$index+1}}
 						<div class="form-group col-sm-offset-2 col-sm-8">
 							<div class="col-sm-offset-3 col-sm-10">
-								<button class="btn  btn-default" id="add-item">Adicionar Disciplina</button>
+								<button class="btn  btn-default" id="add-item-{{$index+1}}">Adicionar Disciplina</button>
 								<div>
-									<table class="table datatable table-stripped table-bordered">
+									<table id="periodo{{$index+1}}" class="table datatable table-stripped table-bordered">
 										<thead>
 											<th>Disciplina</th>
 											<th>Carga hor&aacute;ria</th>
@@ -65,11 +68,16 @@
 <script>
   // Initialize Datatables
   $(document).ready( function() {
-    var table = $('.datatable').DataTable();
-    $('#add-item').on('click', function() {
-        table.row.add([
-			'<select class="form-control"><option></option</select>',
-			'<input class="form-control" size="4" maxlength="3"></input><label> horas</label>'
+    var table = $('.datatable').DataTable({
+		"paging": false,
+		"ordering": false,
+		"searching": false,
+		"info": false
+    });
+    $('#add-item-1').on('click', function() {
+        $('#periodo1').row.add([
+			'1',
+			'2'
 		]).draw(false);
     });
   });

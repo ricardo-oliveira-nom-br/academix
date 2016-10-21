@@ -73,9 +73,8 @@ angular.module('academix').controller('CursoListController', function ($scope, C
 		if($scope.curso.id) {
 			$scope.curso.$update()
 			.then(function() {
-				$rootScope.$broadcast('MSG',
-					{texto: "Curso adicionado com sucesso!"});
 				console.log("Sucesso!");
+				$window.location.href = "#/cadastros/curso"
 			}, function(error) {
 				$scope.erro = {texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + erro};
 				console.log(error);
@@ -84,13 +83,12 @@ angular.module('academix').controller('CursoListController', function ($scope, C
 			$scope.curso.$save()
 			.then(function() {
 				console.log("Sucesso!");
+				$window.location.href = "#/cadastros/curso"
 			}, function(error) {
-				$rootScope.$broadcast('MSG_ERRO',
-					{texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + error});
+				$scope.erro = {texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + erro};
 				console.log(error);
 			});
 		}
-		$window.location.href = "#/cadastros/curso"
 	}
 
 	listarCampus();

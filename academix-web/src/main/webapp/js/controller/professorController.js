@@ -42,7 +42,7 @@ angular.module('academix').controller('ProfessorListController',
 		function($scope, $rootScope, $routeParams, $window, Professor) {
 	
 	if($routeParams.professorId) {
-		Localizacao.get({id: $routeParams.professorId},
+		Professor.get({id: $routeParams.professorId},
 				function(professor) {
 					$scope.professor = professor;
 				},

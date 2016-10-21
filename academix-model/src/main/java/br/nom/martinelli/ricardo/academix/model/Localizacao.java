@@ -7,6 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
 import javax.persistence.Version;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import br.nom.martinelli.ricardo.academix.model.Campus;
 
@@ -27,13 +30,18 @@ public class Localizacao implements Serializable {
 	@Column(name = "version")
 	private int version;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
+	@NotNull
 	private Campus campus;
 
 	@Column(length = 30, nullable = false)
+	@NotNull
+	@Size(max = 30)
 	private String nome;
 
 	@Column(length = 3, nullable = false)
+	@NotNull
+	@Max(999)
 	private Integer quantidade;
 
 	public Long getId() {

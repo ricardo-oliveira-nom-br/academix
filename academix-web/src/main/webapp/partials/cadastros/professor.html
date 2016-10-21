@@ -11,15 +11,18 @@
 				<thead>
 					<tr>
 						<th>Nome</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="professor in professores">
-						<td>{{professor.nome}}</td>
+						<td><a ng-href="#/cadastros/professor/{{professor.id}}">{{professor.nome}}</a></td>
+						<td width="10"><a class="btn btn-default" ng-click="removeProfessor(professor)"><span class="icon glyphicon glyphicon-trash"></span></a></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
+		<a class="btn btn-primary" ng-href="#/cadastros/professor/create" role="button" >Adicionar Professor</a>
 	</div>
 </div>
 <script>

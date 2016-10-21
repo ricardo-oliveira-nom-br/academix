@@ -60,6 +60,13 @@ public class CursoResource {
 	public Curso getCurso(@PathParam("id") Long id) {
 		return repositorio.comChave(id);
 	}
+	
+	@GET
+	@Path("/campus/{id}")
+	@Produces("application/json")
+	public List<Curso> getCursosDoCampus(@PathParam("id") Long campusId) {
+		return repositorio.comCampus(campusId);
+	}
 
 	@DELETE
 	@Path("{id}")

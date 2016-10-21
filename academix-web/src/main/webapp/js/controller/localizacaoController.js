@@ -74,9 +74,8 @@ angular.module('academix').controller('LocalizacaoListController',
 		if($scope.localizacao.id) {
 			$scope.localizacao.$update()
 			.then(function() {
-				$rootScope.$broadcast('MSG',
-					{texto: "Localização adicionada com sucesso!"});
 				console.log("Sucesso!");
+				$window.location.href = "#/cadastros/localizacao"
 			}, function(error) {
 				$scope.erro = {texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + erro};
 				console.log(error);
@@ -85,13 +84,12 @@ angular.module('academix').controller('LocalizacaoListController',
 			$scope.localizacao.$save()
 			.then(function() {
 				console.log("Sucesso!");
+				$window.location.href = "#/cadastros/localizacao"
 			}, function(error) {
-				$rootScope.$broadcast('MSG_ERRO',
-					{texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + error});
+				$scope.erro = {texto: "Ocorreu um erro. Informe ao Administrator a seguinte mensagem: " + erro};
 				console.log(error);
 			});
 		}
-		$window.location.href = "#/cadastros/localizacao"
 	}
 	
 	listarCampus();

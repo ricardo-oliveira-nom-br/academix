@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
 import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Disciplina implements Serializable {
@@ -23,7 +25,9 @@ public class Disciplina implements Serializable {
 	@Column(name = "version")
 	private int version;
 
-	@Column(length = 30, nullable = false)
+	@Column(length = 40, nullable = false)
+	@NotNull
+	@Size(max = 40)
 	private String nome;
 
 	@Column
@@ -33,6 +37,8 @@ public class Disciplina implements Serializable {
 	private String bibliografia;
 
 	@Column(length = 8, nullable = false)
+	@NotNull
+	@Size(max = 8)
 	private String sigla;
 
 	@Column

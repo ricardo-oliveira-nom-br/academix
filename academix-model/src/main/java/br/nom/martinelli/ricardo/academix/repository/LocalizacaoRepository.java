@@ -8,7 +8,6 @@ public class LocalizacaoRepository extends AbstractRepository<Localizacao, Long>
 		super(Localizacao.class);
 	}
 
-	@Override
 	public boolean validaDados(Localizacao entidade) {
 		boolean valido = false;
 		

@@ -8,7 +8,6 @@ public class DisciplinaRepository extends AbstractRepository<Disciplina, Long> {
 		super(Disciplina.class);
 	}
 
-	@Override
 	public boolean validaDados(Disciplina disciplina) {
 		boolean valido = false;
 		
