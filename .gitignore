@@ -1,6 +1,7 @@
 .classpath
 .project
 .tern-project
+.swp
 .settings/
 academix-web/target/
 target/
