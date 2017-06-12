@@ -1,13 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>br.nom.martinelli.ricardo</groupId>
-		<artifactId>academix</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-	</parent>
 	<artifactId>academix-web</artifactId>
 	<packaging>war</packaging>
+	<properties>
+		<version.wildfly-swarm>2016.9</version.wildfly-swarm>
+	</properties>
 
 	<build>
 		<plugins>
@@ -17,8 +15,19 @@
 				<version>2.6</version>
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
-					<warName>academix</warName>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.wildfly.swarm</groupId>
+				<artifactId>wildfly-swarm-plugin</artifactId>
+				<version>${version.wildfly-swarm}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>package</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>io.fabric8</groupId>
@@ -49,6 +58,18 @@
 						<phase>post-integration-test</phase>
 						<goals>
 							<goal>stop</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.wildfly.swarm</groupId>
+				<artifactId>wildfly-swarm-plugin</artifactId>
+				<version>${version.wildfly-swarm}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>package</goal>
 						</goals>
 					</execution>
 				</executions>
